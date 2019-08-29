@@ -1,0 +1,191 @@
+[33mcommit aa0fd947df11e4a6ae4a59d4d0511a0cfe1e4465[m[33m ([m[1;36mHEAD -> [m[1;32mnobody[m[33m, [m[1;31morigin/nobody[m[33m)[m
+Author: nobody <zhuyuntiannn@163.com>
+Date:   Mon Aug 19 21:06:58 2019 +0800
+
+    ok
+
+[33mcommit dd8ef37f08d3fbe04a40f065dfb431caf87db628[m
+Author: nobody <zhuyuntiannn@163.com>
+Date:   Mon Aug 19 20:52:37 2019 +0800
+
+    Cominggggggggggg
+
+[33mcommit 61892cd82c1d185c12b89ae2459cb7d07f81c839[m
+Author: nobody <zhuyuntiannn@163.com>
+Date:   Mon Aug 19 20:44:07 2019 +0800
+
+    I'm coming
+
+[33mcommit 21394ace2bc3008fc2b49943780154318155ba07[m
+Author: nobody <zhuyuntiannn@163.com>
+Date:   Mon Aug 19 20:35:05 2019 +0800
+
+    我只是看一下我能不能commit而已
+
+[33mcommit 9b59973d640eae289149ff5cbff10bad98bc21fa[m
+Author: nobody <zhuyuntiannn@163.com>
+Date:   Mon Aug 19 20:24:40 2019 +0800
+
+    test_if_i_can_commit.txt
+
+[33mcommit 6d793f98d1c801b911e515e2593f8248e902c876[m
+Author: nobody <zhuyuntiannn@163.com>
+Date:   Mon Aug 19 20:07:41 2019 +0800
+
+    test_add.md
+
+[33mcommit f636cd0805087f63050b326a2a98a0d1d2c5211b[m
+Merge: eb0822d b054c69
+Author: Fenris Elric <43395552+zhoujiayingvana@users.noreply.github.com>
+Date:   Mon Aug 19 17:10:12 2019 +0800
+
+    Merge pull request #5 from zhoujiayingvana/zjy
+    
+    Zjy
+
+[33mcommit b054c69362b6cc63d8e7d8efa25939d0718e8ab9[m
+Author: zhoujiayingvana <1147083244@qq.com>
+Date:   Mon Aug 19 17:08:51 2019 +0800
+
+    非空文件夹
+
+[33mcommit b6f0fe2926ac43f928ba0b68ea7db5cbd0005d41[m
+Author: zhoujiayingvana <1147083244@qq.com>
+Date:   Mon Aug 19 17:06:53 2019 +0800
+
+    ????
+
+[33mcommit eb0822d23eaa969a6b8dab8874f0b11c4c9b4f6b[m
+Merge: d6b9792 6bee535
+Author: Fenris Elric <43395552+zhoujiayingvana@users.noreply.github.com>
+Date:   Mon Aug 19 17:02:25 2019 +0800
+
+    Merge pull request #4 from zhoujiayingvana/zjy
+    
+    ??
+
+[33mcommit 6bee535a6bb9addfee850817ffc097d70aeec891[m
+Author: zhoujiayingvana <1147083244@qq.com>
+Date:   Mon Aug 19 16:58:32 2019 +0800
+
+    ??
+
+[33mcommit d6b979289658b1f6d0e28022e4ca5204eb80e2bf[m
+Author: zhoujiayingvana <1147083244@qq.com>
+Date:   Mon Aug 19 16:55:54 2019 +0800
+
+    renew
+
+[33mcommit 026ab3acd4e42b196cb1f2a2a4f216111ee44ab9[m
+Merge: b725319 ec41e37
+Author: Fenris Elric <43395552+zhoujiayingvana@users.noreply.github.com>
+Date:   Mon Aug 19 16:46:20 2019 +0800
+
+    Merge pull request #3 from zhoujiayingvana/zjy
+    
+    依然测试
+
+[33mcommit b725319b6ce01291045748be93a1ce478353af2e[m
+Merge: 2180d42 f79eb99
+Author: Fenris Elric <43395552+zhoujiayingvana@users.noreply.github.com>
+Date:   Mon Aug 19 16:44:15 2019 +0800
+
+    Merge pull request #2 from zhoujiayingvana/ParanoidRoot
+    
+    Paranoid root
+
+[33mcommit ec41e37e909d49a1be65681c634a68f870b1e756[m
+Author: zhoujiayingvana <1147083244@qq.com>
+Date:   Mon Aug 19 16:24:11 2019 +0800
+
+    依然测试
+
+[33mcommit 2180d4220f4c15af5b0ad69e8e0f88ee1fd9ddfd[m
+Merge: 5bdd3c0 ca54a37
+Author: Fenris Elric <43395552+zhoujiayingvana@users.noreply.github.com>
+Date:   Mon Aug 19 16:17:26 2019 +0800
+
+    Merge pull request #1 from zhoujiayingvana/zjy2
+    
+    Zjy2
+
+[33mcommit ca54a37f02a6b45f2d82ace60037e054033cdd9b[m[33m ([m[1;31morigin/zjy2[m[33m)[m
+Author: zhoujiayingvana <1147083244@qq.com>
+Date:   Mon Aug 19 15:59:52 2019 +0800
+
+    se
+
+[33mcommit b58d0deb5c22a74db7bb0742f97e850825488b51[m
+Author: zhoujiayingvana <1147083244@qq.com>
+Date:   Mon Aug 19 15:45:04 2019 +0800
+
+    测试
+
+[33mcommit 5bdd3c0054d7eaa297966efdeb58224e76c52714[m[33m ([m[1;31morigin/tqh[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: tqh7678 <43992590+tqh7678@users.noreply.github.com>
+Date:   Mon Aug 19 14:32:49 2019 +0800
+
+    Update README.md
+
+[33mcommit b33f7bece54972ea5f9162c0ebf04baa7da16feb[m
+Author: tqh7678 <43992590+tqh7678@users.noreply.github.com>
+Date:   Mon Aug 19 14:32:15 2019 +0800
+
+    Update README.md
+
+[33mcommit f79eb9911be835a042a5496b96b1fee1672062fd[m[33m ([m[1;31morigin/ParanoidRoot[m[33m)[m
+Author: ParanoidRoot <578791680@qq.com>
+Date:   Mon Aug 19 14:32:08 2019 +0800
+
+    :tada: Init design doc.
+
+[33mcommit 2e7f96a46989efbae1b9ada0613c92bef1b3cc3e[m
+Author: tqh7678 <43992590+tqh7678@users.noreply.github.com>
+Date:   Mon Aug 19 14:31:09 2019 +0800
+
+    Update README.md
+
+[33mcommit 5a5b4afb892419745da6d5d9cf2296aa22a1786a[m
+Author: ParanoidRoot <578791680@qq.com>
+Date:   Mon Aug 19 14:30:20 2019 +0800
+
+    :warning: Del extra docs.
+
+[33mcommit eccf7b85febfcc343261c91a615d40b0c557e137[m
+Author: ParanoidRoot <578791680@qq.com>
+Date:   Mon Aug 19 14:19:36 2019 +0800
+
+    :tada: Init log dir.
+
+[33mcommit e8a278ffbe053f27f6946c6d99d4b489f1ad7d65[m
+Author: ParanoidRoot <578791680@qq.com>
+Date:   Mon Aug 19 14:19:19 2019 +0800
+
+    :tada: Init doc dir.
+
+[33mcommit cd7f064cddb5ddf5c9c48e9abad318ffc7ec2ef9[m
+Author: ParanoidRoot <578791680@qq.com>
+Date:   Mon Aug 19 14:18:55 2019 +0800
+
+    :art: Refactor file structure.
+
+[33mcommit a8b928760ade6e4e12e0a80356344a849f0f0bcd[m
+Merge: 82e60ad 2c2e412
+Author: zhoujiayingvana <1147083244@qq.com>
+Date:   Mon Aug 19 11:10:13 2019 +0800
+
+    erge branch 'master' of github.com:zhoujiayingvana/TMZPlayer
+    
+    initial
+
+[33mcommit 82e60ad8218ab54b900a31aaef32c06fc1fb3d64[m
+Author: zhoujiayingvana <1147083244@qq.com>
+Date:   Mon Aug 19 10:42:11 2019 +0800
+
+    initial
+
+[33mcommit 2c2e4124e8b4a2c88498536108b6e6361c2bbf06[m
+Author: Fenris Elric <43395552+zhoujiayingvana@users.noreply.github.com>
+Date:   Mon Aug 19 10:27:17 2019 +0800
+
+    Initial commit
