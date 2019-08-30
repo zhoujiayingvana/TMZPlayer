@@ -81,18 +81,11 @@ private slots:
 
   void on_exitAction();
 
-  void on_playlist_customContextMenuRequested(const QPoint &pos);
-
-  void addFiles();
-
-  void deleteFileFromList();
-
-  void deleteFileFromDisk();
-
   void on_miniMode_clicked();
 
-  void switchToMax();
+  void miniToMaxSlot();
 
+  void miniToTraySlot();
 
 protected:
 

@@ -92,5 +92,8 @@
         <file>image/listOrder.png</file>
         <file>image/pause.jpg</file>
         <file>image/max.png</file>
+        <file>image/mini_last.jpg</file>
+        <file>image/mini_next.jpg</file>
+        <file>image/mini_play.jpg</file>
     </qresource>
 </RCC>

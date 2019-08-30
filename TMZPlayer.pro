@@ -25,14 +25,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        clickablelabel.cpp \
         main.cpp \
         mainwindow.cpp \
         mini.cpp \
         playlist.cpp
 
 HEADERS += \
-        clickablelabel.h \
         mainwindow.h \
         mini.h \
         playlist.h

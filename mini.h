@@ -1,8 +1,8 @@
 #ifndef MINI_H
 #define MINI_H
 
-#include "clickablelabel.h"
 #include <QWidget>
+#include <QPushButton>
 
 namespace Ui {
   class Mini;
@@ -19,9 +19,30 @@ public:
 
 private:
   Ui::Mini *ui;
+  bool drag;
+  QPoint mouseStartPos;
+  QPoint windowStartPos;
+
+signals:
+  void miniToMaxSignal();
+  void miniToTraySignal();
 
 protected slots:
-  void setVolume(int);
+
+protected:
+  void mousePressEvent(QMouseEvent*);
+  void mouseMoveEvent(QMouseEvent*);
+  void mouseReleaseEvent(QMouseEvent*);
+  void enterEvent(QEvent*);
+  void leaveEvent(QEvent*);
+
+private slots:
+
+  void on_maxModeBtn_clicked();
+
+  void on_closeBtn_clicked();
+
+  void on_volumeBtn_clicked();
 };
 
 #endif // MINI_H
