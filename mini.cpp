@@ -20,7 +20,10 @@ Mini::Mini(QWidget *parent) :
 {
   ui->setupUi(this);
   drag = false;
-
+  //暂时将播放状态设为真
+  isPlaying = true;
+  //暂时将歌曲设为不喜欢
+  like = false;
   setWindowFlags(Qt::Window|Qt::FramelessWindowHint|Qt::WindowTitleHint|Qt::WindowStaysOnTopHint); //无边框、在最前
   setMouseTracking(true);
   ui->albumPic->setMouseTracking(true);
@@ -35,8 +38,15 @@ Mini::Mini(QWidget *parent) :
   ui->maxModeBtn->setCursor(QCursor(Qt::PointingHandCursor));
   ui->albumPic->setCursor(QCursor(Qt::PointingHandCursor));
 
+  if(isPlaying)
+  {
+    ui->playOrPauseBtn->setStyleSheet("border-image: url(:/image/image/mini_pause.png)");
+  }
+  else if(!isPlaying)
+  {
+    ui->playOrPauseBtn->setStyleSheet("border-image: url(:/image/image/icon_play.png)");
+  }
   ui->lastSongBtn->setStyleSheet("border-image: url(:/image/image/mini_last.jpg)");
-  ui->playOrPauseBtn->setStyleSheet("border-image: url(:/image/image/mini_play.jpg)");
   ui->nextSongBtn->setStyleSheet("border-image: url(:/image/image/mini_next.jpg)");
   ui->likeBtn->setStyleSheet("border-image: url(:/image/image/musicform/btn_like_n.png)");
   ui->volumeBtn->setStyleSheet("border-image: url(:/image/image/horn.png)");
@@ -159,4 +169,41 @@ void Mini::on_volumeBtn_clicked()
   connect(volumeChange,SIGNAL(valueChanged(int)),this,SLOT(setVolume(int)));
 
   volumeChange->show();
+}
+
+/* Author: zyt
+ * Name: on_playOrPauseBtn_clicked
+ * Function: 槽：点击时切换播放/暂停的图标
+ */
+void Mini::on_playOrPauseBtn_clicked()
+{
+  if(isPlaying)
+   {
+     ui->playOrPauseBtn->setStyleSheet("border-image: url(:/image/image/icon_play.png)");
+   }
+  else if(!isPlaying)
+   {
+     ui->playOrPauseBtn->setStyleSheet("border-image: url(:/image/image/mini_pause.png)");
+   }
+  isPlaying = !isPlaying;
+}
+
+/* Author: zyt
+ * Name: on_likeBtn_clicked
+ * Function: 槽：点击时切换喜欢/不喜欢的图标
+ */
+void Mini::on_likeBtn_clicked()
+{
+  /*获取此歌曲是否为喜欢
+   * 默认为不喜欢
+   */
+  if(like)
+   {
+      ui->likeBtn->setStyleSheet("border-image: url(:/image/image/musicform/btn_like_n.png)");
+   }
+  else if(!like)
+   {
+      ui->likeBtn->setStyleSheet("border-image: url(:/image/image/musicform/btn_unlike_h.png)");
+   }
+  like = !like;
 }

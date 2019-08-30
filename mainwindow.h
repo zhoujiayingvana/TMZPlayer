@@ -87,6 +87,7 @@ private slots:
 
   void miniToTraySlot();
 
+
 protected:
 
 };

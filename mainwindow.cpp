@@ -353,4 +353,3 @@ void mainWindow::miniToTraySlot()
   on_systemTrayModeBtn_clicked();
 }
 
-

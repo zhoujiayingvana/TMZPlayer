@@ -20,6 +20,8 @@ public:
 private:
   Ui::Mini *ui;
   bool drag;
+  bool like;
+  bool isPlaying;
   QPoint mouseStartPos;
   QPoint windowStartPos;
 
@@ -43,6 +45,9 @@ private slots:
   void on_closeBtn_clicked();
 
   void on_volumeBtn_clicked();
+
+  void on_playOrPauseBtn_clicked();
+  void on_likeBtn_clicked();
 };
 
 #endif // MINI_H
