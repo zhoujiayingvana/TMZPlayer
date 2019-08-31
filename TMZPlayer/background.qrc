@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>image/spinBox1.png</file>
+        <file>image/spinBox2.png</file>
+        <file>myQss/style2.qss</file>
+        <file>myQss/style3.qss</file>
+        <file>myQss/style1.qss</file>
+    </qresource>
+    <qresource prefix="/myQss"/>
+    <qresource prefix="/"/>
+</RCC>

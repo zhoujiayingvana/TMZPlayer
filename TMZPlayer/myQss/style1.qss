@@ -1,0 +1,144 @@
+QStackedWidget, QLabel, QPushButton, QRadioButton, QCheckBox, BottomBar,TitleBar,
+QGroupBox, QComboBox, QDialog ,QWidget#widget ,QWidget #page1ScrollAreaWidgetContents ,
+QWidget #page2ScrollAreaWidgetContents ,QWidget #page3ScrollAreaWidgetContents ,
+QMainWindow{ 
+background-color: #222222; 
+color: #BBBBBB; 
+font-family: ¡°Segoe UI¡±; 
+}
+
+QMainWindow>QWidget{ 
+border: 1px solid #222222; 
+background-color: #BBBBBB; 
+color: #BBBBBB; 
+border-color: #222222; 
+}
+QSlider{
+	border-style: outset; 
+	border-radius: 10px; 
+}
+
+QSlider::groove:horizontal,QSlider::add-page:horizontal {   
+    background: #888888;   
+    height: 8px;   
+    border-radius: 3px;   
+margin: 2px 0;
+}  
+
+QSlider::sub-page:horizontal {  
+    height: 8px;   
+    border-radius: 3px;  
+margin: 2px 0;
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #636363, stop:1 #888888);   
+} 
+  
+QSlider::handle:horizontal {
+	background: QRadialGradient(cx:0, cy:0, radius: 1, fx:0.5, fy:0.5, stop:0 white, stop:1 #454545);
+	width: 16px;
+	height: 16px;
+	margin: -5px 6px -5px 6px;
+	border-radius:11px; 
+
+}  
+
+QSlider::handle:horizontal:hover {  
+	background: QRadialGradient(cx:0, cy:0, radius: 1, fx:0.5, fy:0.5, stop:0 white, stop:1 #323232);
+}  
+
+
+QPushButton { 
+border-radius: 4px;
+background:#222222; 
+padding: 4px; 
+width: 75px;
+height: 25px;
+}
+
+QPushButton:hover { 
+background-color: #333333; 
+border-color: #444444; 
+}
+
+QPushButton:pressed { 
+background-color: #111111; 
+border-color: #333333; 
+color:  rgb(57, 58, 60); 
+}
+
+QPushButton:disabled { 
+color: #333333; 
+}
+
+QCheckBox::indicator, QRadioButton::indicator { 
+width: 16px; 
+height: 16px; 
+background-color: #111111; 
+border: 1px solid #333333; 
+}
+
+QRadioButton::indicator { 
+border-radius: 8px; 
+}
+
+QCheckBox::indicator::checked, QRadioButton::indicator::checked{ 
+background-color: qradialgradient(cx:0.5, cy:0.5, fx:0.25, fy:0.15, radius:0.3, stop:0 #BBBBBB, stop:1 #111111); 
+}
+
+QCheckBox::indicator:disabled, QRadioButton::indicator:disabled{ 
+background-color: #444444; 
+}
+
+QCheckBox::indicator::checked:disabled, QRadioButton::indicator::checked:disabled{ 
+background-color: qradialgradient(cx:0.5, cy:0.5, fx:0.25, fy:0.15, radius:0.3, stop:0 #BBBBBB, stop:1 #444444); 
+}
+
+QComboBox { 
+background-color: black; 
+border: 1px solid #333333; 
+color: white; 
+padding:1px 2em 1px 3px; 
+}
+
+QComboBox::drop-down { 
+subcontrol-origin: padding; 
+subcontrol-position: top right; 
+border-left: 1px solid #333333; 
+}
+
+QComboBox::down-arrow { 
+border: 2px solid #333333; 
+width: 6px; 
+height: 6px; 
+background: #5f5f5f; 
+}
+
+QGroupBox { 
+border: 2px solid #333333; 
+margin-top: 2ex; 
+}
+
+QGroupBox::title { 
+color: white; 
+subcontrol-origin: margin; 
+subcontrol-position: top left; 
+margin-left: 5px; 
+}
+
+QAbstractSpinBox { 
+background-color: black; 
+color: #BBBBBB; 
+border: 1px solid #333333; 
+}
+
+QAbstractScrollArea, QTextEdit, QAbstractSpinBox, QComboBox { 
+border-color: #333333; 
+border: 1px solid #333333;
+}
+
+QLineEdit {
+border-radius: 4px;
+background-color: rgb(73, 73, 73); 
+color: #BBBBBB; 
+border: 1px solid #333333; 
+border-color: #333333; 
+}
