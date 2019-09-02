@@ -50,4 +50,15 @@ void Player::needPauseVideo()
 void Player::needTerminateVideo()
 {
     this->m_Player->stop();
+}
+
+void Player::needSeekPosition(qint64 pos)
+{
+    this->m_Player->setPosition(pos);
+}
+
+void Player::needJump(int second)
+{
+    qint64 currentPosition=this->m_Player->position();
+    this->m_Player->setPosition(currentPosition+second*1000);
 };
