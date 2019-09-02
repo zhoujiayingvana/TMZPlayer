@@ -22,7 +22,13 @@ public:
     //调试用
     void testPlay(QMediaContent * content);
     
-
+    //获取视频信息
+    //获取时长
+    qint64 getDuration();
+    //获取当前进度时间
+    qint64 getPosition();
+    //获取当前视频状态
+    QMediaPlayer::State getStatus();
     
     //设置视频
     //播放/恢复播放
@@ -31,51 +37,60 @@ public:
     void pauseVideo();
     //停止播放
     void terminateVideo();
-    //跳转到指定位置
+    //跳转到指定位置，
     void seekPosition(qint64);
     //设置视频音量
     void setVolume(int vol);
     //设置静音,true为静音，false为取消静音
-    void setMute(bool m);
-    
-    //player自带槽函数
-    void setPlaybackRate(int rate);
+    void setMuted(bool m);
+    //快进、快退,跳转指定秒
+    void jump(int second);
+    //player播放速率自带槽函数
+    void setPlaybackRate(qreal rate);
     //
 signals:
     //获取视频信息
     //获取时长
-    void getDuration();
+    void needGetDuration();
     //获取当前进度时间
-    void getPosition();
+    void needGetPosition();
     //获取视频状态
-    void getStatus();
+    void needGetStatus();
     
     //设置视频
     //打开并播放视频
     void needPlay(QMediaContent *content);
-    
-
     //播放/恢复播放
     void needRestorePlay();
     //暂停播放
     void needPauseVideo();
     //停止播放
     void needTerminateVideo();
-    //跳转到指定位置
+    //跳转到指定位置，player自带槽函数
+    void needSeekPosition(qint64);
+    //设置视频音量,player自带槽函数
+    void needSetVolume(int vol);
+    //设置静音,true为静音，false为取消静音,player自带槽函数
+    void needSetMuted(bool m);
+    //倍速播放，player自带槽函数
+    void needSetPlaybackRate(qreal rate);
+    //快进、快退,跳转指定秒
+    void needJump(int second);
+    //
 public slots:
     
-//    //获取Player传递的Position
-//    void receivePosition(qint64);
-//    //获取Player传递的Duration
-//    void receiveDuration(qint64);
-//    //获取Player传递的State
-//    void receiveState(QMediaPlayer::State);//参数异步传递的问题
+    //获取Player传递的Position
+    void receivePosition(qint64);
+    //获取Player传递的Duration
+    void receiveDuration(qint64);
+    //获取Player传递的State
+    void receiveStatus(QMediaPlayer::State);//参数异步传递的问题
     
 
 private:
     QMediaPlayer::State m_CtrlPlayState;//播放状态，默认为StoppedState
     qint64 m_CtrlCurrentPosition;//当前播放的时间进度
-    qint64 m_CtrlDureation;//视频总时长
+    qint64 m_CtrlDuration;//视频总时长
 };
 
 #endif // CONTROLLER_H

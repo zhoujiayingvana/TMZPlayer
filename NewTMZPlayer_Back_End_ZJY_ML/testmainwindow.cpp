@@ -53,3 +53,36 @@ void TestMainWindow::on_nextButton_clicked()
 {
     
 }
+
+
+
+void TestMainWindow::on_forwardButton_clicked()
+{
+    media->getController()->jump(2);
+}
+
+void TestMainWindow::on_volumeUpButton_clicked()
+{
+    media->getController()->setVolume(80);
+}
+
+void TestMainWindow::on_volumeDownButton_clicked()
+{
+    media->getController()->setVolume(40);
+}
+
+void TestMainWindow::on_jumpButton_clicked()
+{
+    media->getController()->seekPosition(media->getController()->getDuration()/2);    
+    
+}
+
+void TestMainWindow::on_muteButton_clicked()
+{
+    media->getController()->setMuted(true);
+}
+
+void TestMainWindow::on_nonMuteButton_clicked()
+{
+    media->getController()->setMuted(false);
+}

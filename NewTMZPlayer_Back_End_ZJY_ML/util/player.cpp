@@ -22,6 +22,7 @@ void Player::needPlay( QMediaContent *content)
 void Player::needGetDuration()
 {
     this->m_Duration=this->m_Player->duration();
+    qDebug()<<this->m_Duration;
     emit returnDuration(this->m_Duration);
 }
 
@@ -52,13 +53,30 @@ void Player::needTerminateVideo()
     this->m_Player->stop();
 }
 
-void Player::needSeekPosition(qint64 pos)
-{
-    this->m_Player->setPosition(pos);
-}
 
 void Player::needJump(int second)
 {
     qint64 currentPosition=this->m_Player->position();
     this->m_Player->setPosition(currentPosition+second*1000);
+}
+
+void Player::needSetPosition(qint64 pos)
+{
+    //判断是否超过视频开头或结尾
+    this->m_Player->setPosition(pos);
+}
+
+void Player::needSetMuted(bool m)
+{
+    this->m_Player->setMuted(m);
+}
+
+void Player::needSetVolume(int vol)
+{
+    this->m_Player->setVolume(vol);
+}
+
+void Player::needSetPlaybackRate(qreal rate)
+{
+    this->m_Player->setPlaybackRate(rate);
 };

@@ -38,6 +38,11 @@ private slots:
     void on_terminateButton_clicked();
     void on_nextButton_clicked();
     void on_forwardButton_clicked();
+    void on_volumeUpButton_clicked();
+    void on_volumeDownButton_clicked();
+    void on_jumpButton_clicked();
+    void on_muteButton_clicked();
+    void on_nonMuteButton_clicked();
 };
 
 #endif // TESTMAINWINDOW_H
