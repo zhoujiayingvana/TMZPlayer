@@ -37,6 +37,7 @@ private slots:
     void on_pauseButton_clicked();
     void on_terminateButton_clicked();
     void on_nextButton_clicked();
+    void on_forwardButton_clicked();
 };
 
 #endif // TESTMAINWINDOW_H

@@ -46,13 +46,15 @@ public slots:
     void needPauseVideo();
     //停止播放
     void needTerminateVideo();
-//    //跳转到指定位置
-//    void needSeekPosition(qint64);
-//    //设置视频音量
-//    void needSetVolume(int vol);
-//    //设置静音,true为静音，false为取消静音，自带
-//    void neetSetMute(bool m);
-//    //
+    //跳转到指定位置
+    void needSeekPosition(qint64 pos);
+    //快进/快退
+    void needJump(int second);
+    //设置视频音量
+    void needSetVolume(int vol);
+    //设置静音,true为静音，false为取消静音，自带
+    void neetSetMute(bool m);
+    //
 private:
     QMediaPlayer *m_Player;//播放窗口主体
     QMediaPlayer::State m_PlayState;//播放状态，默认为StoppedState
