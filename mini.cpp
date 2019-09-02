@@ -39,23 +39,23 @@ Mini::Mini(QWidget *parent) :
   ui->albumPic->setCursor(QCursor(Qt::PointingHandCursor));
 
   if(isPlaying)
-  {
-    ui->playOrPauseBtn->setStyleSheet("border-image: url(:/image/image/mini_pause.png)");
-  }
+    {
+      ui->playOrPauseBtn->setStyleSheet("QPushButton{ border-image: url(:/image/image/mini_pause.png); }");
+    }
   else if(!isPlaying)
-  {
-    ui->playOrPauseBtn->setStyleSheet("border-image: url(:/image/image/icon_play.png)");
-  }
-  ui->lastSongBtn->setStyleSheet("border-image: url(:/image/image/mini_last.jpg)");
-  ui->nextSongBtn->setStyleSheet("border-image: url(:/image/image/mini_next.jpg)");
-  ui->likeBtn->setStyleSheet("border-image: url(:/image/image/musicform/btn_like_n.png)");
-  ui->volumeBtn->setStyleSheet("border-image: url(:/image/image/horn.png)");
-  ui->listBtn->setStyleSheet("border-image: url(:/image/image/musiclist.png)");
-  ui->closeBtn->setStyleSheet("border-image: url(:/image/image/btn_close_n.png)");
-  ui->maxModeBtn->setStyleSheet("border-image: url(:/image/image/btn_max_n.png)");
+    {
+      ui->playOrPauseBtn->setStyleSheet("QPushButton{ border-image: url(:/image/image/icon_play.png); }");
+    }
+  ui->lastSongBtn->setStyleSheet("QPushButton{ border-image: url(:/image/image/mini_last.jpg); }");
+  ui->nextSongBtn->setStyleSheet("QPushButton{ border-image: url(:/image/image/mini_next.jpg); }");
+  ui->likeBtn->setStyleSheet("QPushButton{ border-image: url(:/image/image/musicform/btn_like_n.png); }");
+  ui->volumeBtn->setStyleSheet("QPushButton{ border-image: url(:/image/image/horn.png); }");
+  ui->listBtn->setStyleSheet("QPushButton{ border-image: url(:/image/image/musiclist.png); }");
+  ui->closeBtn->setStyleSheet("QPushButton{ border-image: url(:/image/image/btn_close_n.png); }");
+  ui->maxModeBtn->setStyleSheet("QPushButton{ border-image: url(:/image/image/btn_max_n.png); }");
 
   //测试：添加专辑封面
-  ui->albumPic->setStyleSheet("border-image: url(:/image/image/test.png)");
+  ui->albumPic->setStyleSheet("QPushButton{ border-image: url(:/image/image/test.png); }");
 
   ui->lastSongBtn->setVisible(false);
   ui->playOrPauseBtn->setVisible(false);
@@ -64,6 +64,32 @@ Mini::Mini(QWidget *parent) :
   ui->lastSongBtn->setText("");
   ui->playOrPauseBtn->setText("");
   ui->nextSongBtn->setText("");
+
+  if(isPlaying)
+    {
+      ui->playOrPauseBtn->setToolTip("暂停");
+    }
+  else if(!isPlaying)
+    {
+      ui->playOrPauseBtn->setToolTip("播放");
+    }
+
+  if(like)
+    {
+      ui->likeBtn->setToolTip("取消收藏");
+    }
+  else if(!like)
+    {
+      ui->likeBtn->setToolTip("收藏");
+    }
+  ui->lastSongBtn->setToolTip("上一曲");
+  ui->nextSongBtn->setToolTip("下一曲");
+  ui->listBtn->setToolTip("显示播放列表");
+  ui->volumeBtn->setToolTip("调节音量");
+  ui->closeBtn->setToolTip("托盘模式");
+  ui->maxModeBtn->setToolTip("显示主界面");
+  ui->albumPic->setToolTip("显示主界面");
+
 }
 
 Mini::~Mini()
@@ -108,7 +134,7 @@ void Mini::mouseMoveEvent(QMouseEvent *event)
 void Mini::mouseReleaseEvent(QMouseEvent *event)
 {
   if(event->button() == Qt::LeftButton)
-   {
+    {
       drag = false;
     }
 }
@@ -166,7 +192,7 @@ void Mini::on_volumeBtn_clicked()
   volumeChange->setMinimum(0);
   volumeChange->setMaximum(100);
   //volumeChange->setValue(50);
-  connect(volumeChange,SIGNAL(valueChanged(int)),this,SLOT(setVolume(int)));
+  // connect(volumeChange,SIGNAL(valueChanged(int)),this,SLOT(setVolume(int)));
 
   volumeChange->show();
 }
@@ -177,14 +203,17 @@ void Mini::on_volumeBtn_clicked()
  */
 void Mini::on_playOrPauseBtn_clicked()
 {
+  emit sendPlayOrPauseSignal(!isPlaying);
   if(isPlaying)
-   {
-     ui->playOrPauseBtn->setStyleSheet("border-image: url(:/image/image/icon_play.png)");
-   }
+    {
+      ui->playOrPauseBtn->setStyleSheet("QPushButton{ border-image: url(:/image/image/icon_play.png); }");
+      ui->playOrPauseBtn->setToolTip("播放");
+    }
   else if(!isPlaying)
-   {
-     ui->playOrPauseBtn->setStyleSheet("border-image: url(:/image/image/mini_pause.png)");
-   }
+    {
+      ui->playOrPauseBtn->setStyleSheet("QPushButton{ border-image: url(:/image/image/mini_pause.png); }");
+      ui->playOrPauseBtn->setToolTip("暂停");
+    }
   isPlaying = !isPlaying;
 }
 
@@ -197,13 +226,16 @@ void Mini::on_likeBtn_clicked()
   /*获取此歌曲是否为喜欢
    * 默认为不喜欢
    */
+  emit sendLikeSignal(!like);
   if(like)
-   {
+    {
       ui->likeBtn->setStyleSheet("border-image: url(:/image/image/musicform/btn_like_n.png)");
-   }
+      ui->likeBtn->setToolTip("收藏");
+    }
   else if(!like)
-   {
+    {
       ui->likeBtn->setStyleSheet("border-image: url(:/image/image/musicform/btn_unlike_h.png)");
-   }
+      ui->likeBtn->setToolTip("取消收藏");
+    }
   like = !like;
 }

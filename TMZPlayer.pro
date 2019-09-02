@@ -27,13 +27,19 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
+        mergedPlaylist.cpp \
         mini.cpp \
-        playlist.cpp
+        newLineEdit.cpp \
+        playlist.cpp \
+        playlistbtn.cpp
 
 HEADERS += \
         mainwindow.h \
+        mergedPlaylist.h \
         mini.h \
-        playlist.h
+        newLineEdit.h \
+        playlist.h \
+        playlistbtn.h
 
 FORMS += \
         mainwindow.ui \

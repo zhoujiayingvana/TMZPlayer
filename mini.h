@@ -29,6 +29,11 @@ signals:
   void miniToMaxSignal();
   void miniToTraySignal();
 
+  void sendLastSignal();
+  void sendNextSignal();
+  void sendPlayOrPauseSignal(bool);
+  void sendLikeSignal(bool);
+
 protected slots:
 
 protected:

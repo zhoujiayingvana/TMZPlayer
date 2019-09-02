@@ -2,9 +2,13 @@
 #define MAINWINDOW_H
 
 #include "mini.h"
+#include "mergedPlaylist.h"
 
+#include <QList>
 #include <QAction>
 #include <QWidget>
+#include <QGroupBox>
+#include <QVBoxLayout>
 #include <QTableWidget>
 #include <QSystemTrayIcon>
 #include <QStringListModel>
@@ -59,9 +63,19 @@ private:
 
   Mini* mini;
 
+  QPushButton* likeListBtn; // 未实现
+
+  QList<QString> likeList;  //收藏的歌曲
+
+  QGroupBox* listBox;
+  QVBoxLayout* listBoxLayout;
+  QPushButton* addListBtn;
+
+  QList<mergedPlaylist*> playlistsContainer;
+
 private slots:
 
-  void on_addListBtn_clicked();
+  //void on_addListBtn_clicked();
 
   void on_hideBtn_clicked();
 
@@ -86,6 +100,8 @@ private slots:
   void miniToMaxSlot();
 
   void miniToTraySlot();
+
+  void addListSlot();
 
 
 protected:

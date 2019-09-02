@@ -1,13 +1,14 @@
 #include "playlist.h"
 #include "mainwindow.h"
+#include "playlistbtn.h"
 #include "ui_mainwindow.h"
 
+#include <QIcon>
 #include <QMenu>
 #include <QDebug>
 #include <QWidget>
 #include <QAction>
 #include <QLayout>
-#include <QPalette>
 #include <QGroupBox>
 #include <QListView>
 #include <QMessageBox>
@@ -21,7 +22,7 @@
 
 /* Author: zyt
  * Name: mainWindow
- * Function: 初始化侧边栏
+ * Function: 初始化侧边栏，建立前往mini模式/托盘模式的连接
  * Parameters: parent
  */
 mainWindow::mainWindow(QWidget *parent) :
@@ -29,37 +30,60 @@ mainWindow::mainWindow(QWidget *parent) :
   ui(new Ui::mainWindow)
 {
   ui->setupUi(this);
-
   mini = new Mini(this);
   sysTrayIcon = new QSystemTrayIcon(this);
 
-  connect(mini,SIGNAL(miniToMaxSignal()),this,SLOT(miniToMaxSlot()));
-  connect(mini,SIGNAL(miniToTraySignal()),this,SLOT(miniToTraySlot()));
+  likeListBtn = new QPushButton(this);
+  likeListBtn->setFlat(true);
+  likeListBtn->setText(" 我的收藏");
+  likeListBtn->setFixedHeight(35);
+  QFont likeListBtnFont = likeListBtn->font();
+  likeListBtnFont.setPointSize(11);
+  likeListBtn->setStyleSheet("text-align: left;");
+  likeListBtn->setFont(likeListBtnFont);
+  QIcon likeIcon(":/image/image/musicform/btn_like_n.png");
+  likeListBtn->setIcon(likeIcon);
+  likeListBtn->setIconSize(QSize(20,20));
 
-  // Setting layouts for each box
-  ui->scrollArea->widget()->setLayout(ui->ScrollLayout);
-  ui->Online->setLayout(ui->OnlineLayout);
-  ui->Local->setLayout(ui->LocalLayout);
-  ui->List->setLayout(ui->ListLayout);
-  ui->ListLayout->setAlignment(Qt::AlignTop);
-  ui->ListLayout->setContentsMargins(0, 6, 0, 0);
+  listBox = new QGroupBox(this);
+  listBox->setTitle("列表");
+  listBox->setStyleSheet("QGroupBox { border: none; font-size: 15px; }");
+  addListBtn = new QPushButton(this);
+  addListBtn->setText("+ 新建播放列表");
+  QFont addListBtnFont = addListBtn->font();
+  addListBtnFont.setPointSize(11);
+  addListBtn->setFont(addListBtnFont);
+  addListBtn->setFlat(true);
+
+  ui->leftsideBarLayout->setAlignment(Qt::AlignTop);
+  ui->leftsideBar->setLayout(ui->leftsideBarLayout);
+  ui->leftsideBarLayout->addWidget(likeListBtn);
+  ui->leftsideBarLayout->addWidget(listBox);
+
+  listBoxLayout = new QVBoxLayout;
+  listBoxLayout->setAlignment(Qt::AlignTop);
+  listBoxLayout->setContentsMargins(0,20,0,0);
+  listBox->setLayout(listBoxLayout);
+
+  listBoxLayout->addWidget(addListBtn);
 
   ui->showBtn->setVisible(false);
 
-
   if(mainWindow::whetherInitializeListButton())
     {
-    // 显示用户的播放列表记录
+      // 显示用户的播放列表记录
     }
   else {
-       // 什么都不显示
+      // 什么都不显示
     }
 
+  connect(mini,SIGNAL(miniToMaxSignal()),this,SLOT(miniToMaxSlot()));
+  connect(mini,SIGNAL(miniToTraySignal()),this,SLOT(miniToTraySlot()));
+  connect(addListBtn,SIGNAL(clicked()),this,SLOT(addListSlot()));
 }
 
 mainWindow::~mainWindow()
 {
-  qDebug() << "mainWindow::~mainWindow()";
   delete ui;
 }
 
@@ -77,15 +101,13 @@ bool mainWindow::whetherInitializeListButton()
 }
 
 /* Author: zyt
- * Name: on_addListBtn_clicked
- * Function: 新建播放列表
+ * Name: addListSlot
+ * Function: 槽：实现添加列表操作
  */
-void mainWindow::on_addListBtn_clicked()
+void mainWindow::addListSlot()
 {
-   QPushButton *newList = new QPushButton("新建列表");
-   ui->ListLayout->addWidget(newList);
-   newList->setFlat(true);
-   newList->setCursor(Qt::PointingHandCursor);
+  playlistsContainer.append(new mergedPlaylist);
+  listBoxLayout->addWidget(playlistsContainer.at(playlistsContainer.length()-1));
 }
 
 /* Author: zyt
@@ -94,10 +116,10 @@ void mainWindow::on_addListBtn_clicked()
  */
 void mainWindow::on_hideBtn_clicked()
 {
-    whetherHide = true; //用来调节主页面布局情况，隐藏则使右侧全屏显示（未实现）
-    ui->scrollArea->setVisible(false);
-    ui->showBtn->setVisible(true);
-    ui->hideBtn->setVisible(false);
+  whetherHide = true; //用来调节主页面布局情况，隐藏则使右侧全屏显示（未实现）
+  ui->scrollArea->setVisible(false);
+  ui->showBtn->setVisible(true);
+  ui->hideBtn->setVisible(false);
 }
 
 /* Author: zyt
@@ -106,11 +128,12 @@ void mainWindow::on_hideBtn_clicked()
  */
 void mainWindow::on_showBtn_clicked()
 {
-    whetherHide = false;
-    ui->scrollArea->setVisible(true);
-    ui->showBtn->setVisible(false);
-    ui->hideBtn->setVisible(true);
+  whetherHide = false;
+  ui->scrollArea->setVisible(true);
+  ui->showBtn->setVisible(false);
+  ui->hideBtn->setVisible(true);
 }
+
 /* Author: zyt
  * Name: creatActions
  * Function: 创建右键托盘菜单及图标的功能，并进行信号与槽的连接
@@ -352,4 +375,5 @@ void mainWindow::miniToTraySlot()
   mini->hide();
   on_systemTrayModeBtn_clicked();
 }
+
 

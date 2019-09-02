@@ -1,6 +1,9 @@
 #include "playlist.h"
 
+#include <QDir>
 #include <QMenu>
+#include <QDebug>
+#include <QPixmap>
 #include <QMimeData>
 #include <QHeaderView>
 #include <QFileDialog>
@@ -11,7 +14,7 @@
 
 /* Author: zyt
  * Name: Playlist
- * Function: 初始化播放列表
+ * Function: 初始化列表
  * Parameters: parent
  */
 playList::playList(QWidget *parent) : QTableWidget(parent)
@@ -20,16 +23,26 @@ playList::playList(QWidget *parent) : QTableWidget(parent)
   this->setEditTriggers(QAbstractItemView::NoEditTriggers);
   this->setContextMenuPolicy(Qt::CustomContextMenu);
 
-  //设置表头
+  //允许拖拽
+  this->setAcceptDrops(true);
+  setAcceptDrops(true);
+
+  /* NOTICE:
+   * 存放歌曲/视频的tableWidget
+   * 第0列是文件地址QString（已隐藏该列）
+   * 第1列是文件名字
+   * 第2列是是否收藏的按钮
+   */
   QStringList headers;
-  headers<<"文件"<<"表演者"<<"专辑";
+  headers<<""<<"文件"<<"喜爱";
   this->setColumnCount(3);
+  this->setColumnHidden(0,true);
   this->verticalHeader()->hide();
   this->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
   this->horizontalHeader()->setStretchLastSection(true);
   this->setHorizontalHeaderLabels(headers);
-  this->setColumnWidth(0,250);
-  this->setColumnWidth(1,250);
+  this->setColumnWidth(1,180);
+  this->setColumnWidth(2,20);
   this->setSelectionBehavior(QAbstractItemView::SelectRows);
   this->setSelectionMode(QAbstractItemView::SingleSelection);
   this->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -54,7 +67,7 @@ QString playList::getFileName(QString filePath)
 
 /* Author: zyt
  * Name: on_playlist_customContestMenuRequested
- * Function: 实现在播放列表点击右键出现菜单
+ * Function: 实现在列表点击右键出现菜单
  * Parameters: pos（记录点击的位置，使右键菜单在那里出现）
  */
 void playList::on_playlist_customContextMenuRequested(QPoint pos)
@@ -74,35 +87,43 @@ void playList::on_playlist_customContextMenuRequested(QPoint pos)
 
 /* Author: zyt
  * Name: addFiles
- * Function: 实现播放列表右键菜单中添加文件的功能
+ * Function: 实现列表右键菜单中添加文件的功能
  */
 void playList::addFiles()
 {
   QFileDialog* selectDialog = new QFileDialog(this);
   selectDialog->setFileMode(QFileDialog::ExistingFiles);
-  selectDialog->setNameFilter("音乐文件(*.mp3 *.flac *.wav *.wma);;"
-                              "视频文件(*.avi *.mov *.rmvb *.mp4)");
+  selectDialog->setNameFilter("所有(*.mp3 *.flac *.wav *.wma *.m4a *.avi *.mov *.rmvb *.mp4)"
+                              "音乐文件(*.mp3 *.flac *.wav *.wma *.m4a);;"
+                              "视频文件(*.avi *.mov *.rmvb *.mp4);;");
   selectDialog->setViewMode(QFileDialog::Detail);
 
   QStringList fileNames;
   if ( selectDialog->exec() == QDialog::Accepted )
-  {
-    fileNames = selectDialog->selectedFiles();
-  }
+    {
+      fileNames = selectDialog->selectedFiles();
+    }
 
   for (int i = 0;i < fileNames.length(); i++)
-  {
-    int row = this->rowCount();
-    this->insertRow(row);
-    QTableWidgetItem *item = new QTableWidgetItem(fileNames.at(i));
-    item = new QTableWidgetItem(getFileName(fileNames.at(i)));
-    this->setItem(row, 0, item);
+    {
+      //将文件路径经转换构造函数赋给QDir类型的dir
+      QDir dir = QDir(fileNames.at(i));
+      emit sendDirSignal(dir);
+
+      int row = this->rowCount();
+      this->insertRow(row);
+      //第0列存放地址QString
+      QTableWidgetItem *item = new QTableWidgetItem(fileNames.at(i));
+      this->setItem(row, 0, item);
+      //第1列存放名字
+      item = new QTableWidgetItem(getFileName(fileNames.at(i)));
+      this->setItem(row, 1, item);
     }
 }
 
 /* Author: zyt
  * Name: deleteFileFromList
- * Function: 在播放列表中删除选中的文件（从列表中删除）
+ * Function: 在列表中删除选中的文件（从列表中删除）
  */
 void playList::deleteFileFromList()
 {
@@ -112,7 +133,7 @@ void playList::deleteFileFromList()
 
 /* Author: zyt
  * Name: deleteFileFromDisk
- * Function: 在播放列表中删除选中的文件（从列表、本地删除）（从磁盘中删除未实现）
+ * Function: 在列表中删除选中的文件（从列表、本地删除）（从磁盘中删除未实现）
  */
 void playList::deleteFileFromDisk()
 {
@@ -122,18 +143,103 @@ void playList::deleteFileFromDisk()
 
   QFile file(pItem->text());
   QMessageBox doubleCheckBox;
-  doubleCheckBox.setText("本地文件将删除");
+  doubleCheckBox.setText("本地文件将被永久删除");
   doubleCheckBox.setInformativeText("确定?");
   doubleCheckBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
   doubleCheckBox.setDefaultButton(QMessageBox::Cancel);
 
   if (doubleCheckBox.exec() == QMessageBox::Ok)
-  {
-    if (file.remove())
     {
-      //文件位置改变，只需要从列表中删除
-      this->removeRow(row);
-     }
-  }
+      if(file.exists())
+        {
+          if (file.remove())
+            {
+              this->removeRow(row);
+            }
+        }
+      else if(!file.exists())
+        {
+          QMessageBox noticeBox(QMessageBox::NoIcon, "提示", "      文件位置已被移动");
+          QPixmap hintBoxPixmap(":/image/image/test.png");
+          noticeBox.setIconPixmap(hintBoxPixmap.scaled(80,80));
+          noticeBox.exec();
+          this->removeRow(row);
+        }
+    }
+}
+
+/* Author: zyt
+ * Name: dragEnterEvent
+ * Function: 实现拖拽文件进入列表——识别是否可以拖入
+ */
+void playList::dragEnterEvent(QDragEnterEvent *event)
+{
+  event->acceptProposedAction();
+
+  QStringList acceptedTypes;
+  acceptedTypes << "mp3" << "flac" << "wav" << "wma" << "m4a"
+                << "avi" << "mov" << "rmvb" << "mp4";
+  if (event->mimeData()->hasUrls())
+    {
+      QList<QUrl> fileUrls = event->mimeData()->urls();
+
+      for (int i = 0; i < fileUrls.length(); i++)
+        {
+          QFileInfo file(event->mimeData()->urls().at(i).toLocalFile());
+          if(acceptedTypes.contains(file.suffix().toLower()))
+            {
+              toBeAddedFiles.append(fileUrls.at(i).toLocalFile());
+            }
+        }
+      event->acceptProposedAction();
+    }
+}
+
+/* Author: zyt
+ * Name: dragMoveEvent
+ * Function: 无功能，如果不重写将导致拖拽添加文件失败，亲测
+ */
+void playList::dragMoveEvent(QDragMoveEvent *event)
+{
+  Q_UNUSED(event);
+  //do nothing
+}
+
+/* Author: zyt
+ * Name: dropEvent
+ * Function: 实现拖拽文件进入列表后的添加文件操作
+ */
+void playList::dropEvent(QDropEvent *event)
+{
+  Q_UNUSED(event);
+
+  if (!toBeAddedFiles.empty())
+    {
+      for (int i = 0;i < toBeAddedFiles.length(); i++)
+        {
+          //将文件路径经转换构造函数赋给QDir类型的dir
+          QDir dir = QDir(toBeAddedFiles.at(i));
+          emit sendDirSignal(dir);
+
+          int row = this->rowCount();
+          this->insertRow(row);
+          //第0列存放地址QString
+          QTableWidgetItem *item = new QTableWidgetItem(toBeAddedFiles.at(i));
+          this->setItem(row, 0, item);
+          //第1列存放名字
+          item = new QTableWidgetItem(getFileName(toBeAddedFiles.at(i)));
+          this->setItem(row, 1, item);
+
+        }
+    }
+  else if (toBeAddedFiles.empty())
+    {
+      QMessageBox hintBox(QMessageBox::NoIcon, "提示", "      请拖入有效文件");
+      QPixmap hintBoxPixmap(":/image/image/test.png");
+      hintBox.setIconPixmap(hintBoxPixmap.scaled(80,80));
+      hintBox.exec();
+    }
+
+  toBeAddedFiles.clear();
 }
 
