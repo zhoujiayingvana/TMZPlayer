@@ -19,12 +19,10 @@ public:
 signals:
   void listNameClickedSignal();
 
-
 public slots:
 
 protected:
   void mousePressEvent(QMouseEvent*);
-  void contextMenuEvent(QContextMenuEvent*);
 };
 
 #endif // NEWLINEEDIT_H

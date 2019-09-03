@@ -45,6 +45,19 @@ mainWindow::mainWindow(QWidget *parent) :
   likeListBtn->setIcon(likeIcon);
   likeListBtn->setIconSize(QSize(20,20));
 
+  downloadListBtn = new QPushButton(this);
+  downloadListBtn->setFlat(true);
+  downloadListBtn->setText(" 我的下载");
+  downloadListBtn->setFixedHeight(35);
+  QFont downloadListBtnFont = likeListBtn->font();
+  downloadListBtnFont.setPointSize(11);
+  downloadListBtn->setStyleSheet("text-align: left;");
+  downloadListBtn->setFont(likeListBtnFont);
+  QIcon downloadIcon(":/image/image/musiclist.png");
+  downloadListBtn->setIcon(downloadIcon);
+  downloadListBtn->setIconSize(QSize(20,20));
+
+
   listBox = new QGroupBox(this);
   listBox->setTitle("列表");
   listBox->setStyleSheet("QGroupBox { border: none; font-size: 15px; }");
@@ -58,16 +71,25 @@ mainWindow::mainWindow(QWidget *parent) :
   ui->leftsideBarLayout->setAlignment(Qt::AlignTop);
   ui->leftsideBar->setLayout(ui->leftsideBarLayout);
   ui->leftsideBarLayout->addWidget(likeListBtn);
+  ui->leftsideBarLayout->addWidget(downloadListBtn);
   ui->leftsideBarLayout->addWidget(listBox);
 
   listBoxLayout = new QVBoxLayout;
   listBoxLayout->setAlignment(Qt::AlignTop);
   listBoxLayout->setContentsMargins(0,20,0,0);
   listBox->setLayout(listBoxLayout);
-
   listBoxLayout->addWidget(addListBtn);
 
-  ui->showBtn->setVisible(false);
+  ui->showLeftBarBtn->setVisible(false);
+  ui->showRightBarBtn->setVisible(false);
+
+  QStringList headers;
+  headers << "" << "" << "" << "";
+  ui->historyList->setFixedWidth(180);
+  ui->historyList->setColumnWidth(1,20);
+  ui->historyList->setHorizontalHeaderLabels(headers);
+  ui->historyList->setColumnWidth(2,100);
+  ui->historyList->setColumnHidden(3,true);
 
   if(mainWindow::whetherInitializeListButton())
     {
@@ -80,6 +102,7 @@ mainWindow::mainWindow(QWidget *parent) :
   connect(mini,SIGNAL(miniToMaxSignal()),this,SLOT(miniToMaxSlot()));
   connect(mini,SIGNAL(miniToTraySignal()),this,SLOT(miniToTraySlot()));
   connect(addListBtn,SIGNAL(clicked()),this,SLOT(addListSlot()));
+
 }
 
 mainWindow::~mainWindow()
@@ -102,36 +125,71 @@ bool mainWindow::whetherInitializeListButton()
 
 /* Author: zyt
  * Name: addListSlot
- * Function: 槽：实现添加列表操作
+ * Function: 槽：实现添加列表操作，建立连接
  */
 void mainWindow::addListSlot()
 {
-  playlistsContainer.append(new mergedPlaylist);
+  playlistsContainer.append(new playlistBtn);
   listBoxLayout->addWidget(playlistsContainer.at(playlistsContainer.length()-1));
+  connect(playlistsContainer.at(playlistsContainer.length()-1),
+          SIGNAL(givingSN(int)),
+          ui->displayList,
+          SLOT(recevingSN(int)));
 }
 
 /* Author: zyt
- * Name: on_hideBtn_clicked
- * Function: 隐藏侧边栏
+ * Name: deleteListSlot
+ * Function: 槽：删除选定的播放列表
  */
-void mainWindow::on_hideBtn_clicked()
+void mainWindow::deleteListSlot()
 {
-  whetherHide = true; //用来调节主页面布局情况，隐藏则使右侧全屏显示（未实现）
+
+
+}
+
+
+/* Author: zyt
+ * Name: on_hideLeftBarBtn_clicked
+ * Function: 隐藏左侧边栏
+ */
+void mainWindow::on_hideLeftBarBtn_clicked()
+{
   ui->scrollArea->setVisible(false);
-  ui->showBtn->setVisible(true);
-  ui->hideBtn->setVisible(false);
+  ui->showLeftBarBtn->setVisible(true);
+  ui->hideLeftBarBtn->setVisible(false);
 }
 
 /* Author: zyt
- * Name: on_showBtn.clicked
- * Function: 显示侧边栏
+ * Name: on_showLeftBarBtn_clicked
+ * Function: 显示左侧边栏
  */
-void mainWindow::on_showBtn_clicked()
+void mainWindow::on_showLeftBarBtn_clicked()
 {
-  whetherHide = false;
   ui->scrollArea->setVisible(true);
-  ui->showBtn->setVisible(false);
-  ui->hideBtn->setVisible(true);
+  ui->showLeftBarBtn->setVisible(false);
+  ui->hideLeftBarBtn->setVisible(true);
+}
+
+/* Author: zyt
+ * Name: on_hideRightBarBtn_clicked
+ * Function: 隐藏右侧边栏
+ */
+void mainWindow::on_hideRightBarBtn_clicked()
+{
+  ui->historyList->setVisible(false);
+  ui->showRightBarBtn->setVisible(true);
+  ui->hideRightBarBtn->setVisible(false);
+}
+
+/* Author: zyt
+ * Name: on_showRightBarBtn_clicked
+ * Function: 显示右侧边栏
+ */
+void mainWindow::on_showRightBarBtn_clicked()
+{
+  ui->historyList->setVisible(true);
+  ui->showRightBarBtn->setVisible(false);
+  ui->hideRightBarBtn->setVisible(true);
 }
 
 /* Author: zyt

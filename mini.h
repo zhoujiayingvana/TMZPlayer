@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPushButton>
 
+
 namespace Ui {
   class Mini;
 }

@@ -13,14 +13,20 @@
 
 #include "newLineEdit.h"
 
+
 class playlistBtn : public QPushButton
 {
   Q_OBJECT
 public:
   explicit playlistBtn(QWidget *parent = nullptr);
+  int getSN();
 
 signals:
   void showOrHideListContentSignal(bool);
+  void deleteListRequest();
+  void singleClickedSignal();
+  void doubleClickedSignal();
+  void givingSN(int);
 
 public slots:
   void renameSlot();
@@ -30,9 +36,13 @@ public slots:
   void listNameCallMenuSlot(QPoint);
 
 private:
+  static int serialNumber;
+  int SN;
+
   bool isClicked;
   QLabel* statusPix;
   newLineEdit* listName;
+  QList<QString> filesInList;
 
 protected:
   void mousePressEvent(QMouseEvent*);

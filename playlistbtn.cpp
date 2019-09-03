@@ -2,18 +2,29 @@
 #include "newLineEdit.h"
 
 #include <QMenu>
+#include <QDebug>
 #include <QAction>
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QContextMenuEvent>
 
+/* Parameter: serialNumber
+ * Function: 新建每个列表的时候都会生成一个独一无二的序列号
+ * 根据序列号来分辨存储在主界面中的不同列表
+ */
+int playlistBtn::serialNumber = 0;
+
 /* Author: zyt
  * playlistBtn类：主要实现每个播放列表上面的列表名字的修改/图标的切换
- *                及点击显示/隐藏列表
+ *               点击显示/隐藏列表
+ *               发送序列号
  * Function: 初始化
  */
 playlistBtn::playlistBtn(QWidget *parent) : QPushButton(parent)
 {
+  serialNumber++;
+  SN = serialNumber;
+
   isClicked = false;
 
   this->setStyleSheet("QPushButton {background-color : white; }");
@@ -21,7 +32,7 @@ playlistBtn::playlistBtn(QWidget *parent) : QPushButton(parent)
   statusPix = new QLabel(this);
   statusPix->setFixedSize(17,17);
   statusPix->setScaledContents(true);
-  statusPix->setPixmap(QPixmap(":/image/image/btn_right_1_n.png"));
+  statusPix->setPixmap(QPixmap(":/image/image/btn_down_n.png"));
   statusPix->move(0,0);
 
   listName = new newLineEdit(this);
@@ -33,10 +44,19 @@ playlistBtn::playlistBtn(QWidget *parent) : QPushButton(parent)
   listName->setStyleSheet("QLineEdit {border-width: 0;"
                           "border-style:outset; };");
 
-  //lineEdit 没有对应信号
   connect(listName,SIGNAL(listNameClickedSignal()),this,SLOT(showListSlot()));
   connect(listName,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(listNameCallMenuSlot(QPoint)));
   connect(listName,SIGNAL(editingFinished()),this,SLOT(editingFinishedSlot()));
+}
+
+/* Author: zyt
+ * Name: getSN
+ * Function: 获取序列号
+ * Return: 序列号（int）
+ */
+int playlistBtn::getSN()
+{
+  return SN;
 }
 
 /* Author: zyt
@@ -71,7 +91,7 @@ void playlistBtn::renameSlot()
  */
 void playlistBtn::deleteListSlot()
 {
-  //未实现
+  emit deleteListRequest();
 }
 
 /* Author: zyt
@@ -85,6 +105,7 @@ void playlistBtn::showListSlot()
     {
       statusPix->setPixmap(QPixmap(":/image/image/btn_down_n.png"));
       emit showOrHideListContentSignal(isClicked);
+      emit givingSN(getSN());
     }
   else if(!isClicked)
     {
@@ -114,7 +135,6 @@ void playlistBtn::listNameCallMenuSlot(QPoint pos)
   QAction *deleteList = menu->addAction("删除列表");
 
   connect(rename,SIGNAL(triggered()),this,SLOT(renameSlot()));
-  connect(deleteList,SIGNAL(triggered()),this,SLOT(deleteListSlot()));
 
   menu->exec(QCursor::pos());
 }
@@ -133,6 +153,7 @@ void playlistBtn::mousePressEvent(QMouseEvent *event)
         {
           statusPix->setPixmap(QPixmap(":/image/image/btn_down_n.png"));
           emit showOrHideListContentSignal(isClicked);
+          emit givingSN(getSN());
         }
       else if(!isClicked)
         {

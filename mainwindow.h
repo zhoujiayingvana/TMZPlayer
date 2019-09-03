@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include "mini.h"
-#include "mergedPlaylist.h"
+#include "playlistbtn.h"
 
 #include <QList>
 #include <QAction>
@@ -33,7 +33,6 @@ public:
 
 private:
   Ui::mainWindow *ui;
-  bool whetherHide = false;
 
   QMenu *sysTrayMenu;
   QSystemTrayIcon *sysTrayIcon;
@@ -64,6 +63,7 @@ private:
   Mini* mini;
 
   QPushButton* likeListBtn; // 未实现
+  QPushButton* downloadListBtn;
 
   QList<QString> likeList;  //收藏的歌曲
 
@@ -71,15 +71,17 @@ private:
   QVBoxLayout* listBoxLayout;
   QPushButton* addListBtn;
 
-  QList<mergedPlaylist*> playlistsContainer;
+  QList<playlistBtn*> playlistsContainer;
 
 private slots:
 
-  //void on_addListBtn_clicked();
+  void on_hideLeftBarBtn_clicked();
 
-  void on_hideBtn_clicked();
+  void on_showLeftBarBtn_clicked();
 
-  void on_showBtn_clicked();
+  void on_hideRightBarBtn_clicked();
+
+  void on_showRightBarBtn_clicked();
 
   void on_systemTrayModeBtn_clicked();
 
@@ -102,6 +104,8 @@ private slots:
   void miniToTraySlot();
 
   void addListSlot();
+
+  void deleteListSlot();
 
 
 protected:

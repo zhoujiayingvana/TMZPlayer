@@ -1,6 +1,8 @@
 #ifndef PLAYLIST_H
 #define PLAYLIST_H
 
+#include "playlistbtn.h"
+
 #include <QDir>
 #include <QWidget>
 #include <QPushButton>
@@ -9,7 +11,6 @@
 #include <QDragMoveEvent>
 #include <QDragEnterEvent>
 #include <QStringListModel>
-
 
 class playList : public QTableWidget
 {
@@ -32,10 +33,15 @@ public slots:
 
   void deleteFileFromDisk();
 
-private:
+  void recevingSN(int);
 
+private:
+  int currentSN;
   QList<QString> toBeAddedFiles; //挑选出可以添加的文件的临时存储位置
+  QList<QString> temp_filesInList; //存储列表中的文件
   QPushButton* likeBtn;
+  playlistBtn* playlistTitleBtn;
+
 
 protected:
   void dragEnterEvent(QDragEnterEvent*);

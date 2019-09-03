@@ -12,6 +12,7 @@
 #include <QDragEnterEvent>
 #include <QTableWidgetItem>
 
+
 /* Author: zyt
  * Name: Playlist
  * Function: 初始化列表
@@ -34,15 +35,16 @@ playList::playList(QWidget *parent) : QTableWidget(parent)
    * 第2列是是否收藏的按钮
    */
   QStringList headers;
-  headers<<""<<"文件"<<"喜爱";
-  this->setColumnCount(3);
+  headers << "" << "列表名称" << "歌名" << "";
+  this->setColumnCount(4);
   this->setColumnHidden(0,true);
   this->verticalHeader()->hide();
   this->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
   this->horizontalHeader()->setStretchLastSection(true);
   this->setHorizontalHeaderLabels(headers);
-  this->setColumnWidth(1,180);
-  this->setColumnWidth(2,20);
+  this->setColumnWidth(1,50);
+  this->setColumnWidth(2,180);
+  this->setColumnWidth(3,50);
   this->setSelectionBehavior(QAbstractItemView::SelectRows);
   this->setSelectionMode(QAbstractItemView::SingleSelection);
   this->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -112,12 +114,23 @@ void playList::addFiles()
 
       int row = this->rowCount();
       this->insertRow(row);
+
+      //以private：QList<QString>存储该列表的文件地址
+      temp_filesInList.append(fileNames.at(i));
+
       //第0列存放地址QString
       QTableWidgetItem *item = new QTableWidgetItem(fileNames.at(i));
       this->setItem(row, 0, item);
-      //第1列存放名字
-      item = new QTableWidgetItem(getFileName(fileNames.at(i)));
+
+      //第1列存放行数
+      int temp = this->rowCount();
+      QString tempStr = QString::number(temp);
+      item = new QTableWidgetItem(tempStr);//第几行
       this->setItem(row, 1, item);
+
+      //第2列存放名字
+      item = new QTableWidgetItem(getFileName(fileNames.at(i)));
+      this->setItem(row, 2, item);
     }
 }
 
@@ -126,9 +139,20 @@ void playList::addFiles()
  * Function: 在列表中删除选中的文件（从列表中删除）
  */
 void playList::deleteFileFromList()
-{
+{  
   int row = this->currentRow();
+  QTableWidgetItem *itemToBeDeleted = this->item(row,0);
+  temp_filesInList.removeOne(itemToBeDeleted->text());
   this->removeRow(row);
+
+  //对序号重新排序
+  for(int i = 0; i < this->rowCount(); i++)
+    {
+      int temp = i + 1;
+      QString tempStr = QString::number(temp);
+      QTableWidgetItem* item = new QTableWidgetItem(tempStr);//第几行
+      this->setItem(i, 1, item);
+    }
 }
 
 /* Author: zyt
@@ -139,9 +163,9 @@ void playList::deleteFileFromDisk()
 {
   // get path
   int row = this->currentRow();
-  QTableWidgetItem *pItem = this->item(row, 0);
+  QTableWidgetItem *itemToBeDeleted = this->item(row, 0);
 
-  QFile file(pItem->text());
+  QFile file(itemToBeDeleted->text());
   QMessageBox doubleCheckBox;
   doubleCheckBox.setText("本地文件将被永久删除");
   doubleCheckBox.setInformativeText("确定?");
@@ -165,7 +189,19 @@ void playList::deleteFileFromDisk()
           noticeBox.exec();
           this->removeRow(row);
         }
+      temp_filesInList.removeOne(itemToBeDeleted->text());
     }
+}
+
+/* Author: zyt
+ * Name: recivingSN
+ * Function: 槽：获取点击按钮（列表）对应的序列号，绑定该列表与屏幕中的显示列表
+ * Parameters: sn：获取到的sn
+ */
+void playList::recevingSN(int sn)
+{
+  currentSN = sn;
+  qDebug() << "now showlist points to SN: " << sn;
 }
 
 /* Author: zyt
@@ -223,13 +259,23 @@ void playList::dropEvent(QDropEvent *event)
 
           int row = this->rowCount();
           this->insertRow(row);
+
+          //以private：QList<QString>存储该列表的文件地址
+          temp_filesInList.append(toBeAddedFiles.at(i));
+
           //第0列存放地址QString
           QTableWidgetItem *item = new QTableWidgetItem(toBeAddedFiles.at(i));
           this->setItem(row, 0, item);
-          //第1列存放名字
-          item = new QTableWidgetItem(getFileName(toBeAddedFiles.at(i)));
+
+          //第1列存放行数
+          int temp = this->rowCount();
+          QString tempStr = QString::number(temp);
+          item = new QTableWidgetItem(tempStr);//第几行
           this->setItem(row, 1, item);
 
+          //第2列存放名字
+          item = new QTableWidgetItem(getFileName(toBeAddedFiles.at(i)));
+          this->setItem(row, 2, item);
         }
     }
   else if (toBeAddedFiles.empty())

@@ -2,6 +2,7 @@
 
 #include <QMouseEvent>
 
+
 /* Author: zyt
  * newLineEdit类：因Qt自带lineEdit没有clicked（）信号
  *               故重写lineEdit类，增加一个识别点击的信号与对应槽
@@ -24,11 +25,13 @@ void newLineEdit::mousePressEvent(QMouseEvent *event)
     }
 }
 
-/* Author: zyt
- * Name: contextMenuEvent
- * Function: 重写
- */
-void newLineEdit::contextMenuEvent(QContextMenuEvent *)
-{
+//* Author: zyt
+// * Name: mouseDoubleClickEvent
+// * Function: 重写双击事件，实现双击列表姓名可将列表投影在右边
+// */
+//void newLineEdit::mouseDoubleClickEvent(QMouseEvent *event)
+//{
+//  Q_UNUSED(event);
+//  emit displayOnRightSignal(this->text());
+//}
 
-}

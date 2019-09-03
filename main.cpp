@@ -2,9 +2,9 @@
 #include "playlist.h"
 #include "mainwindow.h"
 #include "playlistbtn.h"
-#include "mergedPlaylist.h"
 
 #include <QApplication>
+
 
 int main(int argc, char *argv[])
 {
