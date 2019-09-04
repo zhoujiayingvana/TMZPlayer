@@ -5,6 +5,7 @@ Media::Media(QWidget *parent) : QWidget(parent)
     //初始化私有成员
     this->media_Player=new Player();
     this->media_Controller=new Controller();
+    this->media_NetworkModel=new NetworkModel();
     
     //连接信号槽
     //获取视频信息

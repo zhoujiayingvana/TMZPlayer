@@ -8,6 +8,7 @@
 #include <QWidget>
 #include "util/player.h"
 #include "util/controller.h"
+#include "util/networkmodel.h"
 
 class Media : public QWidget
 {
@@ -24,7 +25,7 @@ public slots:
 private:
     Player* media_Player;
     Controller* media_Controller;
-    
+    NetworkModel* media_NetworkModel;
 };
 
 #endif // MEDIA_H

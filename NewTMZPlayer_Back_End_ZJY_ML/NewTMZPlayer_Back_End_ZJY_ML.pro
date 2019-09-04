@@ -39,6 +39,7 @@ SOURCES += \
     util/historicalcontent.cpp \
     util/histories.cpp \
     util/media.cpp \
+    util/networkmodel.cpp \
     util/player.cpp
 
 HEADERS += \
@@ -54,6 +55,7 @@ HEADERS += \
     util/historicalcontent.h \
     util/histories.h \
     util/media.h \
+    util/networkmodel.h \
     util/player.h
 
 FORMS += \

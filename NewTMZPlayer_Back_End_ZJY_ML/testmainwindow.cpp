@@ -25,7 +25,7 @@ TestMainWindow::TestMainWindow(QWidget *parent) :
     QPalette palette(myVideoWidget->palette());
     palette.setColor(QPalette::Background, Qt::black);
     myVideoWidget->setPalette(palette);
-    media->getController()->testPlay(mediaContent);
+//    media->getController()->testPlay(mediaContent);
 
 }
 

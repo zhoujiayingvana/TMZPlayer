@@ -11,6 +11,7 @@ release/helper.o
 release/historicalcontent.o
 release/histories.o
 release/media.o
+release/networkmodel.o
 release/player.o
 release/moc_debug.o
 release/moc_testmainwindow.o
@@ -22,4 +23,5 @@ release/moc_helper.o
 release/moc_historicalcontent.o
 release/moc_histories.o
 release/moc_media.o
+release/moc_networkmodel.o
 release/moc_player.o

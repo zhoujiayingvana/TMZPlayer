@@ -60,6 +60,7 @@ SOURCES       = ..\debug.cpp \
 		..\util\historicalcontent.cpp \
 		..\util\histories.cpp \
 		..\util\media.cpp \
+		..\util\networkmodel.cpp \
 		..\util\player.cpp release\moc_debug.cpp \
 		release\moc_testmainwindow.cpp \
 		release\moc_controller.cpp \
@@ -70,6 +71,7 @@ SOURCES       = ..\debug.cpp \
 		release\moc_historicalcontent.cpp \
 		release\moc_histories.cpp \
 		release\moc_media.cpp \
+		release\moc_networkmodel.cpp \
 		release\moc_player.cpp
 OBJECTS       = release/debug.o \
 		release/foldershandler.o \
@@ -84,6 +86,7 @@ OBJECTS       = release/debug.o \
 		release/historicalcontent.o \
 		release/histories.o \
 		release/media.o \
+		release/networkmodel.o \
 		release/player.o \
 		release/moc_debug.o \
 		release/moc_testmainwindow.o \
@@ -95,6 +98,7 @@ OBJECTS       = release/debug.o \
 		release/moc_historicalcontent.o \
 		release/moc_histories.o \
 		release/moc_media.o \
+		release/moc_networkmodel.o \
 		release/moc_player.o
 
 DIST          = user/Retina.db \
@@ -110,6 +114,7 @@ DIST          = user/Retina.db \
 		..\util\historicalcontent.h \
 		..\util\histories.h \
 		..\util\media.h \
+		..\util\networkmodel.h \
 		..\util\player.h ..\debug.cpp \
 		..\io\foldershandler.cpp \
 		..\io\historieshandler.cpp \
@@ -123,6 +128,7 @@ DIST          = user/Retina.db \
 		..\util\historicalcontent.cpp \
 		..\util\histories.cpp \
 		..\util\media.cpp \
+		..\util\networkmodel.cpp \
 		..\util\player.cpp
 QMAKE_TARGET  = NewTMZPlayer_Back_End_ZJY_ML
 DESTDIR        = release\ #avoid trailing-slash linebreak
@@ -143,10 +149,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) NewTMZPlayer_Back_End_ZJY_ML.zip $(SOURCES) $(DIST) ..\NewTMZPlayer_Back_End_ZJY_ML.pro ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\spec_pre.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\qdevice.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\device_config.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\common\sanitize.conf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\common\gcc-base.conf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\common\g++-base.conf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\common\angle.conf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\common\windows-vulkan.conf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\common\g++-win32.conf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\qconfig.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3danimation.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3danimation_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dcore.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dcore_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dextras.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dextras_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dinput.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dinput_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dlogic.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dlogic_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquick.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquick_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickanimation.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickextras.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickextras_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickinput.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickinput_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickrender.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickrender_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickscene2d.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3drender.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3drender_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_accessibility_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_axbase.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_axbase_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_axcontainer.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_axserver.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_axserver_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_bluetooth.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_bootstrap_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_core.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_core_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_dbus.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_dbus_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_designer.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_edid_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_egl_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_fb_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_fontdatabase_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_gamepad.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_gamepad_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_gui.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_help.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_help_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_location.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_location_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_multimedia.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_network.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_network_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_nfc.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_nfc_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_opengl.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_openglextensions.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_openglextensions_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_packetprotocol_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_platformcompositor_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_positioning.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_positioning_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_positioningquick.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_positioningquick_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_qml.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_qmldebug_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quick.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quickcontrols2.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quickshapes_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_remoteobjects.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_remoteobjects_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_repparser.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_repparser_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_scxml.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_scxml_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_sensors.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_sensors_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_serialbus.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_serialbus_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_serialport.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_serialport_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_sql.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_svg.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_testlib.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_texttospeech.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_texttospeech_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_theme_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_uiplugin.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_uitools.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_vulkan_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_webchannel.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_webchannel_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_websockets.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_websockets_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_widgets.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_windowsuiautomation_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_winextras.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_winextras_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_xml.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_xmlpatterns.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\qt_functions.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\qt_config.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\win32-g++\qmake.conf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\spec_post.prf .qmake.stash ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\exclusive_builds.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\toolchain.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\default_pre.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\win32\default_pre.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\resolve_config.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\exclusive_builds_post.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\default_post.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\build_pass.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\qml_debug.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\precompile_header.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\warn_on.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\qt.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\resources.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\moc.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\win32\opengl.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\uic.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\qmake_use.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\file_copies.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\win32\windows.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\testcase_targets.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\exceptions.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\yacc.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\lex.prf ..\NewTMZPlayer_Back_End_ZJY_ML.pro ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\lib\Qt5MultimediaWidgets.prl ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\lib\Qt5Multimedia.prl ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\lib\Qt5Widgets.prl ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\lib\Qt5Gui.prl ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\lib\Qt5Network.prl ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\lib\Qt5Sql.prl ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\lib\Qt5Core.prl ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\lib\qtmain.prl    ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\data\dummy.cpp ..\debug.h ..\io\foldershandler.h ..\io\historieshandler.h ..\testmainwindow.h ..\util\controller.h ..\util\folder.h ..\util\foldercontent.h ..\util\folders.h ..\util\helper.h ..\util\historicalcontent.h ..\util\histories.h ..\util\media.h ..\util\player.h  ..\debug.cpp ..\io\foldershandler.cpp ..\io\historieshandler.cpp ..\main.cpp ..\testmainwindow.cpp ..\util\controller.cpp ..\util\folder.cpp ..\util\foldercontent.cpp ..\util\folders.cpp ..\util\helper.cpp ..\util\historicalcontent.cpp ..\util\histories.cpp ..\util\media.cpp ..\util\player.cpp ..\testmainwindow.ui    
+	$(ZIP) NewTMZPlayer_Back_End_ZJY_ML.zip $(SOURCES) $(DIST) ..\..\NewTMZPlayer_Back_End_ZJY_ML.pro ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\spec_pre.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\qdevice.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\device_config.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\common\sanitize.conf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\common\gcc-base.conf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\common\g++-base.conf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\common\angle.conf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\common\windows-vulkan.conf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\common\g++-win32.conf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\qconfig.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3danimation.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3danimation_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dcore.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dcore_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dextras.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dextras_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dinput.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dinput_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dlogic.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dlogic_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquick.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquick_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickanimation.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickextras.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickextras_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickinput.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickinput_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickrender.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickrender_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickscene2d.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3drender.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_3drender_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_accessibility_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_axbase.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_axbase_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_axcontainer.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_axserver.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_axserver_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_bluetooth.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_bootstrap_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_core.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_core_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_dbus.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_dbus_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_designer.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_edid_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_egl_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_fb_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_fontdatabase_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_gamepad.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_gamepad_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_gui.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_help.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_help_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_location.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_location_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_multimedia.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_network.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_network_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_nfc.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_nfc_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_opengl.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_openglextensions.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_openglextensions_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_packetprotocol_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_platformcompositor_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_positioning.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_positioning_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_positioningquick.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_positioningquick_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_qml.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_qmldebug_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quick.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quickcontrols2.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quickshapes_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_remoteobjects.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_remoteobjects_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_repparser.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_repparser_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_scxml.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_scxml_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_sensors.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_sensors_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_serialbus.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_serialbus_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_serialport.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_serialport_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_sql.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_svg.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_testlib.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_texttospeech.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_texttospeech_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_theme_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_uiplugin.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_uitools.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_vulkan_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_webchannel.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_webchannel_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_websockets.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_websockets_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_widgets.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_windowsuiautomation_support_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_winextras.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_winextras_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_xml.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_xmlpatterns.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\qt_functions.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\qt_config.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\win32-g++\qmake.conf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\spec_post.prf .qmake.stash ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\exclusive_builds.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\toolchain.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\default_pre.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\win32\default_pre.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\resolve_config.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\exclusive_builds_post.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\default_post.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\build_pass.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\qml_debug.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\precompile_header.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\warn_on.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\qt.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\resources.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\moc.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\win32\opengl.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\uic.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\qmake_use.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\file_copies.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\win32\windows.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\testcase_targets.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\exceptions.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\yacc.prf ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\lex.prf ..\NewTMZPlayer_Back_End_ZJY_ML.pro ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\lib\Qt5MultimediaWidgets.prl ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\lib\Qt5Multimedia.prl ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\lib\Qt5Widgets.prl ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\lib\Qt5Gui.prl ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\lib\Qt5Network.prl ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\lib\Qt5Sql.prl ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\lib\Qt5Core.prl ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\lib\qtmain.prl    ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\data\dummy.cpp ..\debug.h ..\io\foldershandler.h ..\io\historieshandler.h ..\testmainwindow.h ..\util\controller.h ..\util\folder.h ..\util\foldercontent.h ..\util\folders.h ..\util\helper.h ..\util\historicalcontent.h ..\util\histories.h ..\util\media.h ..\util\networkmodel.h ..\util\player.h  ..\debug.cpp ..\io\foldershandler.cpp ..\io\historieshandler.cpp ..\main.cpp ..\testmainwindow.cpp ..\util\controller.cpp ..\util\folder.cpp ..\util\foldercontent.cpp ..\util\folders.cpp ..\util\helper.cpp ..\util\historicalcontent.cpp ..\util\histories.cpp ..\util\media.cpp ..\util\networkmodel.cpp ..\util\player.cpp ..\testmainwindow.ui    
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\debug.o release\foldershandler.o release\historieshandler.o release\main.o release\testmainwindow.o release\controller.o release\folder.o release\foldercontent.o release\folders.o release\helper.o release\historicalcontent.o release\histories.o release\media.o release\player.o release\moc_debug.o release\moc_testmainwindow.o release\moc_controller.o release\moc_folder.o release\moc_foldercontent.o release\moc_folders.o release\moc_helper.o release\moc_historicalcontent.o release\moc_histories.o release\moc_media.o release\moc_player.o
+	-$(DEL_FILE) release\debug.o release\foldershandler.o release\historieshandler.o release\main.o release\testmainwindow.o release\controller.o release\folder.o release\foldercontent.o release\folders.o release\helper.o release\historicalcontent.o release\histories.o release\media.o release\networkmodel.o release\player.o release\moc_debug.o release\moc_testmainwindow.o release\moc_controller.o release\moc_folder.o release\moc_foldercontent.o release\moc_folders.o release\moc_helper.o release\moc_historicalcontent.o release\moc_histories.o release\moc_media.o release\moc_networkmodel.o release\moc_player.o
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash
@@ -171,9 +177,9 @@ compiler_moc_predefs_clean:
 release/moc_predefs.h: ../../../../QTAnZhuangBao/5.12.2/mingw73_64/mkspecs/features/data/dummy.cpp
 	g++ -fno-keep-inline-dllexport -O2 -std=gnu++11 -Wall -W -Wextra -dM -E -o release\moc_predefs.h ..\..\..\..\QTAnZhuangBao\5.12.2\mingw73_64\mkspecs\features\data\dummy.cpp
 
-compiler_moc_header_make_all: release/moc_debug.cpp release/moc_testmainwindow.cpp release/moc_controller.cpp release/moc_folder.cpp release/moc_foldercontent.cpp release/moc_folders.cpp release/moc_helper.cpp release/moc_historicalcontent.cpp release/moc_histories.cpp release/moc_media.cpp release/moc_player.cpp
+compiler_moc_header_make_all: release/moc_debug.cpp release/moc_testmainwindow.cpp release/moc_controller.cpp release/moc_folder.cpp release/moc_foldercontent.cpp release/moc_folders.cpp release/moc_helper.cpp release/moc_historicalcontent.cpp release/moc_histories.cpp release/moc_media.cpp release/moc_networkmodel.cpp release/moc_player.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) release\moc_debug.cpp release\moc_testmainwindow.cpp release\moc_controller.cpp release\moc_folder.cpp release\moc_foldercontent.cpp release\moc_folders.cpp release\moc_helper.cpp release\moc_historicalcontent.cpp release\moc_histories.cpp release\moc_media.cpp release\moc_player.cpp
+	-$(DEL_FILE) release\moc_debug.cpp release\moc_testmainwindow.cpp release\moc_controller.cpp release\moc_folder.cpp release\moc_foldercontent.cpp release\moc_folders.cpp release\moc_helper.cpp release\moc_historicalcontent.cpp release\moc_histories.cpp release\moc_media.cpp release\moc_networkmodel.cpp release\moc_player.cpp
 release/moc_debug.cpp: ../debug.h \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/QWidget \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qwidget.h \
@@ -1054,6 +1060,144 @@ release/moc_media.cpp: ../util/media.h \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/bin/moc.exe
 	E:\QT\QTAnZhuangBao\5.12.2\mingw73_64\bin\moc.exe $(DEFINES) --include E:/QT/QT_TMZPlayer/TMZPlayer/NewTMZPlayer_Back_End_ZJY_ML/build/release/moc_predefs.h -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/mkspecs/win32-g++ -IE:/QT/QT_TMZPlayer/TMZPlayer/NewTMZPlayer_Back_End_ZJY_ML -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include/QtMultimediaWidgets -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include/QtMultimedia -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include/QtANGLE -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include/QtSql -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore -I. -IE:/QT/QTAnZhuangBao/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -IE:/QT/QTAnZhuangBao/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -IE:/QT/QTAnZhuangBao/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -IE:/QT/QTAnZhuangBao/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -IE:/QT/QTAnZhuangBao/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -IE:/QT/QTAnZhuangBao/Tools/mingw730_64/x86_64-w64-mingw32/include ..\util\media.h -o release\moc_media.cpp
 
+release/moc_networkmodel.cpp: ../util/networkmodel.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/QWidget \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qwidget.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qtguiglobal.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qglobal.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qconfig.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qtcore-config.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qsystemdetection.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qprocessordetection.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qcompilerdetection.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qtypeinfo.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qsysinfo.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qlogging.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qflags.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qatomic.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qbasicatomic.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qgenericatomic.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qatomic_cxx11.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qatomic_msvc.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qglobalstatic.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qmutex.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qnumeric.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qversiontagging.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qtgui-config.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qtwidgets-config.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qwindowdefs.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qobjectdefs.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qnamespace.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qwindowdefs_win.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qobject.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qstring.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qchar.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qbytearray.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qrefcount.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qarraydata.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qstringliteral.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qstringalgorithms.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qstringview.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qstringbuilder.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qlist.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qalgorithms.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qiterator.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qhashfunctions.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qpair.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qbytearraylist.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qstringlist.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qregexp.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qstringmatcher.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qcoreevent.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qscopedpointer.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qmetatype.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qvarlengtharray.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qcontainerfwd.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qobject_impl.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qmargins.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qpaintdevice.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qrect.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qsize.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qpoint.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qpalette.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qcolor.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qrgb.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qrgba64.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qbrush.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qvector.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qmatrix.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qpolygon.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qregion.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qdatastream.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qiodevice.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qline.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qtransform.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qpainterpath.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qimage.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qpixelformat.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qpixmap.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qsharedpointer.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qshareddata.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qhash.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qfont.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qfontmetrics.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qfontinfo.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qsizepolicy.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qcursor.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qkeysequence.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qevent.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qvariant.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qmap.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qdebug.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qtextstream.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qlocale.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qset.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qcontiguouscache.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qurl.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qurlquery.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qfile.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qfiledevice.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qvector2d.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qtouchdevice.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/QNetworkAccessManager \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qnetworkaccessmanager.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qtnetworkglobal.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qtnetwork-config.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qnetworkrequest.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QSharedDataPointer \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QString \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QUrl \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QVariant \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QVector \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QObject \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/QSslConfiguration \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qsslconfiguration.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qsslsocket.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qtcpsocket.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qabstractsocket.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qsslerror.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qsslcertificate.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qcryptographichash.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qdatetime.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qssl.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QFlags \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/QSslPreSharedKeyAuthenticator \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qsslpresharedkeyauthenticator.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QMetaType \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/QNetworkRequest \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/QNetworkReply \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qnetworkreply.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QIODevice \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QDebug \
+		release/moc_predefs.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/bin/moc.exe
+	E:\QT\QTAnZhuangBao\5.12.2\mingw73_64\bin\moc.exe $(DEFINES) --include E:/QT/QT_TMZPlayer/TMZPlayer/NewTMZPlayer_Back_End_ZJY_ML/build/release/moc_predefs.h -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/mkspecs/win32-g++ -IE:/QT/QT_TMZPlayer/TMZPlayer/NewTMZPlayer_Back_End_ZJY_ML -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include/QtMultimediaWidgets -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include/QtMultimedia -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include/QtANGLE -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include/QtSql -IE:/QT/QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore -I. -IE:/QT/QTAnZhuangBao/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -IE:/QT/QTAnZhuangBao/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -IE:/QT/QTAnZhuangBao/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -IE:/QT/QTAnZhuangBao/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -IE:/QT/QTAnZhuangBao/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -IE:/QT/QTAnZhuangBao/Tools/mingw730_64/x86_64-w64-mingw32/include ..\util\networkmodel.h -o release\moc_networkmodel.cpp
+
 release/moc_player.cpp: ../util/player.h \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/QWidget \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qwidget.h \
@@ -1729,6 +1873,23 @@ release/testmainwindow.o: ../testmainwindow.cpp ../testmainwindow.h \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qdesktopwidget.h \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qguiapplication.h \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qinputmethod.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/QHeaderView \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qheaderview.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qabstractitemview.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qframe.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qabstractitemmodel.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qitemselectionmodel.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qstyleoption.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qabstractspinbox.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qvalidator.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qregularexpression.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qslider.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qabstractslider.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qstyle.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qtabbar.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qrubberband.h \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/QMenuBar \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qmenubar.h \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qmenu.h \
@@ -1738,14 +1899,13 @@ release/testmainwindow.o: ../testmainwindow.cpp ../testmainwindow.h \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qpushbutton.h \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qabstractbutton.h \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/QSlider \
-		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qslider.h \
-		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qabstractslider.h \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/QStatusBar \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qstatusbar.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/QTableWidget \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qtablewidget.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qtableview.h \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/QToolBar \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qtoolbar.h \
-		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/QToolButton \
-		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qtoolbutton.h \
 		../debug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\testmainwindow.o ..\testmainwindow.cpp
 
@@ -1871,7 +2031,8 @@ release/controller.o: ../util/controller.cpp ../util/controller.h \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtMultimedia/qmediaenumdebug.h \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qmetaobject.h \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtMultimedia/qaudio.h \
-		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qnetworkconfiguration.h
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qnetworkconfiguration.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\controller.o ..\util\controller.cpp
 
 release/folder.o: ../util/folder.cpp ../util/folder.h \
@@ -2346,6 +2507,142 @@ release/media.o: ../util/media.cpp ../util/media.h \
 		../util/controller.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\media.o ..\util\media.cpp
 
+release/networkmodel.o: ../util/networkmodel.cpp ../util/networkmodel.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/QWidget \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qwidget.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qtguiglobal.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qglobal.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qconfig.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qtcore-config.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qsystemdetection.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qprocessordetection.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qcompilerdetection.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qtypeinfo.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qsysinfo.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qlogging.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qflags.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qatomic.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qbasicatomic.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qgenericatomic.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qatomic_cxx11.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qatomic_msvc.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qglobalstatic.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qmutex.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qnumeric.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qversiontagging.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qtgui-config.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qtwidgets-config.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qwindowdefs.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qobjectdefs.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qnamespace.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qwindowdefs_win.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qobject.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qstring.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qchar.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qbytearray.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qrefcount.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qarraydata.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qstringliteral.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qstringalgorithms.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qstringview.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qstringbuilder.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qlist.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qalgorithms.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qiterator.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qhashfunctions.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qpair.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qbytearraylist.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qstringlist.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qregexp.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qstringmatcher.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qcoreevent.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qscopedpointer.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qmetatype.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qvarlengtharray.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qcontainerfwd.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qobject_impl.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qmargins.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qpaintdevice.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qrect.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qsize.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qpoint.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qpalette.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qcolor.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qrgb.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qrgba64.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qbrush.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qvector.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qmatrix.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qpolygon.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qregion.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qdatastream.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qiodevice.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qline.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qtransform.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qpainterpath.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qimage.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qpixelformat.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qpixmap.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qsharedpointer.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qshareddata.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qhash.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qfont.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qfontmetrics.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qfontinfo.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qsizepolicy.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qcursor.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qkeysequence.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qevent.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qvariant.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qmap.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qdebug.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qtextstream.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qlocale.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qset.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qcontiguouscache.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qurl.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qurlquery.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qfile.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qfiledevice.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qvector2d.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtGui/qtouchdevice.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/QNetworkAccessManager \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qnetworkaccessmanager.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qtnetworkglobal.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qtnetwork-config.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qnetworkrequest.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QSharedDataPointer \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QString \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QUrl \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QVariant \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QVector \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QObject \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/QSslConfiguration \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qsslconfiguration.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qsslsocket.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qtcpsocket.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qabstractsocket.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qsslerror.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qsslcertificate.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qcryptographichash.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/qdatetime.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qssl.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QFlags \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/QSslPreSharedKeyAuthenticator \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qsslpresharedkeyauthenticator.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QMetaType \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/QNetworkRequest \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/QNetworkReply \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtNetwork/qnetworkreply.h \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QIODevice \
+		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtCore/QDebug
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\networkmodel.o ..\util\networkmodel.cpp
+
 release/player.o: ../util/player.cpp ../util/player.h \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/QWidget \
 		../../../../QTAnZhuangBao/5.12.2/mingw73_64/include/QtWidgets/qwidget.h \
@@ -2503,6 +2800,9 @@ release/moc_histories.o: release/moc_histories.cpp
 
 release/moc_media.o: release/moc_media.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\moc_media.o release\moc_media.cpp
+
+release/moc_networkmodel.o: release/moc_networkmodel.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\moc_networkmodel.o release\moc_networkmodel.cpp
 
 release/moc_player.o: release/moc_player.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\moc_player.o release\moc_player.cpp
