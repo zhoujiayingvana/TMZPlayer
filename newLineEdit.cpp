@@ -34,10 +34,5 @@ void newLineEdit::mouseDoubleClickEvent(QMouseEvent *event)
   Q_UNUSED(event);
 
 
-
-
-
-
-
 }
 

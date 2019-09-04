@@ -40,7 +40,7 @@ public slots:
 
   void deleteFileFromDisk();
 
-  void recevingSN(int);
+  void recevingSNAndFiles(int,QList<QString>);
 
 
 private:

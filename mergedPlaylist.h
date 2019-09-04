@@ -10,17 +10,18 @@ class mergedPlaylist : public QWidget
 {
   Q_OBJECT
 public:
-  playlistBtn* listBtn;
   explicit mergedPlaylist(QWidget *parent = nullptr);
 
 signals:
-  void givingSN(int);
+  void givingTempSNAndFiles(int,QList<QString>);
 
 public slots:
   void showOrHideListContentSlot(bool);
+  void recevingTempSN(int);
   void changeFilesInListSlot(int currentSN,QList<QString> temp_filesInList);
 
 private:
+  playlistBtn* listBtn;
   playList* listContent;
   QList<QString> filesInList;
 

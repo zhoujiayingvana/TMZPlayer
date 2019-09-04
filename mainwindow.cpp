@@ -131,10 +131,15 @@ void mainWindow::addListSlot()
 {
   playlistsContainer.append(new mergedPlaylist);
   listBoxLayout->addWidget(playlistsContainer.at(playlistsContainer.length()-1));
-  connect(playlistsContainer.at(playlistsContainer.length()-1)->listBtn,
-          SIGNAL(givingSN(int)),
+  connect(playlistsContainer.at(playlistsContainer.length()-1),
+          SIGNAL(givingTempSNAndFiles(int,QList<QString>)),
           ui->displayList,
-          SLOT(recevingSN(int))); 
+          SLOT(recevingSNAndFiles(int,QList<QString>)));
+
+  connect(ui->displayList,
+          SIGNAL(changeFilesInListSignal(int,QList<QString>)),
+          playlistsContainer.at(playlistsContainer.length()-1),
+          SLOT(changeFilesInListSlot(int,QList<QString>)));
 }
 
 /* Author: zyt

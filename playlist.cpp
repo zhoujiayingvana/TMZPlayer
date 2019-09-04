@@ -229,10 +229,46 @@ void playList::deleteFileFromDisk()
  * Function: 槽：获取点击按钮（列表）对应的序列号，绑定该列表与屏幕中的显示列表
  * Parameters: sn：获取到的sn
  */
-void playList::recevingSN(int sn)
+void playList::recevingSNAndFiles(int sn,QList<QString> files)
 {
+  //清空列表显示内容
+  int row = this->rowCount();
+  for(int i = 0; i < row; i++)
+    {
+      this->removeRow(0);
+    }
+
   currentSN = sn;
   qDebug() << "now showlist points to SN: " << sn;
+
+  for (int i = 0;i < files.length(); i++)
+    {
+      //将文件路径经转换构造函数赋给QDir类型的dir
+      QDir dir = QDir(files.at(i));
+      emit sendDirSignal(dir);
+
+      int row = this->rowCount();
+      this->insertRow(row);
+
+      //以private：QList<QString>存储该列表的文件地址
+      temp_filesInList.append(files.at(i));
+
+      //第0列存放地址QString
+      QTableWidgetItem *item = new QTableWidgetItem(files.at(i));
+      this->setItem(row, 0, item);
+
+      //第1列存放行数
+      int temp = this->rowCount();
+      QString tempStr = QString::number(temp);
+      item = new QTableWidgetItem(tempStr);//第几行
+      this->setItem(row, 1, item);
+
+      //第2列存放名字
+      item = new QTableWidgetItem(getFileName(files.at(i)));
+      this->setItem(row, 2, item);
+    }
+  temp_filesInList = files;
+
 }
 
 /* Author: zyt
