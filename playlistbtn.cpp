@@ -3,28 +3,32 @@
 
 #include <QMenu>
 #include <QDebug>
+#include <QEvent>
 #include <QAction>
 #include <QKeyEvent>
+#include <QVBoxLayout>
 #include <QMouseEvent>
 #include <QContextMenuEvent>
-
-/* Parameter: serialNumber
- * Function: 新建每个列表的时候都会生成一个独一无二的序列号
- * 根据序列号来分辨存储在主界面中的不同列表
- */
-int playlistBtn::serialNumber = 0;
 
 /* Author: zyt
  * playlistBtn类：主要实现每个播放列表上面的列表名字的修改/图标的切换
  *               点击显示/隐藏列表
  *               发送序列号
+ *               进行pushButton识别单击/双击的信号连接
  * Function: 初始化
+ * Parameter: 从mergedPlaylist继承过来的SN，这一步使得无论是mergedPlaylist还是playlistBtn自己
+ *            都有统一的序列号，便于分辨和操作
  */
-playlistBtn::playlistBtn(QWidget *parent) : QPushButton(parent)
+playlistBtn::playlistBtn(int sn,QWidget *parent) : QPushButton(parent)
 {
-  serialNumber++;
-  SN = serialNumber;
+  doubleClicked = false;
+  singleClickedTimer = new QTimer(this);
+  singleClickedTimer->setSingleShot(true);
+  connect(singleClickedTimer,SIGNAL(timeout()),this,SIGNAL(singleClickedSignal()));
+  connect(this,SIGNAL(singleClickedSignal()),this,SLOT(singleClickedSlot()));
+  connect(this,SIGNAL(doubleClickedSignal()),this,SLOT(doubleClickedSlot()));
 
+  btn_SN = sn;
   isClicked = false;
 
   this->setStyleSheet("QPushButton {background-color : white; }");
@@ -32,7 +36,7 @@ playlistBtn::playlistBtn(QWidget *parent) : QPushButton(parent)
   statusPix = new QLabel(this);
   statusPix->setFixedSize(17,17);
   statusPix->setScaledContents(true);
-  statusPix->setPixmap(QPixmap(":/image/image/btn_down_n.png"));
+  statusPix->setPixmap(QPixmap(":/image/image/btn_right_1_n.png"));
   statusPix->move(0,0);
 
   listName = new newLineEdit(this);
@@ -56,7 +60,7 @@ playlistBtn::playlistBtn(QWidget *parent) : QPushButton(parent)
  */
 int playlistBtn::getSN()
 {
-  return SN;
+  return btn_SN;
 }
 
 /* Author: zyt
@@ -74,6 +78,35 @@ void playlistBtn::contextMenuEvent(QContextMenuEvent *event)
 
   menu->exec(event->globalPos());
 
+}
+
+/* Author: zyt
+ * Name: event
+ * Function: 识别单击/双击按钮
+ */
+bool playlistBtn::event(QEvent *event)
+{
+  switch ( event->type() )
+    {
+    case QEvent::MouseButtonRelease:
+      if(doubleClicked)
+        {
+          singleClickedTimer->start(10);
+        }
+      else
+        {
+          doubleClicked = false;
+        }
+      break;
+    case QEvent::MouseButtonDblClick:
+      singleClickedTimer->stop();
+      doubleClicked = true;
+      emit doubleClickedSignal();
+      break;
+    default:
+      break;
+    }
+  return QPushButton::event(event);
 }
 
 /* Author: zyt
@@ -104,8 +137,7 @@ void playlistBtn::showListSlot()
   if(isClicked)
     {
       statusPix->setPixmap(QPixmap(":/image/image/btn_down_n.png"));
-      emit showOrHideListContentSignal(isClicked);
-      emit givingSN(getSN());
+      emit showOrHideListContentSignal(isClicked);      
     }
   else if(!isClicked)
     {
@@ -140,6 +172,24 @@ void playlistBtn::listNameCallMenuSlot(QPoint pos)
 }
 
 /* Author: zyt
+ * Name: singleCilckedSlot
+ * Function: 槽：识别单击后什么都不做
+ */
+void playlistBtn::singleClickedSlot()
+{
+  // do nothing
+}
+
+/* Author: zyt
+ * Name: doubleClickedSlot
+ * Function: 槽：识别双击后将该列表内容显示在右侧的displayList内
+ */
+void playlistBtn::doubleClickedSlot()
+{
+  emit givingSN(getSN());
+}
+
+/* Author: zyt
  * Name: mousePressEvent
  * Function: 点击列表名显示/隐藏列表，改变图标（向左/向下)
  */
@@ -153,7 +203,6 @@ void playlistBtn::mousePressEvent(QMouseEvent *event)
         {
           statusPix->setPixmap(QPixmap(":/image/image/btn_down_n.png"));
           emit showOrHideListContentSignal(isClicked);
-          emit givingSN(getSN());
         }
       else if(!isClicked)
         {

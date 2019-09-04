@@ -129,12 +129,12 @@ bool mainWindow::whetherInitializeListButton()
  */
 void mainWindow::addListSlot()
 {
-  playlistsContainer.append(new playlistBtn);
+  playlistsContainer.append(new mergedPlaylist);
   listBoxLayout->addWidget(playlistsContainer.at(playlistsContainer.length()-1));
-  connect(playlistsContainer.at(playlistsContainer.length()-1),
+  connect(playlistsContainer.at(playlistsContainer.length()-1)->listBtn,
           SIGNAL(givingSN(int)),
           ui->displayList,
-          SLOT(recevingSN(int)));
+          SLOT(recevingSN(int))); 
 }
 
 /* Author: zyt
@@ -144,9 +144,7 @@ void mainWindow::addListSlot()
 void mainWindow::deleteListSlot()
 {
 
-
 }
-
 
 /* Author: zyt
  * Name: on_hideLeftBarBtn_clicked

@@ -6,6 +6,7 @@
 #ifndef PLAYLISTBTN_H
 #define PLAYLISTBTN_H
 
+#include <QTimer>
 #include <QLabel>
 #include <QWidget>
 #include <QLineEdit>
@@ -13,12 +14,13 @@
 
 #include "newLineEdit.h"
 
+class QTimer;
 
 class playlistBtn : public QPushButton
 {
   Q_OBJECT
 public:
-  explicit playlistBtn(QWidget *parent = nullptr);
+  explicit playlistBtn(int sn, QWidget *parent = nullptr);
   int getSN();
 
 signals:
@@ -35,18 +37,22 @@ public slots:
   void editingFinishedSlot();
   void listNameCallMenuSlot(QPoint);
 
+  void singleClickedSlot();
+  void doubleClickedSlot();
 private:
-  static int serialNumber;
-  int SN;
 
   bool isClicked;
   QLabel* statusPix;
   newLineEdit* listName;
-  QList<QString> filesInList;
+  int btn_SN;
+
+  bool doubleClicked;
+  QTimer* singleClickedTimer;
 
 protected:
   void mousePressEvent(QMouseEvent*);
   void contextMenuEvent(QContextMenuEvent*);
+  bool event(QEvent*); //单击双击识别
 };
 
 #endif // PLAYLISTBTN_H

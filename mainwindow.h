@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include "mini.h"
-#include "playlistbtn.h"
+#include "mergedPlaylist.h"
 
 #include <QList>
 #include <QAction>
@@ -71,7 +71,7 @@ private:
   QVBoxLayout* listBoxLayout;
   QPushButton* addListBtn;
 
-  QList<playlistBtn*> playlistsContainer;
+  QList<mergedPlaylist*> playlistsContainer;
 
 private slots:
 

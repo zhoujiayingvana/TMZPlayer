@@ -27,6 +27,7 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
+        mergedPlaylist.cpp \
         mini.cpp \
         newLineEdit.cpp \
         playlist.cpp \
@@ -34,6 +35,7 @@ SOURCES += \
 
 HEADERS += \
         mainwindow.h \
+        mergedPlaylist.h \
         mini.h \
         newLineEdit.h \
         playlist.h \

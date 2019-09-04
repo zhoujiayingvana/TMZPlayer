@@ -25,13 +25,19 @@ void newLineEdit::mousePressEvent(QMouseEvent *event)
     }
 }
 
-//* Author: zyt
-// * Name: mouseDoubleClickEvent
-// * Function: 重写双击事件，实现双击列表姓名可将列表投影在右边
-// */
-//void newLineEdit::mouseDoubleClickEvent(QMouseEvent *event)
-//{
-//  Q_UNUSED(event);
-//  emit displayOnRightSignal(this->text());
-//}
+/* Author: zyt
+ * Name: mouseDoubleClickEvent
+ * Function: 重写双击事件，实现双击列表姓名将列表内容投影到displayList中
+ */
+void newLineEdit::mouseDoubleClickEvent(QMouseEvent *event)
+{
+  Q_UNUSED(event);
+
+
+
+
+
+
+
+}
 

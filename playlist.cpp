@@ -20,6 +20,10 @@
  */
 playList::playList(QWidget *parent) : QTableWidget(parent)
 {
+  currentSN = -1;
+  int temp = this->rowCount();
+  QString tempStr = QString::number(temp);
+
   //允许右键点击事件
   this->setEditTriggers(QAbstractItemView::NoEditTriggers);
   this->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -54,6 +58,7 @@ playList::playList(QWidget *parent) : QTableWidget(parent)
 
   connect(this, SIGNAL(customContextMenuRequested(QPoint)),
           this, SLOT(on_playlist_customContextMenuRequested(QPoint)));
+
 }
 
 /* Author: zyt
@@ -65,6 +70,16 @@ QString playList::getFileName(QString filePath)
 {
   QFileInfo fileInfo(filePath);
   return fileInfo.fileName();
+}
+
+/* Author: zyt
+ * Name: setCurrentSN
+ * Function: 设置当前列表的SN
+ * Parameters: sn:想设置的的序列号
+ */
+void playList::setCurrentSN(int sn)
+{
+  currentSN = sn;
 }
 
 /* Author: zyt
@@ -95,7 +110,7 @@ void playList::addFiles()
 {
   QFileDialog* selectDialog = new QFileDialog(this);
   selectDialog->setFileMode(QFileDialog::ExistingFiles);
-  selectDialog->setNameFilter("所有(*.mp3 *.flac *.wav *.wma *.m4a *.avi *.mov *.rmvb *.mp4)"
+  selectDialog->setNameFilter("所有(*.mp3 *.flac *.wav *.wma *.m4a *.avi *.mov *.rmvb *.mp4);;"
                               "音乐文件(*.mp3 *.flac *.wav *.wma *.m4a);;"
                               "视频文件(*.avi *.mov *.rmvb *.mp4);;");
   selectDialog->setViewMode(QFileDialog::Detail);
@@ -132,6 +147,9 @@ void playList::addFiles()
       item = new QTableWidgetItem(getFileName(fileNames.at(i)));
       this->setItem(row, 2, item);
     }
+  temp_filesInList = fileNames;
+
+  emit changeFilesInListSignal(currentSN,temp_filesInList);
 }
 
 /* Author: zyt
@@ -153,11 +171,13 @@ void playList::deleteFileFromList()
       QTableWidgetItem* item = new QTableWidgetItem(tempStr);//第几行
       this->setItem(i, 1, item);
     }
+
+  emit changeFilesInListSignal(currentSN,temp_filesInList);
 }
 
 /* Author: zyt
  * Name: deleteFileFromDisk
- * Function: 在列表中删除选中的文件（从列表、本地删除）（从磁盘中删除未实现）
+ * Function: 在列表中删除选中的文件（从列表、本地删除）
  */
 void playList::deleteFileFromDisk()
 {
@@ -191,6 +211,17 @@ void playList::deleteFileFromDisk()
         }
       temp_filesInList.removeOne(itemToBeDeleted->text());
     }
+
+  //对序号重新排序
+  for(int i = 0; i < this->rowCount(); i++)
+    {
+      int temp = i + 1;
+      QString tempStr = QString::number(temp);
+      QTableWidgetItem* item = new QTableWidgetItem(tempStr);//第几行
+      this->setItem(i, 1, item);
+    }
+
+  emit changeFilesInListSignal(currentSN,temp_filesInList);
 }
 
 /* Author: zyt
@@ -277,6 +308,7 @@ void playList::dropEvent(QDropEvent *event)
           item = new QTableWidgetItem(getFileName(toBeAddedFiles.at(i)));
           this->setItem(row, 2, item);
         }
+      temp_filesInList = toBeAddedFiles;
     }
   else if (toBeAddedFiles.empty())
     {
@@ -287,5 +319,7 @@ void playList::dropEvent(QDropEvent *event)
     }
 
   toBeAddedFiles.clear();
+
+  emit changeFilesInListSignal(currentSN,temp_filesInList);
 }
 

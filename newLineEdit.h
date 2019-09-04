@@ -23,6 +23,7 @@ public slots:
 
 protected:
   void mousePressEvent(QMouseEvent*);
+  void mouseDoubleClickEvent(QMouseEvent*);
 };
 
 #endif // NEWLINEEDIT_H
