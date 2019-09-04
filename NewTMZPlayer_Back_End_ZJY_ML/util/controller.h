@@ -47,7 +47,10 @@ public:
     void jump(int second);
     //player播放速率自带槽函数
     void setPlaybackRate(qreal rate);
-    //
+    
+    //高级功能
+    //截图
+    QString CutScreen(WId wId,QString fileName="ScreenCutByTMZPlayer",QString fmt="jpg",int qua=-1);
 signals:
     //获取视频信息
     //获取时长
@@ -76,7 +79,10 @@ signals:
     void needSetPlaybackRate(qreal rate);
     //快进、快退,跳转指定秒
     void needJump(int second);
-    //
+    
+    //高级功能
+    //截图
+    void needCutScreen(WId wId,QString fileName,QString fmt,int qua);
 public slots:
     
     //获取Player传递的Position
@@ -84,13 +90,16 @@ public slots:
     //获取Player传递的Duration
     void receiveDuration(qint64);
     //获取Player传递的State
-    void receiveStatus(QMediaPlayer::State);//参数异步传递的问题
+    void receiveStatus(QMediaPlayer::State);
+    //获取截图路径
+    void receiveScreenCut(QString);
     
 
 private:
     QMediaPlayer::State m_CtrlPlayState;//播放状态，默认为StoppedState
     qint64 m_CtrlCurrentPosition;//当前播放的时间进度
     qint64 m_CtrlDuration;//视频总时长
+    QString* m_CutScreenFile;//截图路径
 };
 
 #endif // CONTROLLER_H

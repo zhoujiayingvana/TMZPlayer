@@ -22,6 +22,7 @@ public:
 private:
     Ui::TestMainWindow *ui;
     Media* media;
+    QVideoWidget *myVideoWidget;
 private slots:
     
     //接收按钮的播放状态，前端实现
@@ -43,6 +44,7 @@ private slots:
     void on_jumpButton_clicked();
     void on_muteButton_clicked();
     void on_nonMuteButton_clicked();
+    void on_screenCutButton_clicked();
 };
 
 #endif // TESTMAINWINDOW_H

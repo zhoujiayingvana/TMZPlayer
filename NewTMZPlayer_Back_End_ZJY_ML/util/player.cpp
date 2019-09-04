@@ -2,7 +2,11 @@
 
 Player::Player(QWidget *parent) : QWidget(parent)
 {
+    //初始化
     this->m_Player=new QMediaPlayer(this);
+    this->m_PlayState=QMediaPlayer::StoppedState;
+    this->m_Duration=0;
+    this->m_CurrentPosition=0;
     //设置player依附的播放窗口
 }
 
@@ -79,4 +83,34 @@ void Player::needSetVolume(int vol)
 void Player::needSetPlaybackRate(qreal rate)
 {
     this->m_Player->setPlaybackRate(rate);
+}
+
+void Player::needCutScreen(WId wId, QString fileName,QString fmt,int qua)
+{
+    
+    QScreen *screen = QGuiApplication::primaryScreen();
+    int quality=-1;
+    QString format("jpg");
+    //检查参数范围
+    if(qua>=0&&qua<=100){
+        quality=qua;
+    }
+    
+    if(fmt.compare(QString("jpg"))){
+        format=fmt;
+    }
+    else if(fmt.compare(QString("png"))){
+        format=fmt;
+    }
+    else if(fmt.compare((QString("webp")))){
+        format=fmt;
+    }
+    
+    fileName=fileName+"."+fmt;
+    qDebug()<<fileName;
+    char*  ch;
+    QByteArray ba = format.toUtf8();    
+    ch=ba.data();
+    screen->grabWindow(wId).save(fileName,ch,quality);
+    emit this->returnScreenCut(fileName);
 };

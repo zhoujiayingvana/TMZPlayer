@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Controller_t {
-    QByteArrayData data[24];
-    char stringdata0[297];
+    QByteArrayData data[31];
+    char stringdata0[353];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -51,10 +51,17 @@ QT_MOC_LITERAL(16, 190, 19), // "needSetPlaybackRate"
 QT_MOC_LITERAL(17, 210, 4), // "rate"
 QT_MOC_LITERAL(18, 215, 8), // "needJump"
 QT_MOC_LITERAL(19, 224, 6), // "second"
-QT_MOC_LITERAL(20, 231, 15), // "receivePosition"
-QT_MOC_LITERAL(21, 247, 15), // "receiveDuration"
-QT_MOC_LITERAL(22, 263, 13), // "receiveStatus"
-QT_MOC_LITERAL(23, 277, 19) // "QMediaPlayer::State"
+QT_MOC_LITERAL(20, 231, 13), // "needCutScreen"
+QT_MOC_LITERAL(21, 245, 3), // "WId"
+QT_MOC_LITERAL(22, 249, 3), // "wId"
+QT_MOC_LITERAL(23, 253, 8), // "fileName"
+QT_MOC_LITERAL(24, 262, 3), // "fmt"
+QT_MOC_LITERAL(25, 266, 3), // "qua"
+QT_MOC_LITERAL(26, 270, 15), // "receivePosition"
+QT_MOC_LITERAL(27, 286, 15), // "receiveDuration"
+QT_MOC_LITERAL(28, 302, 13), // "receiveStatus"
+QT_MOC_LITERAL(29, 316, 19), // "QMediaPlayer::State"
+QT_MOC_LITERAL(30, 336, 16) // "receiveScreenCut"
 
     },
     "Controller\0needGetDuration\0\0needGetPosition\0"
@@ -63,8 +70,10 @@ QT_MOC_LITERAL(23, 277, 19) // "QMediaPlayer::State"
     "needTerminateVideo\0needSeekPosition\0"
     "needSetVolume\0vol\0needSetMuted\0m\0"
     "needSetPlaybackRate\0rate\0needJump\0"
-    "second\0receivePosition\0receiveDuration\0"
-    "receiveStatus\0QMediaPlayer::State"
+    "second\0needCutScreen\0WId\0wId\0fileName\0"
+    "fmt\0qua\0receivePosition\0receiveDuration\0"
+    "receiveStatus\0QMediaPlayer::State\0"
+    "receiveScreenCut"
 };
 #undef QT_MOC_LITERAL
 
@@ -74,31 +83,33 @@ static const uint qt_meta_data_Controller[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      15,   14, // methods
+      17,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-      12,       // signalCount
+      13,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   89,    2, 0x06 /* Public */,
-       3,    0,   90,    2, 0x06 /* Public */,
-       4,    0,   91,    2, 0x06 /* Public */,
-       5,    1,   92,    2, 0x06 /* Public */,
-       8,    0,   95,    2, 0x06 /* Public */,
-       9,    0,   96,    2, 0x06 /* Public */,
-      10,    0,   97,    2, 0x06 /* Public */,
-      11,    1,   98,    2, 0x06 /* Public */,
-      12,    1,  101,    2, 0x06 /* Public */,
-      14,    1,  104,    2, 0x06 /* Public */,
-      16,    1,  107,    2, 0x06 /* Public */,
-      18,    1,  110,    2, 0x06 /* Public */,
+       1,    0,   99,    2, 0x06 /* Public */,
+       3,    0,  100,    2, 0x06 /* Public */,
+       4,    0,  101,    2, 0x06 /* Public */,
+       5,    1,  102,    2, 0x06 /* Public */,
+       8,    0,  105,    2, 0x06 /* Public */,
+       9,    0,  106,    2, 0x06 /* Public */,
+      10,    0,  107,    2, 0x06 /* Public */,
+      11,    1,  108,    2, 0x06 /* Public */,
+      12,    1,  111,    2, 0x06 /* Public */,
+      14,    1,  114,    2, 0x06 /* Public */,
+      16,    1,  117,    2, 0x06 /* Public */,
+      18,    1,  120,    2, 0x06 /* Public */,
+      20,    4,  123,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      20,    1,  113,    2, 0x0a /* Public */,
-      21,    1,  116,    2, 0x0a /* Public */,
-      22,    1,  119,    2, 0x0a /* Public */,
+      26,    1,  132,    2, 0x0a /* Public */,
+      27,    1,  135,    2, 0x0a /* Public */,
+      28,    1,  138,    2, 0x0a /* Public */,
+      30,    1,  141,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void,
@@ -113,11 +124,13 @@ static const uint qt_meta_data_Controller[] = {
     QMetaType::Void, QMetaType::Bool,   15,
     QMetaType::Void, QMetaType::QReal,   17,
     QMetaType::Void, QMetaType::Int,   19,
+    QMetaType::Void, 0x80000000 | 21, QMetaType::QString, QMetaType::QString, QMetaType::Int,   22,   23,   24,   25,
 
  // slots: parameters
     QMetaType::Void, QMetaType::LongLong,    2,
     QMetaType::Void, QMetaType::LongLong,    2,
-    QMetaType::Void, 0x80000000 | 23,    2,
+    QMetaType::Void, 0x80000000 | 29,    2,
+    QMetaType::Void, QMetaType::QString,    2,
 
        0        // eod
 };
@@ -140,15 +153,17 @@ void Controller::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 9: _t->needSetMuted((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 10: _t->needSetPlaybackRate((*reinterpret_cast< qreal(*)>(_a[1]))); break;
         case 11: _t->needJump((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 12: _t->receivePosition((*reinterpret_cast< qint64(*)>(_a[1]))); break;
-        case 13: _t->receiveDuration((*reinterpret_cast< qint64(*)>(_a[1]))); break;
-        case 14: _t->receiveStatus((*reinterpret_cast< QMediaPlayer::State(*)>(_a[1]))); break;
+        case 12: _t->needCutScreen((*reinterpret_cast< WId(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
+        case 13: _t->receivePosition((*reinterpret_cast< qint64(*)>(_a[1]))); break;
+        case 14: _t->receiveDuration((*reinterpret_cast< qint64(*)>(_a[1]))); break;
+        case 15: _t->receiveStatus((*reinterpret_cast< QMediaPlayer::State(*)>(_a[1]))); break;
+        case 16: _t->receiveScreenCut((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 14:
+        case 15:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:
@@ -242,6 +257,13 @@ void Controller::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
                 return;
             }
         }
+        {
+            using _t = void (Controller::*)(WId , QString , QString , int );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Controller::needCutScreen)) {
+                *result = 12;
+                return;
+            }
+        }
     }
 }
 
@@ -274,13 +296,13 @@ int Controller::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 15)
+        if (_id < 17)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 17;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 15)
+        if (_id < 17)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 17;
     }
     return _id;
 }
@@ -361,6 +383,13 @@ void Controller::needJump(int _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 11, _a);
+}
+
+// SIGNAL 12
+void Controller::needCutScreen(WId _t1, QString _t2, QString _t3, int _t4)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)) };
+    QMetaObject::activate(this, &staticMetaObject, 12, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

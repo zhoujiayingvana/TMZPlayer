@@ -11,6 +11,9 @@
 #include <QWidget>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
+#include <QScreen>
+#include <QGuiApplication>
+#include <QDebug>
 class Player : public QWidget
 {
     Q_OBJECT
@@ -27,10 +30,11 @@ signals:
     void returnPosition(qint64 pos);
     //返回视频状态
     void returnStatus(QMediaPlayer::State stu);
+    //返回截图
+    void returnScreenCut(QString);
 public slots:
     //播放文件
     void needPlay(QMediaContent *content);
-
     
     //获取视频信息
     //获取时长
@@ -57,6 +61,10 @@ public slots:
     void needSetVolume(int vol);
     //设置播放速率
     void needSetPlaybackRate(qreal rate);
+    
+    //高级功能
+    //截图
+    void needCutScreen(WId wId,QString fileName,QString fmt,int qua);
 private:
     QMediaPlayer *m_Player;//播放窗口主体
     QMediaPlayer::State m_PlayState;//播放状态，默认为StoppedState

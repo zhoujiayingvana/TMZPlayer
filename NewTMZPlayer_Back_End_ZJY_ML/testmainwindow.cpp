@@ -16,7 +16,7 @@ TestMainWindow::TestMainWindow(QWidget *parent) :
 
     //添加视频播放窗口
     //media->getPlayWindow()->setVideoOutput(ui->);//ui里面找不到videoWidget
-    QVideoWidget *myVideoWidget=new QVideoWidget();
+    myVideoWidget=new QVideoWidget();
     myVideoWidget->setParent(this);
     myVideoWidget->resize(291,151);
     myVideoWidget->move(80,25);
@@ -25,7 +25,7 @@ TestMainWindow::TestMainWindow(QWidget *parent) :
     QPalette palette(myVideoWidget->palette());
     palette.setColor(QPalette::Background, Qt::black);
     myVideoWidget->setPalette(palette);
-//    media->getController()->testPlay(mediaContent);
+    media->getController()->testPlay(mediaContent);
 
 }
 
@@ -85,4 +85,14 @@ void TestMainWindow::on_muteButton_clicked()
 void TestMainWindow::on_nonMuteButton_clicked()
 {
     media->getController()->setMuted(false);
+}
+
+void TestMainWindow::on_screenCutButton_clicked()
+{
+    QDateTime local(QDateTime::currentDateTime());
+    QString localTime = local.toString("yyMMddhhmmss");
+    QString fileName="ScreenCutByTMZPlayer"+localTime;
+    QString path="E:/QT/";
+    QString filePath=path+fileName;
+    media->getController()->CutScreen(this->myVideoWidget->winId(),filePath,"jpg",-1);
 }

@@ -27,6 +27,9 @@ Media::Media(QWidget *parent) : QWidget(parent)
     connect(this->media_Controller,SIGNAL(needSetPlaybackRate(qreal)),this->media_Player,SLOT(needSetPlaybackRate(qreal)));
     connect(this->media_Controller,SIGNAL(needJump(int)),this->media_Player,SLOT(needJump(int)));
     
+    //高级功能
+    connect(this->media_Controller,SIGNAL(needCutScreen(WId ,QString,QString,int)),this->media_Player,SLOT(needCutScreen(WId,QString,QString,int)));
+    connect(this->media_Player,SIGNAL(returnScreenCut(QString)),this->media_Controller,SLOT(receiveScreenCut(QString)));
 
 }
 

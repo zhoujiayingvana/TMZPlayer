@@ -4,7 +4,9 @@ Controller::Controller(QWidget *parent) : QWidget(parent)
 {
     //设置播放状态为停止
     this->m_CtrlPlayState=QMediaPlayer::StoppedState;
-    
+    this->m_CtrlDuration=0;
+    this->m_CtrlCurrentPosition=0;
+    this->m_CutScreenFile=nullptr;
 }
 
 Controller::~Controller()
@@ -60,7 +62,6 @@ void Controller::setMuted(bool m)
 void Controller::jump(int second)
 {
     qint64 tempPos=this->getPosition();
-    qDebug()<<"tempPos "<<tempPos;
     
     //跳转到视频结尾
     if(tempPos+second*1000>this->getDuration()){
@@ -81,6 +82,18 @@ void Controller::setPlaybackRate(qreal rate)
     emit needSetPlaybackRate(rate);
 }
 
+QString Controller::CutScreen(WId wId, QString fileName, QString fmt, int qua)
+{
+    emit needCutScreen(wId,fileName,fmt,qua);
+    if(this->m_CutScreenFile!=nullptr){
+        return *this->m_CutScreenFile;
+    }
+    else{
+        qDebug()<<"Error on screen cut";////////////////添加到error说明
+        return nullptr;
+    }
+}
+
 void Controller::receivePosition(qint64 pos)
 {
     this->m_CtrlCurrentPosition=pos;
@@ -94,6 +107,11 @@ void Controller::receiveDuration(qint64 dur)
 void Controller::receiveStatus(QMediaPlayer::State stus)
 {
     this->m_CtrlPlayState=stus;
+}
+
+void Controller::receiveScreenCut(QString fileName)
+{
+    this->m_CutScreenFile=&fileName;
 }
 
 //测试用函数
