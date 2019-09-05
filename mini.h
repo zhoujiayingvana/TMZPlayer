@@ -35,8 +35,6 @@ signals:
   void sendPlayOrPauseSignal(bool);
   void sendLikeSignal(bool);
 
-protected slots:
-
 protected:
   void mousePressEvent(QMouseEvent*);
   void mouseMoveEvent(QMouseEvent*);
@@ -44,7 +42,7 @@ protected:
   void enterEvent(QEvent*);
   void leaveEvent(QEvent*);
 
-private slots:
+public slots:
 
   void on_maxModeBtn_clicked();
 

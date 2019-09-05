@@ -12,7 +12,6 @@
 #include <QDragEnterEvent>
 #include <QTableWidgetItem>
 
-
 /* Author: zyt
  * Name: Playlist
  * Function: 初始化列表
@@ -28,9 +27,14 @@ playList::playList(QWidget *parent) : QTableWidget(parent)
   this->setEditTriggers(QAbstractItemView::NoEditTriggers);
   this->setContextMenuPolicy(Qt::CustomContextMenu);
 
-  //允许拖拽
+  //允许拖拽文件进入
   this->setAcceptDrops(true);
   setAcceptDrops(true);
+
+  //允许行拖拽
+  this->setDragDropMode(QAbstractItemView::DragDrop);
+  this->setDragEnabled(true);
+  this->setSelectionBehavior(QAbstractItemView::SelectRows);
 
   /* NOTICE:
    * 存放歌曲/视频的tableWidget
@@ -39,7 +43,7 @@ playList::playList(QWidget *parent) : QTableWidget(parent)
    * 第2列是是否收藏的按钮
    */
   QStringList headers;
-  headers << "" << "列表名称" << "歌名" << "";
+  headers << "绝对地址" << "" << "歌名" << "";
   this->setColumnCount(4);
   this->setColumnHidden(0,true);
   this->verticalHeader()->hide();
@@ -147,8 +151,6 @@ void playList::addFiles()
       item = new QTableWidgetItem(getFileName(fileNames.at(i)));
       this->setItem(row, 2, item);
     }
-  temp_filesInList = fileNames;
-
   emit changeFilesInListSignal(currentSN,temp_filesInList);
 }
 
@@ -237,9 +239,9 @@ void playList::recevingSNAndFiles(int sn,QList<QString> files)
     {
       this->removeRow(0);
     }
+  temp_filesInList.clear();
 
   currentSN = sn;
-  qDebug() << "now showlist points to SN: " << sn;
 
   for (int i = 0;i < files.length(); i++)
     {
@@ -267,8 +269,52 @@ void playList::recevingSNAndFiles(int sn,QList<QString> files)
       item = new QTableWidgetItem(getFileName(files.at(i)));
       this->setItem(row, 2, item);
     }
-  temp_filesInList = files;
+}
 
+/* Author: zyt
+ * Name: showChangedListSlot
+ * Function: 槽：修改左侧播放列表时，若displayList的currentSN为修改列表的SN
+ *              则更新displayList内容
+ */
+void playList::showChangedListSlot(int sn, QList<QString> files)
+{
+  if(currentSN == sn)
+    {
+      //清空列表显示内容
+      int row = this->rowCount();
+      for(int i = 0; i < row; i++)
+        {
+          this->removeRow(0);
+        }
+      temp_filesInList.clear();
+
+      for (int i = 0;i < files.length(); i++)
+        {
+          //将文件路径经转换构造函数赋给QDir类型的dir
+          QDir dir = QDir(files.at(i));
+          emit sendDirSignal(dir);
+
+          int row = this->rowCount();
+          this->insertRow(row);
+
+          //以private：QList<QString>存储该列表的文件地址
+          temp_filesInList.append(files.at(i));
+
+          //第0列存放地址QString
+          QTableWidgetItem *item = new QTableWidgetItem(files.at(i));
+          this->setItem(row, 0, item);
+
+          //第1列存放行数
+          int temp = this->rowCount();
+          QString tempStr = QString::number(temp);
+          item = new QTableWidgetItem(tempStr);//第几行
+          this->setItem(row, 1, item);
+
+          //第2列存放名字
+          item = new QTableWidgetItem(getFileName(files.at(i)));
+          this->setItem(row, 2, item);
+        }
+    }
 }
 
 /* Author: zyt
@@ -277,8 +323,6 @@ void playList::recevingSNAndFiles(int sn,QList<QString> files)
  */
 void playList::dragEnterEvent(QDragEnterEvent *event)
 {
-  event->acceptProposedAction();
-
   QStringList acceptedTypes;
   acceptedTypes << "mp3" << "flac" << "wav" << "wma" << "m4a"
                 << "avi" << "mov" << "rmvb" << "mp4";
@@ -291,7 +335,10 @@ void playList::dragEnterEvent(QDragEnterEvent *event)
           QFileInfo file(event->mimeData()->urls().at(i).toLocalFile());
           if(acceptedTypes.contains(file.suffix().toLower()))
             {
-              toBeAddedFiles.append(fileUrls.at(i).toLocalFile());
+              if(!temp_filesInList.contains(fileUrls.at(i).toLocalFile()))
+                {
+                  toBeAddedFiles.append(fileUrls.at(i).toLocalFile());
+                }
             }
         }
       event->acceptProposedAction();
@@ -318,7 +365,7 @@ void playList::dropEvent(QDropEvent *event)
 
   if (!toBeAddedFiles.empty())
     {
-      for (int i = 0;i < toBeAddedFiles.length(); i++)
+      for (int i = 0;i < toBeAddedFiles.length();i++)
         {
           //将文件路径经转换构造函数赋给QDir类型的dir
           QDir dir = QDir(toBeAddedFiles.at(i));
@@ -344,7 +391,7 @@ void playList::dropEvent(QDropEvent *event)
           item = new QTableWidgetItem(getFileName(toBeAddedFiles.at(i)));
           this->setItem(row, 2, item);
         }
-      temp_filesInList = toBeAddedFiles;
+
     }
   else if (toBeAddedFiles.empty())
     {
@@ -357,5 +404,6 @@ void playList::dropEvent(QDropEvent *event)
   toBeAddedFiles.clear();
 
   emit changeFilesInListSignal(currentSN,temp_filesInList);
+  emit leftBarListFilesChangeSignal(currentSN,temp_filesInList);
 }
 

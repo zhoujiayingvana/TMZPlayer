@@ -30,33 +30,33 @@ mainWindow::mainWindow(QWidget *parent) :
   ui(new Ui::mainWindow)
 {
   ui->setupUi(this);
+
   mini = new Mini(this);
   sysTrayIcon = new QSystemTrayIcon(this);
 
-  likeListBtn = new QPushButton(this);
-  likeListBtn->setFlat(true);
-  likeListBtn->setText(" 我的收藏");
-  likeListBtn->setFixedHeight(35);
-  QFont likeListBtnFont = likeListBtn->font();
-  likeListBtnFont.setPointSize(11);
-  likeListBtn->setStyleSheet("text-align: left;");
-  likeListBtn->setFont(likeListBtnFont);
+  favoritesBtn = new favorites(this);
+  favoritesBtn->setFlat(true);
+  favoritesBtn->setText(" 我的收藏");
+  favoritesBtn->setFixedHeight(35);
+  QFont favoritesBtnFont = favoritesBtn->font();
+  favoritesBtnFont.setPointSize(11);
+  favoritesBtn->setStyleSheet("text-align: left;");
+  favoritesBtn->setFont(favoritesBtnFont);
   QIcon likeIcon(":/image/image/musicform/btn_like_n.png");
-  likeListBtn->setIcon(likeIcon);
-  likeListBtn->setIconSize(QSize(20,20));
+  favoritesBtn->setIcon(likeIcon);
+  favoritesBtn->setIconSize(QSize(20,20));
 
   downloadListBtn = new QPushButton(this);
   downloadListBtn->setFlat(true);
   downloadListBtn->setText(" 我的下载");
   downloadListBtn->setFixedHeight(35);
-  QFont downloadListBtnFont = likeListBtn->font();
+  QFont downloadListBtnFont = downloadListBtn->font();
   downloadListBtnFont.setPointSize(11);
   downloadListBtn->setStyleSheet("text-align: left;");
-  downloadListBtn->setFont(likeListBtnFont);
+  downloadListBtn->setFont(downloadListBtnFont);
   QIcon downloadIcon(":/image/image/musiclist.png");
   downloadListBtn->setIcon(downloadIcon);
   downloadListBtn->setIconSize(QSize(20,20));
-
 
   listBox = new QGroupBox(this);
   listBox->setTitle("列表");
@@ -69,10 +69,10 @@ mainWindow::mainWindow(QWidget *parent) :
   addListBtn->setFlat(true);
 
   ui->leftsideBarLayout->setAlignment(Qt::AlignTop);
-  ui->leftsideBar->setLayout(ui->leftsideBarLayout);
-  ui->leftsideBarLayout->addWidget(likeListBtn);
+  ui->leftsideBarLayout->addWidget(favoritesBtn);
   ui->leftsideBarLayout->addWidget(downloadListBtn);
   ui->leftsideBarLayout->addWidget(listBox);
+  ui->leftsideBar->setLayout(ui->leftsideBarLayout);
 
   listBoxLayout = new QVBoxLayout;
   listBoxLayout->setAlignment(Qt::AlignTop);
@@ -102,7 +102,15 @@ mainWindow::mainWindow(QWidget *parent) :
   connect(mini,SIGNAL(miniToMaxSignal()),this,SLOT(miniToMaxSlot()));
   connect(mini,SIGNAL(miniToTraySignal()),this,SLOT(miniToTraySlot()));
   connect(addListBtn,SIGNAL(clicked()),this,SLOT(addListSlot()));
-
+  connect(favoritesBtn,SIGNAL(clicked()),favoritesBtn,SLOT(favoritesBtnClickedSlot()));
+  connect(favoritesBtn,SIGNAL(sendingFavoritesSNAndFiles(int,QList<QString>)),
+          ui->displayList,SLOT(recevingSNAndFiles(int,QList<QString>)));
+  connect(ui->displayList,
+          SIGNAL(changeFilesInListSignal(int,QList<QString>)),
+          favoritesBtn,
+          SLOT(changeFilesInListSlot(int,QList<QString>)));
+  connect(favoritesBtn,SIGNAL(sendingFavoritesNameSignal(QString)),
+          this,SLOT(sendingFavoritesNameSlot(QString)));
 }
 
 mainWindow::~mainWindow()
@@ -140,6 +148,16 @@ void mainWindow::addListSlot()
           SIGNAL(changeFilesInListSignal(int,QList<QString>)),
           playlistsContainer.at(playlistsContainer.length()-1),
           SLOT(changeFilesInListSlot(int,QList<QString>)));
+
+  connect(playlistsContainer.at(playlistsContainer.length()-1),
+          SIGNAL(showChangedListSignal(int,QList<QString>)),
+          ui->displayList,
+          SLOT(showChangedListSlot(int,QList<QString>)));
+
+  connect(playlistsContainer.at(playlistsContainer.length()-1),
+          SIGNAL(givingListName(QString)),
+          this,
+          SLOT(receivingListName(QString)));
 }
 
 /* Author: zyt
@@ -150,6 +168,32 @@ void mainWindow::deleteListSlot()
 {
 
 }
+
+
+void mainWindow::displayFavoritesSlot()
+{
+  qDebug() << "ok";
+}
+
+/* Author: zyt
+ * Name: sendingFavoritesNameSlot
+ * Function: 点击我的收藏时，显示displayList指向我的收藏
+ */
+void mainWindow::sendingFavoritesNameSlot(QString name)
+{
+  ui->listNameLabel->setText(name);
+}
+
+/* Author: zyt
+ * Name: receivingListName
+ * Function: 双击我的列表时，显示displayList指向对应的列表名字
+ */
+void mainWindow::receivingListName(QString listname)
+{
+  ui->listNameLabel->setText(listname);
+}
+
+
 
 /* Author: zyt
  * Name: on_hideLeftBarBtn_clicked

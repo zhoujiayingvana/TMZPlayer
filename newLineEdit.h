@@ -18,6 +18,7 @@ public:
 
 signals:
   void listNameClickedSignal();
+  void listNameDoubleClickedSignal();
 
 public slots:
 

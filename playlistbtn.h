@@ -29,11 +29,13 @@ signals:
   void singleClickedSignal();
   void doubleClickedSignal();
   void givingSN(int);
+  void wantingName(QString);
 
 public slots:
   void renameSlot();
   void deleteListSlot();
   void showListSlot();
+  void displayListSlot();
   void editingFinishedSlot();
   void listNameCallMenuSlot(QPoint);
 

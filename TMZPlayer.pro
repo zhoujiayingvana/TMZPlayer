@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        favorites.cpp \
         main.cpp \
         mainwindow.cpp \
         mergedPlaylist.cpp \
@@ -34,6 +35,7 @@ SOURCES += \
         playlistbtn.cpp
 
 HEADERS += \
+        favorites.h \
         mainwindow.h \
         mergedPlaylist.h \
         mini.h \

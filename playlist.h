@@ -20,6 +20,7 @@ public:
 
   QString getFileName(QString file_path);
   void setCurrentSN(int);
+   QVariant data(const QModelIndex&,int) const;
 
 signals:
   void sendDirSignal(QDir);
@@ -29,6 +30,10 @@ signals:
  */
   void changeFilesInListSignal(int sn,QList<QString> filesList);
 
+/* Name: leftBarListFilesChangeSignal
+ * Function: 实现左边列表内容改变时，若displayList的sn指向该列表，则同样发生改变
+ */
+  void leftBarListFilesChangeSignal(int,QList<QString>);
 
 public slots:
 
@@ -42,8 +47,10 @@ public slots:
 
   void recevingSNAndFiles(int,QList<QString>);
 
+  void showChangedListSlot(int,QList<QString>);
 
 private:
+
   int currentSN;
   QList<QString> toBeAddedFiles; //挑选出可以添加的文件的临时存储位置
 

@@ -49,6 +49,7 @@ playlistBtn::playlistBtn(int sn,QWidget *parent) : QPushButton(parent)
                           "border-style:outset; };");
 
   connect(listName,SIGNAL(listNameClickedSignal()),this,SLOT(showListSlot()));
+  connect(listName,SIGNAL(listNameDoubleClickedSignal()),this,SLOT(displayListSlot()));
   connect(listName,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(listNameCallMenuSlot(QPoint)));
   connect(listName,SIGNAL(editingFinished()),this,SLOT(editingFinishedSlot()));
 }
@@ -147,6 +148,16 @@ void playlistBtn::showListSlot()
 }
 
 /* Author: zyt
+ * Name: displayListSlot()
+ * Function: 实现双击列表名字的时候也可以将列表内容投影到右边
+ */
+void playlistBtn::displayListSlot()
+{
+  emit givingSN(getSN());
+  emit wantingName(listName->text());
+}
+
+/* Author: zyt
  * Name: editingFinishedSlot
  * Function: 当编辑播放列表名字出现输入回车或失去焦点时，使名字变为只读
  */
@@ -187,6 +198,7 @@ void playlistBtn::singleClickedSlot()
 void playlistBtn::doubleClickedSlot()
 {
   emit givingSN(getSN());
+  emit wantingName(listName->text());
 }
 
 /* Author: zyt

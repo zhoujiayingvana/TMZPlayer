@@ -32,7 +32,6 @@ void newLineEdit::mousePressEvent(QMouseEvent *event)
 void newLineEdit::mouseDoubleClickEvent(QMouseEvent *event)
 {
   Q_UNUSED(event);
-
-
+  emit listNameDoubleClickedSignal();
 }
 
