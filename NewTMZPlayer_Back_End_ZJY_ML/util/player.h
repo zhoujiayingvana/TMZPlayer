@@ -14,6 +14,7 @@
 #include <QScreen>
 #include <QGuiApplication>
 #include <QDebug>
+#include "debug.h"
 class Player : public QWidget
 {
     Q_OBJECT
@@ -21,6 +22,8 @@ public:
     explicit Player(QWidget *parent = nullptr);
     ~Player();
     QMediaPlayer* getPlayWindow();//获取播放窗口
+    qint64 getDuration();
+    QMediaPlayer* getPlayer();
     
 signals:
     //返回视频信息
@@ -32,6 +35,8 @@ signals:
     void returnStatus(QMediaPlayer::State stu);
     //返回截图
     void returnScreenCut(QString);
+    //向历史记录返回当前时间
+    void returnPositionToHis(qint64 pos);
 public slots:
     //播放文件
     void needPlay(QMediaContent *content);
@@ -64,7 +69,7 @@ public slots:
     
     //高级功能
     //截图
-    void needCutScreen(WId wId,QString fileName,QString fmt,int qua);
+    void needCutScreen(WId wId,QString fileName,QString filePath,QString fmt,int qua);
 private:
     QMediaPlayer *m_Player;//播放窗口主体
     QMediaPlayer::State m_PlayState;//播放状态，默认为StoppedState

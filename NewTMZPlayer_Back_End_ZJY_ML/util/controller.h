@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QMediaPlayer>
 #include <QUrl>
+#include "util/helper.h"
+#include "debug.h"
 
 
 class Controller : public QWidget
@@ -12,13 +14,7 @@ class Controller : public QWidget
 public:
     explicit Controller(QWidget *parent = nullptr);
     ~Controller();
-    
-
-    //播放本地文件/网络文件,与folderContent连接
-    void play(QUrl*);
-    //播放收藏夹文件，与folderContent连接
-    void play(QString*,QString*);
-    
+        
     //调试用
     void testPlay(QMediaContent * content);
     
@@ -48,9 +44,14 @@ public:
     //player播放速率自带槽函数
     void setPlaybackRate(qreal rate);
     
+    
     //高级功能
     //截图
-    QString CutScreen(WId wId,QString fileName="ScreenCutByTMZPlayer",QString fmt="jpg",int qua=-1);
+    QString cutScreen(WId wId,QString fileName="ScreenCutByTMZPlayer",QString filePath="../output",QString fmt="jpg",int qua=-1);
+    //调整播放顺序
+    void setOrder(PlayOrder);
+    //获取播放顺序
+    PlayOrder getOrder();
 signals:
     //获取视频信息
     //获取时长
@@ -59,6 +60,8 @@ signals:
     void needGetPosition();
     //获取视频状态
     void needGetStatus();
+    //获取当前播放顺序
+    void needGetOrder();
     
     //设置视频
     //打开并播放视频
@@ -82,7 +85,9 @@ signals:
     
     //高级功能
     //截图
-    void needCutScreen(WId wId,QString fileName,QString fmt,int qua);
+    void needCutScreen(WId wId,QString fileName,QString filePath,QString fmt,int qua);
+    //设置播放顺序
+    void needSetOrder(PlayOrder);
 public slots:
     
     //获取Player传递的Position
@@ -93,13 +98,15 @@ public slots:
     void receiveStatus(QMediaPlayer::State);
     //获取截图路径
     void receiveScreenCut(QString);
+    //获取播放顺序
+    void receiveOrder(PlayOrder);
     
-
 private:
     QMediaPlayer::State m_CtrlPlayState;//播放状态，默认为StoppedState
     qint64 m_CtrlCurrentPosition;//当前播放的时间进度
     qint64 m_CtrlDuration;//视频总时长
-    QString* m_CutScreenFile;//截图路径
+    QString m_CutScreenFile;//截图路径
+    PlayOrder m_order;//播放顺序
 };
 
 #endif // CONTROLLER_H

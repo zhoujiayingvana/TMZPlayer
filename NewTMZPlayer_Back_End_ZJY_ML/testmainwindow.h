@@ -3,10 +3,11 @@
   **/
 #ifndef TESTMAINWINDOW_H
 #define TESTMAINWINDOW_H
-
+#include <QKeySequence>
 #include <QMainWindow>
 #include <QVideoWidget>
 #include "util/media.h"
+#include "util/histories.h"
 namespace Ui {
 class TestMainWindow;
 }
@@ -24,6 +25,7 @@ private:
     Media* media;
     QVideoWidget *myVideoWidget;
 private slots:
+    
     
     //接收按钮的播放状态，前端实现
     //播放

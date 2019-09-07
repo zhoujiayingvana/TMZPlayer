@@ -3,19 +3,12 @@
 #include "debug.h"
 #include <QUrl>
 //Debug *myDebug=new Debug();
-QUrl url("../vid/t3.avi");
-QMediaContent *mediaContent=new QMediaContent(url);
-
 TestMainWindow::TestMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::TestMainWindow)
 {
     ui->setupUi(this);
     this->media=new Media();
-    
-
-    //添加视频播放窗口
-    //media->getPlayWindow()->setVideoOutput(ui->);//ui里面找不到videoWidget
     myVideoWidget=new QVideoWidget();
     myVideoWidget->setParent(this);
     myVideoWidget->resize(291,151);
@@ -25,7 +18,22 @@ TestMainWindow::TestMainWindow(QWidget *parent) :
     QPalette palette(myVideoWidget->palette());
     palette.setColor(QPalette::Background, Qt::black);
     myVideoWidget->setPalette(palette);
-    media->getController()->testPlay(mediaContent);
+    QString str("CTRL+A");
+    ui->pauseButton->setShortcut(QKeySequence(str.toLatin1().data()));
+    
+    
+    //测试收藏夹功能
+    //添加收藏夹
+    this->media->testRun();
+    //播放视频
+    this->media->play(0,0);
+    
+    
+    
+//    //测试历史记录功能
+//    this->media->play("../vid/t3.avi");
+    
+//    //测试播放速度功能
 
 }
 
@@ -51,7 +59,7 @@ void TestMainWindow::on_terminateButton_clicked()
 
 void TestMainWindow::on_nextButton_clicked()
 {
-    
+    media->playNext();
 }
 
 
@@ -92,7 +100,6 @@ void TestMainWindow::on_screenCutButton_clicked()
     QDateTime local(QDateTime::currentDateTime());
     QString localTime = local.toString("yyMMddhhmmss");
     QString fileName="ScreenCutByTMZPlayer"+localTime;
-    QString path="E:/QT/";
-    QString filePath=path+fileName;
-    media->getController()->CutScreen(this->myVideoWidget->winId(),filePath,"jpg",-1);
+    QString filePath="../output/";
+    media->getController()->cutScreen(this->myVideoWidget->winId(),fileName,filePath,"jpg",-1);
 }

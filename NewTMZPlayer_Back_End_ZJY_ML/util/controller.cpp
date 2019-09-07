@@ -82,17 +82,33 @@ void Controller::setPlaybackRate(qreal rate)
     emit needSetPlaybackRate(rate);
 }
 
-QString Controller::CutScreen(WId wId, QString fileName, QString fmt, int qua)
+QString Controller::cutScreen(WId wId, QString fileName,QString filePath,QString fmt, int qua)
 {
-    emit needCutScreen(wId,fileName,fmt,qua);
-    if(this->m_CutScreenFile!=nullptr){
-        return *this->m_CutScreenFile;
-    }
-    else{
-        qDebug()<<"Error on screen cut";////////////////添加到error说明
+    emit needCutScreen(wId,fileName,filePath,fmt,qua);
+    //判断是否为空指针
+    if(this->m_CutScreenFile==nullptr){
+        qDebug()<<"Controller cutScreen() "<<Debug::getDebugErrorType(Debug::NULLPTR_ERROR);
         return nullptr;
     }
+    //判断文件是否生成
+    else if(!Debug::isFileExits(this->m_CutScreenFile)){
+        qDebug()<<"Controller cutScreen()"<<Debug::getDebugErrorType((Debug::FILE_EXIT_ERROR));
+        return nullptr;
+    }
+    return this->m_CutScreenFile;
 }
+
+void Controller::setOrder(PlayOrder order)
+{
+    emit needSetOrder(order);
+}
+
+PlayOrder Controller::getOrder()
+{
+    emit needGetOrder();
+    return this->m_order;
+}
+
 
 void Controller::receivePosition(qint64 pos)
 {
@@ -111,7 +127,12 @@ void Controller::receiveStatus(QMediaPlayer::State stus)
 
 void Controller::receiveScreenCut(QString fileName)
 {
-    this->m_CutScreenFile=&fileName;
+    this->m_CutScreenFile=fileName;
+}
+
+void Controller::receiveOrder(PlayOrder order)
+{
+    this->m_order=order;
 }
 
 //测试用函数

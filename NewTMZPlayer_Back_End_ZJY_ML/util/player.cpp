@@ -17,16 +17,28 @@ QMediaPlayer *Player::getPlayWindow()
     return this->m_Player;
 }
 
+qint64 Player::getDuration()
+{
+    return this->m_Duration;
+}
+
+QMediaPlayer *Player::getPlayer()
+{
+    return this->m_Player;
+}
+
 void Player::needPlay( QMediaContent *content)
 {
     this->m_Player->setMedia(*content);
+    this->needGetDuration();
+    this->needGetPosition();
+    this->needGetStatus();
     this->m_Player->play();
 }
 
 void Player::needGetDuration()
 {
     this->m_Duration=this->m_Player->duration();
-    qDebug()<<this->m_Duration;
     emit returnDuration(this->m_Duration);
 }
 
@@ -54,6 +66,14 @@ void Player::needPauseVideo()
 
 void Player::needTerminateVideo()
 {
+    //记录当前播放的位置
+    this->m_CurrentPosition=this->m_Player->position();
+    //如果播放完毕，则设为0
+    if(this->m_CurrentPosition==this->m_Duration){
+        this->m_CurrentPosition=0;
+    }
+    //向media发送播放位置
+    emit returnPositionToHis(this->m_CurrentPosition);
     this->m_Player->stop();
 }
 
@@ -85,9 +105,8 @@ void Player::needSetPlaybackRate(qreal rate)
     this->m_Player->setPlaybackRate(rate);
 }
 
-void Player::needCutScreen(WId wId, QString fileName,QString fmt,int qua)
+void Player::needCutScreen(WId wId, QString fileName, QString filePath, QString fmt, int qua)
 {
-    
     QScreen *screen = QGuiApplication::primaryScreen();
     int quality=-1;
     QString format("jpg");
@@ -95,22 +114,19 @@ void Player::needCutScreen(WId wId, QString fileName,QString fmt,int qua)
     if(qua>=0&&qua<=100){
         quality=qua;
     }
-    
-    if(fmt.compare(QString("jpg"))){
+    //检查图片格式是否合法
+    if(Debug::isScresenCutFormatLegal(fmt)){
         format=fmt;
     }
-    else if(fmt.compare(QString("png"))){
-        format=fmt;
+    else{
+        qDebug()<<"Player needCutScreen() "<<Debug::getDebugErrorType(Debug::MyErrors::SCREEN_CUT_FORMAT_ERROR);
+        return;
+        }
+    if(!Debug::isFileDirExits(filePath)){
+        qDebug()<<"Player needCutScreen() "<<Debug::getDebugErrorType(Debug::MyErrors::FILE_PATH_ERROR);
+        return;
     }
-    else if(fmt.compare((QString("webp")))){
-        format=fmt;
-    }
-    
-    fileName=fileName+"."+fmt;
-    qDebug()<<fileName;
-    char*  ch;
-    QByteArray ba = format.toUtf8();    
-    ch=ba.data();
-    screen->grabWindow(wId).save(fileName,ch,quality);
-    emit this->returnScreenCut(fileName);
+    QString fullPath=filePath+fileName+"."+fmt;
+    screen->grabWindow(wId).save(fullPath,Debug::QString2Char(fmt),quality);
+    emit this->returnScreenCut(fullPath);
 };
