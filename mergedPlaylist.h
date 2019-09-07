@@ -5,6 +5,7 @@
 #include "playlistbtn.h"
 
 #include <QWidget>
+#include <QHeaderView>
 
 class mergedPlaylist : public QWidget
 {
@@ -19,6 +20,7 @@ signals:
   void givingListName(QString);
   void hideContentsExceptThisSignal(int);
   void hideContentSignal();
+  void allowDragAndMenuSignal();
 
 public slots:
   void showOrHideListContentSlot(bool);
@@ -28,6 +30,7 @@ public slots:
   void leftBarListFilesChangeSlot(int,QList<QString>);
   void wantingNameSlot(QString);
   void hideContentSlot();
+  void deleteListRequestAnswering();
 
 private:
   playlistBtn* listBtn;

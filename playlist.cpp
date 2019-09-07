@@ -139,6 +139,8 @@ void playList::addFiles()
       //第2列存放地址QString
       QTableWidgetItem *item = new QTableWidgetItem(fileNames.at(i));
       this->setItem(row, 2, item);
+      this->item(row, 2)->setFont(QFont("宋体",-1,-1,true));
+      this->item(row, 2)->setForeground(QBrush(QColor(105, 105, 105)));
 
       //第0列存放行数
       int temp = this->rowCount();
@@ -175,6 +177,7 @@ void playList::deleteFileFromList()
 
   emit changeFilesInListSignal(currentSN,temp_filesInList);
   emit leftBarListFilesChangeSignal(currentSN,temp_filesInList);
+  emit downloadFilesChangesSignal(currentSN,temp_filesInList);
 }
 
 /* Author: zyt
@@ -259,6 +262,8 @@ void playList::recevingSNAndFiles(int sn,QList<QString> files)
       //第2列存放地址QString
       QTableWidgetItem *item = new QTableWidgetItem(files.at(i));
       this->setItem(row, 2, item);
+      this->item(row, 2)->setFont(QFont("宋体",-1,-1,true));
+      this->item(row, 2)->setForeground(QBrush(QColor(105, 105, 105)));
 
       //第0列存放行数
       int temp = this->rowCount();
@@ -304,6 +309,8 @@ void playList::showChangedListSlot(int sn, QList<QString> files)
           //第2列存放地址QString
           QTableWidgetItem *item = new QTableWidgetItem(files.at(i));
           this->setItem(row, 2, item);
+          this->item(row, 2)->setFont(QFont("宋体",-1,-1,true));
+          this->item(row, 2)->setForeground(QBrush(QColor(105, 105, 105)));
 
           //第0列存放行数
           int temp = this->rowCount();
@@ -381,6 +388,8 @@ void playList::dropEvent(QDropEvent *event)
           //第2列存放地址QString
           QTableWidgetItem *item = new QTableWidgetItem(toBeAddedFiles.at(i));
           this->setItem(row, 2, item);
+          this->item(row, 2)->setFont(QFont("宋体",-1,-1,true));
+          this->item(row, 2)->setForeground(QBrush(QColor(105, 105, 105)));
 
           //第0列存放行数
           int temp = this->rowCount();

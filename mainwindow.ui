@@ -169,15 +169,39 @@
     <string>列表名字</string>
    </property>
   </widget>
-  <widget class="historyList" name="listWidget">
+  <widget class="QScrollArea" name="historyList">
    <property name="geometry">
     <rect>
-     <x>1180</x>
+     <x>1190</x>
      <y>0</y>
      <width>221</width>
      <height>591</height>
     </rect>
    </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="rightsideBar">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>219</width>
+      <height>589</height>
+     </rect>
+    </property>
+    <widget class="QWidget" name="verticalLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>50</y>
+       <width>160</width>
+       <height>481</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="historyLayout"/>
+    </widget>
+   </widget>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
@@ -186,11 +210,6 @@
    <class>playList</class>
    <extends>QTableWidget</extends>
    <header location="global">playlist.h</header>
-  </customwidget>
-  <customwidget>
-   <class>historyList</class>
-   <extends>QListWidget</extends>
-   <header>historylist.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

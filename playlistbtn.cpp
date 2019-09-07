@@ -39,7 +39,8 @@ playlistBtn::playlistBtn(int sn,QWidget *parent) : QPushButton(parent)
   statusPix->move(0,0);
 
   listName = new newLineEdit(this);
-  listName->setText("新建列表");
+  QString name = QString("新建列表%1").arg(sn);
+  listName->setText(name);
   listName->setFixedHeight(17);
   listName->move(17,0);
   listName->setReadOnly(true);
@@ -205,6 +206,7 @@ void playlistBtn::listNameCallMenuSlot(QPoint pos)
   QAction *deleteList = menu->addAction("删除列表");
 
   connect(rename,SIGNAL(triggered()),this,SLOT(renameSlot()));
+  connect(deleteList,SIGNAL(triggered()),this,SLOT(deleteListSlot()));
 
   menu->exec(QCursor::pos());
 }

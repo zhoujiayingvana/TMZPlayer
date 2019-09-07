@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "mini.h"
+#include "history.h"
 #include "mergedPlaylist.h"
 
 #include <QList>
@@ -68,6 +69,11 @@ private:
   QPushButton* addListBtn;
 
   QList<mergedPlaylist*> playlistsContainer;
+  QList<history*> historyContainer;
+
+  history* test;
+
+  QList<QString> downloadSongs;
 
 private slots:
 
@@ -101,7 +107,9 @@ private slots:
 
   void addListSlot();
 
-  void deleteListSlot();
+  void showDownloadList();
+
+  void downloadFilesChangesSlot(int,QList<QString>);
 
   void sendingFavoritesNameSlot(QString);
 
@@ -109,7 +117,7 @@ private slots:
 
   void hideContentsExceptThisSlot(int);
 
-
+  void allowDragAndMenuSlot();
 
 protected:
 

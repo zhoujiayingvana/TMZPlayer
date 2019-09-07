@@ -70,15 +70,12 @@ mainWindow::mainWindow(QWidget *parent) :
   ui->showLeftBarBtn->setVisible(false);
   ui->showRightBarBtn->setVisible(false);
 
-  QStringList headers;
-  headers << "" << "" << "" << "";
-  ui->historyList->setFixedWidth(180);
-  ui->historyList->setColumnWidth(1,20);
-  ui->historyList->setHorizontalHeaderLabels(headers);
-  ui->historyList->setColumnWidth(2,100);
-  ui->historyList->setColumnHidden(3,true);
+  historyContainer.append(new history);
+  ui->historyLayout->setAlignment(Qt::AlignTop);
+  ui->historyLayout->addWidget(historyContainer.last());
+  ui->rightsideBar->setLayout(ui->historyLayout);
 
-  if(mainWindow::whetherInitializeListButton())
+  if(whetherInitializeListButton())
     {
       // 显示用户的播放列表记录
     }
@@ -89,6 +86,9 @@ mainWindow::mainWindow(QWidget *parent) :
   connect(mini,SIGNAL(miniToMaxSignal()),this,SLOT(miniToMaxSlot()));
   connect(mini,SIGNAL(miniToTraySignal()),this,SLOT(miniToTraySlot()));
   connect(addListBtn,SIGNAL(clicked()),this,SLOT(addListSlot()));
+  connect(downloadListBtn,SIGNAL(clicked()),this,SLOT(showDownloadList()));
+  connect(ui->displayList,SIGNAL(downloadFilesChangesSignal(int,QList<QString>)),
+          this,SLOT(downloadFilesChangesSlot(int,QList<QString>)));
 }
 
 mainWindow::~mainWindow()
@@ -142,16 +142,40 @@ void mainWindow::addListSlot()
           this,
           SLOT(hideContentsExceptThisSlot(int)));
 
-
+  connect(playlistsContainer.at(playlistsContainer.length()-1),
+          SIGNAL(allowDragAndMenuSignal()),
+          this,
+          SLOT(allowDragAndMenuSlot()));
 }
 
 /* Author: zyt
- * Name: deleteListSlot
- * Function: 槽：删除选定的播放列表
+ * Name: showDownloadList
+ * Function: 槽：显示我的下载列表
  */
-void mainWindow::deleteListSlot()
+void mainWindow::showDownloadList()
 {
+  //我的下载SN为0
+  ui->displayList->recevingSNAndFiles(0,downloadSongs);
+  ui->listNameLabel->setText("我的下载");
 
+  //不允许右键点击事件
+  ui->displayList->setEditTriggers(QAbstractItemView::NoEditTriggers);
+  ui->displayList->setContextMenuPolicy(Qt::NoContextMenu);
+
+  //不允许拖拽文件进入
+  ui->displayList->setAcceptDrops(false);
+}
+
+/* Author: zyt
+ * Name: downloadFilesChangesSlot
+ * Function: 若我的下载列表内文件发生改变，修改存储列表内的对应文件
+ */
+void mainWindow::downloadFilesChangesSlot(int sn, QList<QString> files)
+{
+  if(sn == 0)
+    {
+      downloadSongs = files;
+    }
 }
 
 /* Author: zyt
@@ -185,6 +209,20 @@ void mainWindow::hideContentsExceptThisSlot(int exceptSN)
           emit playlistsContainer.at(i)->hideContentSignal();
         }
     }
+}
+
+/* Author: zyt
+ * Name: allowDragAndMenuSlot
+ * Function: 槽：允许列表的文件拖拽和右键事件
+ */
+void mainWindow::allowDragAndMenuSlot()
+{
+  //允许右键点击事件
+  ui->displayList->setEditTriggers(QAbstractItemView::NoEditTriggers);
+  ui->displayList->setContextMenuPolicy(Qt::CustomContextMenu);
+
+  //允许拖拽文件进入
+  ui->displayList->setAcceptDrops(true);
 }
 
 /* Author: zyt

@@ -24,6 +24,7 @@ mergedPlaylist::mergedPlaylist(QWidget *parent) : QWidget(parent)
   listContent->setColumnHidden(0,true);
   listContent->setColumnHidden(2,true);
   listContent->setColumnWidth(1,120);
+  listContent->horizontalHeader()->setVisible(false);
 
   QVBoxLayout* playlistLayout = new QVBoxLayout;
   playlistLayout->addWidget(listBtn);
@@ -33,6 +34,9 @@ mergedPlaylist::mergedPlaylist(QWidget *parent) : QWidget(parent)
 
   connect(listBtn,SIGNAL(showOrHideListContentSignal(bool)),
           this,SLOT(showOrHideListContentSlot(bool)));
+
+  connect(listBtn,SIGNAL(deleteListRequest()),
+          this,SLOT(deleteListRequestAnswering()));
 
   connect(listContent,SIGNAL(changeFilesInListSignal(int,QList<QString>)),
           this,SLOT(changeFilesInListSlot(int,QList<QString>)));
@@ -66,6 +70,7 @@ int mergedPlaylist::getSN()
  */
 void mergedPlaylist::showOrHideListContentSlot(bool isClicked)
 {
+  emit allowDragAndMenuSignal();
   if(isClicked)
     {
       listContent->setVisible(true);
@@ -163,4 +168,13 @@ void mergedPlaylist::hideContentSlot()
 {
   this->listBtn->setIsClicked(false);
   this->listContent->setVisible(false);
+}
+
+/* Author: zyt
+ * Name: deleteListRequestAnswering
+ * Function: 槽：删除对应的列表
+ */
+void mergedPlaylist::deleteListRequestAnswering()
+{
+  delete this;
 }
