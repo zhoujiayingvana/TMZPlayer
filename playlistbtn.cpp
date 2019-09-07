@@ -25,7 +25,6 @@ playlistBtn::playlistBtn(int sn,QWidget *parent) : QPushButton(parent)
   singleClickedTimer = new QTimer(this);
   singleClickedTimer->setSingleShot(true);
   connect(singleClickedTimer,SIGNAL(timeout()),this,SIGNAL(singleClickedSignal()));
-  connect(this,SIGNAL(singleClickedSignal()),this,SLOT(singleClickedSlot()));
   connect(this,SIGNAL(doubleClickedSignal()),this,SLOT(doubleClickedSlot()));
 
   btn_SN = sn;
@@ -62,6 +61,24 @@ playlistBtn::playlistBtn(int sn,QWidget *parent) : QPushButton(parent)
 int playlistBtn::getSN()
 {
   return btn_SN;
+}
+
+/* Author: zyt
+ * Name: getIsClicked
+ * Function: 获取列表是否点击状态
+ */
+bool playlistBtn::getIsClicked()
+{
+  return isClicked;
+}
+
+/* Author: zyt
+ * Name: setIsClicked
+ * Function: 设置isClicked状态
+ */
+void playlistBtn::setIsClicked(bool status)
+{
+  isClicked = status;
 }
 
 /* Author: zyt
@@ -137,6 +154,7 @@ void playlistBtn::showListSlot()
   isClicked = !isClicked;
   if(isClicked)
     {
+      emit hideOtherContentsSignal(getSN());
       statusPix->setPixmap(QPixmap(":/image/image/btn_down_n.png"));
       emit showOrHideListContentSignal(isClicked);      
     }
@@ -145,6 +163,15 @@ void playlistBtn::showListSlot()
       statusPix->setPixmap(QPixmap(":/image/image/btn_right_1_n.png"));
       emit showOrHideListContentSignal(isClicked);
     }
+}
+
+/* Author: zyt
+ * Name: hideContentSlot
+ * Function: 隐藏文件内容
+ */
+void playlistBtn::hideContentSlot()
+{
+  isClicked = false;
 }
 
 /* Author: zyt
@@ -183,15 +210,6 @@ void playlistBtn::listNameCallMenuSlot(QPoint pos)
 }
 
 /* Author: zyt
- * Name: singleCilckedSlot
- * Function: 槽：识别单击后什么都不做
- */
-void playlistBtn::singleClickedSlot()
-{
-  // do nothing
-}
-
-/* Author: zyt
  * Name: doubleClickedSlot
  * Function: 槽：识别双击后将该列表内容显示在右侧的displayList内
  */
@@ -213,6 +231,7 @@ void playlistBtn::mousePressEvent(QMouseEvent *event)
       isClicked = !isClicked;
       if(isClicked)
         {
+          emit hideOtherContentsSignal(getSN());
           statusPix->setPixmap(QPixmap(":/image/image/btn_down_n.png"));
           emit showOrHideListContentSignal(isClicked);
         }

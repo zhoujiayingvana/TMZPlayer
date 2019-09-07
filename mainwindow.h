@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include "mini.h"
-#include "favorites.h"
 #include "mergedPlaylist.h"
 
 #include <QList>
@@ -62,8 +61,6 @@ private:
   bool isPlaying;
 
   Mini* mini;
-
-  favorites* favoritesBtn;
   QPushButton* downloadListBtn;
 
   QGroupBox* listBox;
@@ -106,11 +103,12 @@ private slots:
 
   void deleteListSlot();
 
-  void displayFavoritesSlot();
-
   void sendingFavoritesNameSlot(QString);
 
   void receivingListName(QString);
+
+  void hideContentsExceptThisSlot(int);
+
 
 
 protected:

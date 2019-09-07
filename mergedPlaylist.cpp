@@ -21,8 +21,9 @@ mergedPlaylist::mergedPlaylist(QWidget *parent) : QWidget(parent)
 
   listContent->setCurrentSN(SN);
 
-  listContent->setColumnHidden(1,false);
-  listContent->setColumnHidden(3,false);
+  listContent->setColumnHidden(0,true);
+  listContent->setColumnHidden(2,true);
+  listContent->setColumnWidth(1,120);
 
   QVBoxLayout* playlistLayout = new QVBoxLayout;
   playlistLayout->addWidget(listBtn);
@@ -43,6 +44,18 @@ mergedPlaylist::mergedPlaylist(QWidget *parent) : QWidget(parent)
 
   connect(listBtn,SIGNAL(wantingName(QString)),this,SLOT(wantingNameSlot(QString)));
 
+  connect(listBtn,SIGNAL(hideOtherContentsSignal(int)),this,SLOT(hideOtherContentsSlot(int)));
+
+  connect(this,SIGNAL(hideContentSignal()),this,SLOT(hideContentSlot()));
+}
+
+/* Author: zyt
+ * Name: getSN
+ * Function: 返回SN
+ */
+int mergedPlaylist::getSN()
+{
+  return SN;
 }
 
 /* Author: zyt
@@ -61,6 +74,16 @@ void mergedPlaylist::showOrHideListContentSlot(bool isClicked)
     {
       listContent->setVisible(false);
     }
+}
+
+/* Author: zyt
+ * Name: hideOtherContentsSlot
+ * Function: 保证一次只能显示一个列表的内容
+ * Parameter: unfoldSN：不做处理的sn按钮
+ */
+void mergedPlaylist::hideOtherContentsSlot(int unfoldSN)
+{
+  emit hideContentsExceptThisSignal(unfoldSN);
 }
 
 /* Author: zyt
@@ -94,19 +117,19 @@ void mergedPlaylist::changeFilesInListSlot(int currentSN, QList<QString> temp_fi
           int row = listContent->rowCount();
           listContent->insertRow(row);
 
-          //第0列存放地址QString
+          //第2列存放地址QString
           QTableWidgetItem *item = new QTableWidgetItem(filesInList.at(i));
-          listContent->setItem(row, 0, item);
+          listContent->setItem(row, 2, item);
 
-          //第1列存放行数
+          //第0列存放行数
           int temp = listContent->rowCount();
           QString tempStr = QString::number(temp);
           item = new QTableWidgetItem(tempStr);//第几行
-          listContent->setItem(row, 1, item);
+          listContent->setItem(row, 0, item);
 
-          //第2列存放名字
+          //第1列存放名字
           item = new QTableWidgetItem(listContent->getFileName(filesInList.at(i)));
-          listContent->setItem(row, 2, item);
+          listContent->setItem(row, 1, item);
         }
 
     }
@@ -130,4 +153,14 @@ void mergedPlaylist::leftBarListFilesChangeSlot(int sn, QList<QString> files)
 void mergedPlaylist::wantingNameSlot(QString name)
 {
   emit givingListName(name);
+}
+
+/* Author: zyt
+ * Name: hideContentSlot
+ * Function: 槽：隐藏该列表的内容，并设置isClicked为false
+ */
+void mergedPlaylist::hideContentSlot()
+{
+  this->listBtn->setIsClicked(false);
+  this->listContent->setVisible(false);
 }

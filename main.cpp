@@ -1,11 +1,7 @@
-#include "mini.h"
-#include "playlist.h"
 #include "mainwindow.h"
-#include "favorites.h"
 #include "playlistbtn.h"
 
 #include <QApplication>
-
 
 int main(int argc, char *argv[])
 {

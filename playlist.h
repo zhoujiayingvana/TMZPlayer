@@ -59,8 +59,6 @@ private:
    */
   QList<QString> temp_filesInList;
 
-  QPushButton* likeBtn; //没做
-
 protected:
   void dragEnterEvent(QDragEnterEvent*);
   void dragMoveEvent(QDragMoveEvent*);

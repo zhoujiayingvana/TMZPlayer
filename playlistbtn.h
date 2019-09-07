@@ -22,9 +22,12 @@ class playlistBtn : public QPushButton
 public:
   explicit playlistBtn(int sn, QWidget *parent = nullptr);
   int getSN();
+  bool getIsClicked();
+  void setIsClicked(bool);
 
 signals:
   void showOrHideListContentSignal(bool);
+  void hideOtherContentsSignal(int);
   void deleteListRequest();
   void singleClickedSignal();
   void doubleClickedSignal();
@@ -35,14 +38,13 @@ public slots:
   void renameSlot();
   void deleteListSlot();
   void showListSlot();
+  void hideContentSlot();
   void displayListSlot();
   void editingFinishedSlot();
   void listNameCallMenuSlot(QPoint);
-
-  void singleClickedSlot();
   void doubleClickedSlot();
-private:
 
+private:
   bool isClicked;
   QLabel* statusPix;
   newLineEdit* listName;

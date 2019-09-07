@@ -80,6 +80,9 @@
      <height>561</height>
     </rect>
    </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
    <property name="widgetResizable">
     <bool>true</bool>
    </property>
@@ -112,16 +115,6 @@
      <y>80</y>
      <width>781</width>
      <height>511</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="playList" name="historyList">
-   <property name="geometry">
-    <rect>
-     <x>1180</x>
-     <y>0</y>
-     <width>221</width>
-     <height>591</height>
     </rect>
    </property>
   </widget>
@@ -176,6 +169,16 @@
     <string>列表名字</string>
    </property>
   </widget>
+  <widget class="historyList" name="listWidget">
+   <property name="geometry">
+    <rect>
+     <x>1180</x>
+     <y>0</y>
+     <width>221</width>
+     <height>591</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -183,6 +186,11 @@
    <class>playList</class>
    <extends>QTableWidget</extends>
    <header location="global">playlist.h</header>
+  </customwidget>
+  <customwidget>
+   <class>historyList</class>
+   <extends>QListWidget</extends>
+   <header>historylist.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

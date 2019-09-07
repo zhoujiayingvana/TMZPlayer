@@ -34,18 +34,6 @@ mainWindow::mainWindow(QWidget *parent) :
   mini = new Mini(this);
   sysTrayIcon = new QSystemTrayIcon(this);
 
-  favoritesBtn = new favorites(this);
-  favoritesBtn->setFlat(true);
-  favoritesBtn->setText(" 我的收藏");
-  favoritesBtn->setFixedHeight(35);
-  QFont favoritesBtnFont = favoritesBtn->font();
-  favoritesBtnFont.setPointSize(11);
-  favoritesBtn->setStyleSheet("text-align: left;");
-  favoritesBtn->setFont(favoritesBtnFont);
-  QIcon likeIcon(":/image/image/musicform/btn_like_n.png");
-  favoritesBtn->setIcon(likeIcon);
-  favoritesBtn->setIconSize(QSize(20,20));
-
   downloadListBtn = new QPushButton(this);
   downloadListBtn->setFlat(true);
   downloadListBtn->setText(" 我的下载");
@@ -69,7 +57,6 @@ mainWindow::mainWindow(QWidget *parent) :
   addListBtn->setFlat(true);
 
   ui->leftsideBarLayout->setAlignment(Qt::AlignTop);
-  ui->leftsideBarLayout->addWidget(favoritesBtn);
   ui->leftsideBarLayout->addWidget(downloadListBtn);
   ui->leftsideBarLayout->addWidget(listBox);
   ui->leftsideBar->setLayout(ui->leftsideBarLayout);
@@ -102,15 +89,6 @@ mainWindow::mainWindow(QWidget *parent) :
   connect(mini,SIGNAL(miniToMaxSignal()),this,SLOT(miniToMaxSlot()));
   connect(mini,SIGNAL(miniToTraySignal()),this,SLOT(miniToTraySlot()));
   connect(addListBtn,SIGNAL(clicked()),this,SLOT(addListSlot()));
-  connect(favoritesBtn,SIGNAL(clicked()),favoritesBtn,SLOT(favoritesBtnClickedSlot()));
-  connect(favoritesBtn,SIGNAL(sendingFavoritesSNAndFiles(int,QList<QString>)),
-          ui->displayList,SLOT(recevingSNAndFiles(int,QList<QString>)));
-  connect(ui->displayList,
-          SIGNAL(changeFilesInListSignal(int,QList<QString>)),
-          favoritesBtn,
-          SLOT(changeFilesInListSlot(int,QList<QString>)));
-  connect(favoritesBtn,SIGNAL(sendingFavoritesNameSignal(QString)),
-          this,SLOT(sendingFavoritesNameSlot(QString)));
 }
 
 mainWindow::~mainWindow()
@@ -158,6 +136,13 @@ void mainWindow::addListSlot()
           SIGNAL(givingListName(QString)),
           this,
           SLOT(receivingListName(QString)));
+
+  connect(playlistsContainer.at(playlistsContainer.length()-1),
+          SIGNAL(hideContentsExceptThisSignal(int)),
+          this,
+          SLOT(hideContentsExceptThisSlot(int)));
+
+
 }
 
 /* Author: zyt
@@ -167,12 +152,6 @@ void mainWindow::addListSlot()
 void mainWindow::deleteListSlot()
 {
 
-}
-
-
-void mainWindow::displayFavoritesSlot()
-{
-  qDebug() << "ok";
 }
 
 /* Author: zyt
@@ -193,7 +172,20 @@ void mainWindow::receivingListName(QString listname)
   ui->listNameLabel->setText(listname);
 }
 
-
+/* Author: zyt
+ * Name: hideContentsExceptThisSlot
+ * Function: 收起除了该exceptSN的左侧列表
+ */
+void mainWindow::hideContentsExceptThisSlot(int exceptSN)
+{
+  for(int i = 0; i < playlistsContainer.length(); i++)
+    {
+      if(playlistsContainer.at(i)->getSN() != exceptSN)
+        {
+          emit playlistsContainer.at(i)->hideContentSignal();
+        }
+    }
+}
 
 /* Author: zyt
  * Name: on_hideLeftBarBtn_clicked

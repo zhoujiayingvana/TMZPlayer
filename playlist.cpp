@@ -38,21 +38,20 @@ playList::playList(QWidget *parent) : QTableWidget(parent)
 
   /* NOTICE:
    * 存放歌曲/视频的tableWidget
-   * 第0列是文件地址QString（已隐藏该列）
+   * 第0列是序号
    * 第1列是文件名字
-   * 第2列是是否收藏的按钮
+   * 第2列是文件地址
    */
   QStringList headers;
-  headers << "绝对地址" << "" << "歌名" << "";
-  this->setColumnCount(4);
-  this->setColumnHidden(0,true);
+  headers << "" << "名字" << "地址";
+  this->setColumnCount(3);
   this->verticalHeader()->hide();
   this->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
   this->horizontalHeader()->setStretchLastSection(true);
   this->setHorizontalHeaderLabels(headers);
-  this->setColumnWidth(1,50);
-  this->setColumnWidth(2,180);
-  this->setColumnWidth(3,50);
+  this->setColumnWidth(0,35);
+  this->setColumnWidth(1,350);
+  this->setColumnWidth(2,100);
   this->setSelectionBehavior(QAbstractItemView::SelectRows);
   this->setSelectionMode(QAbstractItemView::SingleSelection);
   this->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -137,19 +136,19 @@ void playList::addFiles()
       //以private：QList<QString>存储该列表的文件地址
       temp_filesInList.append(fileNames.at(i));
 
-      //第0列存放地址QString
+      //第2列存放地址QString
       QTableWidgetItem *item = new QTableWidgetItem(fileNames.at(i));
-      this->setItem(row, 0, item);
+      this->setItem(row, 2, item);
 
-      //第1列存放行数
+      //第0列存放行数
       int temp = this->rowCount();
       QString tempStr = QString::number(temp);
       item = new QTableWidgetItem(tempStr);//第几行
-      this->setItem(row, 1, item);
+      this->setItem(row, 0, item);
 
-      //第2列存放名字
+      //第1列存放名字
       item = new QTableWidgetItem(getFileName(fileNames.at(i)));
-      this->setItem(row, 2, item);
+      this->setItem(row, 1, item);
     }
   emit changeFilesInListSignal(currentSN,temp_filesInList);
 }
@@ -175,6 +174,7 @@ void playList::deleteFileFromList()
     }
 
   emit changeFilesInListSignal(currentSN,temp_filesInList);
+  emit leftBarListFilesChangeSignal(currentSN,temp_filesInList);
 }
 
 /* Author: zyt
@@ -224,6 +224,7 @@ void playList::deleteFileFromDisk()
     }
 
   emit changeFilesInListSignal(currentSN,temp_filesInList);
+  emit leftBarListFilesChangeSignal(currentSN,temp_filesInList);
 }
 
 /* Author: zyt
@@ -255,19 +256,19 @@ void playList::recevingSNAndFiles(int sn,QList<QString> files)
       //以private：QList<QString>存储该列表的文件地址
       temp_filesInList.append(files.at(i));
 
-      //第0列存放地址QString
+      //第2列存放地址QString
       QTableWidgetItem *item = new QTableWidgetItem(files.at(i));
-      this->setItem(row, 0, item);
+      this->setItem(row, 2, item);
 
-      //第1列存放行数
+      //第0列存放行数
       int temp = this->rowCount();
       QString tempStr = QString::number(temp);
       item = new QTableWidgetItem(tempStr);//第几行
-      this->setItem(row, 1, item);
+      this->setItem(row, 0, item);
 
-      //第2列存放名字
+      //第1列存放名字
       item = new QTableWidgetItem(getFileName(files.at(i)));
-      this->setItem(row, 2, item);
+      this->setItem(row, 1, item);
     }
 }
 
@@ -300,19 +301,19 @@ void playList::showChangedListSlot(int sn, QList<QString> files)
           //以private：QList<QString>存储该列表的文件地址
           temp_filesInList.append(files.at(i));
 
-          //第0列存放地址QString
+          //第2列存放地址QString
           QTableWidgetItem *item = new QTableWidgetItem(files.at(i));
-          this->setItem(row, 0, item);
+          this->setItem(row, 2, item);
 
-          //第1列存放行数
+          //第0列存放行数
           int temp = this->rowCount();
           QString tempStr = QString::number(temp);
           item = new QTableWidgetItem(tempStr);//第几行
-          this->setItem(row, 1, item);
+          this->setItem(row, 0, item);
 
-          //第2列存放名字
+          //第1列存放名字
           item = new QTableWidgetItem(getFileName(files.at(i)));
-          this->setItem(row, 2, item);
+          this->setItem(row, 1, item);
         }
     }
 }
@@ -377,19 +378,19 @@ void playList::dropEvent(QDropEvent *event)
           //以private：QList<QString>存储该列表的文件地址
           temp_filesInList.append(toBeAddedFiles.at(i));
 
-          //第0列存放地址QString
+          //第2列存放地址QString
           QTableWidgetItem *item = new QTableWidgetItem(toBeAddedFiles.at(i));
-          this->setItem(row, 0, item);
+          this->setItem(row, 2, item);
 
-          //第1列存放行数
+          //第0列存放行数
           int temp = this->rowCount();
           QString tempStr = QString::number(temp);
           item = new QTableWidgetItem(tempStr);//第几行
-          this->setItem(row, 1, item);
+          this->setItem(row, 0, item);
 
-          //第2列存放名字
+          //第1列存放名字
           item = new QTableWidgetItem(getFileName(toBeAddedFiles.at(i)));
-          this->setItem(row, 2, item);
+          this->setItem(row, 1, item);
         }
 
     }
