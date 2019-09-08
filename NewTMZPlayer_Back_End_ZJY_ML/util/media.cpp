@@ -1,17 +1,19 @@
 ﻿#include "util/media.h"
 
-Media::Media(QWidget *parent)
-    : QWidget(parent), media_Histories(nullptr, "Retina", 12),
-      media_Folders(nullptr, "Retina")
+Media::Media():media_Histories(nullptr, "Retina", 12),
+    media_Folders(nullptr, "Retina"),
+    pyPath(QFileInfo("../util/get_urls.py").absoluteFilePath()),
+    username("Retina")
 {
     //初始化私有成员
     this->media_Player=new Player();
     this->media_Controller=new Controller();
     this->media_NetworkModel=new NetworkModel();
     this->media_Order=PlayOrder::ORDER_PLAY;//默认播放顺序为顺序播放
-    this->media_isFolders=false;
+    this->media_isFolders=true;
     this->media_Histories.startInit();
     this->media_Folders.startInit();
+    this->media_StartThread=false;
     
     //连接信号槽
     //获取视频信息
@@ -23,7 +25,7 @@ Media::Media(QWidget *parent)
     //获取视频播放状态
     connect(this->media_Controller,SIGNAL(needGetStatus()),this->media_Player,SLOT(needGetStatus()));
     connect(this->media_Player,SIGNAL(returnStatus(QMediaPlayer::State)),this->media_Controller,SLOT(receiveStatus(QMediaPlayer::State)));
-
+    
     //获取播放顺序
     connect(this->media_Controller,SIGNAL(needGetOrder()),this,SLOT(needGetOrder()));
     
@@ -59,7 +61,6 @@ Media::Media(QWidget *parent)
     
 }
 
-/////////////
 Media::~Media(){
     this->media_Histories.startClose();
     this->media_Folders.startClose();
@@ -83,13 +84,13 @@ void Media::testRun()
     // 选中收藏夹
     media_Folders.setPChosen(0);
     // 向其中添加歌曲
-    media_Folders.addContent2Folder(0, "w1", "../vid/t1.flv", true);
     media_Folders.addContent2Folder(0, "w2", "../vid/t2.mov", true);
+    media_Folders.addContent2Folder(0, "w1", "../vid/t1.flv", true);
     media_Folders.addContent2Folder(0, "w3", "../vid/t3.avi", true);
     // 选中收藏夹下的曲目
     //media_Folders.getPointedFolder().setPChosen(0);
     //播放
-//    this->play(0,0);
+    //    this->play(0,0);
     // 跳转到下一个随机的视频
     //media_Folders.getPointedFolder().setPChosen(media_Folders.getNextRankOfPointedFolder(PlayOrder::SHUFFLE));
 }
@@ -124,7 +125,7 @@ void Media::play(QString url)
     this->media_Histories.addContent(fileName, url, true, 0);
     this->media_Histories.setPChosen(0);
     this->media_Player->needPlay(this->media_Histories.getPointedMediaContent());
-
+    
 }
 //播放收藏夹视频，并添加到历史记录
 void Media::play(int folderNum, int fileNum)
@@ -138,6 +139,25 @@ void Media::play(int folderNum, int fileNum)
     
     
 }
+
+void Media::StartCreateGif(WId wid, QString fileName, QString filePath)
+{
+    //检查图片路径是否合法
+    if(!Debug::isFileDirExits(filePath)){
+        qDebug()<<"Media StartCreateGif() "<<Debug::getDebugErrorType(Debug::MyErrors::FILE_PATH_ERROR);
+        return;        
+    }
+    this->media_GifFullPath=filePath+fileName+".gif";
+    //开始gif录制线程
+    this->media_WId=wid;
+    this->start();
+}
+
+void Media::endCreateGif()
+{
+    //结束gif录制线程
+    this->media_StartThread=false;
+}
 //手动播放下一首
 void Media::playNext()
 {
@@ -145,16 +165,15 @@ void Media::playNext()
     this->media_Player->needTerminateVideo();
     //在收藏夹中播放下一首
     if(this->media_isFolders==true){
-        int nextIndex=media_Folders.getNextRankOfPointedFolder(this->media_Order);
-        if(nextIndex==-1){
+        int currentFoldersIndex=this->media_Folders.getPChosen();
+        int nextSongIndex=media_Folders.getNextRankOfPointedFolder(this->media_Order);
+        if(nextSongIndex==-1){
             //结束播放
             this->media_Player->needTerminateVideo();
             
         }
         else{
-            media_Folders.getPointedFolder().setPChosen(nextIndex);
-            
-            this->media_Player->needPlay(media_Folders.getPointedMediaContent());
+            this->play(currentFoldersIndex,nextSongIndex);
         }
         
     }
@@ -189,41 +208,155 @@ void Media::needGetOrder()
     emit returnOrder(this->media_Order);
 }
 
+void Media::makeSelfEmpty()
+{
+    //将最后一条历史纪录的位置信息写回数据库
+    this->media_Player->needTerminateVideo();
+    //关闭收藏夹和历史纪录，写回数据库
+    this->media_Histories.startClose();
+    this->media_Folders.startClose();
+}
+
+
 //自动播放下一首，私有槽函数
 void Media::playNext(QMediaPlayer::State state)
 {
     if(state==QMediaPlayer::StoppedState){
-    //自动播放下一首
-    if(this->media_Player->getPlayer()->position()==this->media_Player->getPlayer()->duration()){
-        //在收藏夹中自动播放
-        if(this->media_isFolders==true){
-            int nextIndex=media_Folders.getNextRankOfPointedFolder(this->media_Order);
-            if(nextIndex==-1){
-                //结束播放
-                this->media_Player->needTerminateVideo();
+        //自动播放下一首
+        if(this->media_Player->getPlayer()->position()==this->media_Player->getPlayer()->duration()){
+            //在收藏夹中自动播放
+            if(this->media_isFolders==true){
+                int nextIndex=media_Folders.getNextRankOfPointedFolder(this->media_Order);
+                if(nextIndex==-1){
+                    //结束播放
+                    this->media_Player->needTerminateVideo();
+                    
+                }
+                //播放视频并且将当前的
+                else{
+                    media_Folders.getPointedFolder().setPChosen(nextIndex);
+                    
+                    this->media_Player->needPlay(media_Folders.getPointedMediaContent());
+                }
                 
             }
-            else{
-                media_Folders.getPointedFolder().setPChosen(nextIndex);
-                
-                this->media_Player->needPlay(media_Folders.getPointedMediaContent());
-            }
-            
-        }
-        //在历史记录中自动播放
-        else {
-            int nextIndex=media_Histories.getNextRankByPlayOrder(PlayOrder::ORDER_PLAY);
-            if(nextIndex==-1){
-                //结束播放
-                this->media_Player->needTerminateVideo();
-            }
-            else{
-                media_Histories.setPChosen(nextIndex);
-                this->media_Player->needPlay(media_Histories.getPointedMediaContent());
+            //在历史记录中自动播放
+            else {
+                int nextIndex=media_Histories.getNextRankByPlayOrder(PlayOrder::ORDER_PLAY);
+                if(nextIndex==-1){
+                    //结束播放
+                    this->media_Player->needTerminateVideo();
+                }
+                else{
+                    media_Histories.setPChosen(nextIndex);
+                    this->media_Player->needPlay(media_Histories.getPointedMediaContent());
+                }
             }
         }
-    }
     }
     
 }
-//手动播放下一首
+
+void Media::run()
+{
+    int i=0;
+    QScreen *screen = QGuiApplication::primaryScreen();
+    this->media_StartThread=true;
+    //录制gif
+    while(this->media_StartThread){
+        QImage image=screen->grabWindow(this->media_WId).toImage();
+        //加入缓存图像队列中
+        this->media_QImageList.push_back(image);
+        //休眠13ms
+        QThread::msleep(100);
+        i++;
+    }
+    qDebug()<<"图片张数"<<i;
+    //生成gif
+
+    if(!this->media_QImageList.isEmpty()){
+        //获取图片宽高和生成路径
+        QImage tempImage=this->media_QImageList.at(0);
+        uint32_t width=tempImage.width();
+        uint32_t height=tempImage.height();
+        
+        
+        //初始化gif生成工具
+        Gif_H m_Gif;
+        Gif_H::GifWriter m_GifWriter;
+        if(!m_Gif.GifBegin(&m_GifWriter,Debug::QString2Char(this->media_GifFullPath),
+                           width,height,10)){
+            qDebug()<<"Media run() "<<Debug::getDebugErrorType(Debug::MyErrors::GIF_IMAGE_EXIT_ERROR);
+            this->quit();
+        }
+        //绘制gif
+        while(!this->media_QImageList.isEmpty()){
+            QImage image=this->media_QImageList.at(0);
+            //格式转换
+            image = image.convertToFormat(QImage::Format_RGBA8888);
+            this->media_QImageList.pop_front();//出队一个图片
+            //写入图片信息
+            m_Gif.GifWriteFrame(&m_GifWriter, image.constBits(), width, height, 10);
+        }
+        m_Gif.GifEnd(&m_GifWriter);
+        qDebug()<<"Gif create over.";
+    }
+    else {
+        qDebug()<<"Media run() "<<Debug::getDebugErrorType(Debug::MyErrors::GIF_IMAGE_EXIT_ERROR);
+    }
+    //退出线程
+    this->quit();
+}
+
+
+void Media::download2SongsTable(const QString& _what)
+{
+    QStringList args;
+    args.append(this->pyPath);
+    args.append(_what);
+    QString where("../user/%1.db");
+    where = where.arg(this->username);
+    QFileInfo fileInfo(where);
+    where = fileInfo.absoluteFilePath();
+    args.append(where);
+    QProcess::execute(QString("Python.exe"), args);
+}
+
+QList<QMap<QString, QString> > Media::songWebSearch(const QString& _what)
+{
+    // 第一步先下载所有的搜索词与之相关的曲目
+    this->download2SongsTable(_what);
+    // 第二步访问 db 获取所有内容
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");  // 使用默认方式读取db
+    db.setDatabaseName(QString("../user/%1.db").arg(this->username));
+    if (!db.open())  // 打开错误则显示
+    {
+        qDebug() << db.lastError().text();
+        throw MyErrors::WEB_SEARCH_ERROR;
+    }
+    QSqlQuery* query = new QSqlQuery(db);
+    QString sqlString("SELECT * FROM songs");
+    if (!query->exec(sqlString))
+    {
+        qDebug() << query->lastError().text();
+        throw MyErrors::WEB_SEARCH_ERROR;
+    }
+    QList<QMap<QString, QString> > ansList;
+    while (query->next())
+    {
+        QString songName = *(QString*)query->value("song_name").data();
+        QString songUrl = *(QString*)query->value("song_path").data();
+        QMap<QString, QString> map;
+        map.insert(songName, songUrl);
+        ansList.append(map);
+    }
+    if (ansList.length() <= 0)
+    {
+        qDebug() << "none map in the list" << endl;
+        throw MyErrors::WEB_SEARCH_ERROR;
+    }
+    DBFinisherThread* pThread = new DBFinisherThread(query, "songs", true);
+    pThread->run();
+    return ansList;
+}
+

@@ -1,8 +1,10 @@
 debug/debug.o
+debug/dbfinisherthread.o
 debug/foldershandler.o
 debug/historieshandler.o
 debug/main.o
 debug/testmainwindow.o
+debug/gif.o
 debug/controller.o
 debug/folder.o
 debug/foldercontent.o

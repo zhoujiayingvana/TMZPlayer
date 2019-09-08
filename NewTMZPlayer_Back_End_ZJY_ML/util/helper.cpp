@@ -119,6 +119,10 @@ const QString getErrorType(const MyErrors& _error)
         return QString("selecting an error historical content");
     case MyErrors::PLAY_ORDER_ERROR:
         return QString("play order out of expectation");
+    case MyErrors::WEB_SEARCH_ERROR:
+        return QString("web search error");
+    case MyErrors::EMPTY_TABLE_ERROR:
+        return QString("empty table error");
     default:
         return QString("unknown error");
     }

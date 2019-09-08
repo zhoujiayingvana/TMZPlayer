@@ -65,6 +65,8 @@ const QString Debug::getDebugErrorType(const MyErrors& err)
         return QString("Screen cur format Error");
     case MyErrors::FILE_EXIT_ERROR:
         return QString("File exit Error");
+    case MyErrors::GIF_IMAGE_EXIT_ERROR:
+        return QString("Gif image exit Error");
     default:
         return QString("Unknown Error");
     }

@@ -27,10 +27,12 @@ CONFIG += c++11
 
 SOURCES += \
     debug.cpp \
+    io/dbfinisherthread.cpp \
     io/foldershandler.cpp \
     io/historieshandler.cpp \
     main.cpp \
     testmainwindow.cpp \
+    tools/gif.cpp \
     util/controller.cpp \
     util/folder.cpp \
     util/foldercontent.cpp \
@@ -44,9 +46,11 @@ SOURCES += \
 
 HEADERS += \
     debug.h \
+    io/dbfinisherthread.h \
     io/foldershandler.h \
     io/historieshandler.h \
     testmainwindow.h \
+    tools/gif.h \
     util/controller.h \
     util/folder.h \
     util/foldercontent.h \
@@ -67,5 +71,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    user/Retina.db \
-    vid/t3.avi
+    user/Retina.db

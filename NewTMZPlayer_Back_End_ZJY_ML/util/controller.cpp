@@ -95,6 +95,7 @@ QString Controller::cutScreen(WId wId, QString fileName,QString filePath,QString
         qDebug()<<"Controller cutScreen()"<<Debug::getDebugErrorType((Debug::FILE_EXIT_ERROR));
         return nullptr;
     }
+    qDebug()<<this->m_CutScreenFile;
     return this->m_CutScreenFile;
 }
 

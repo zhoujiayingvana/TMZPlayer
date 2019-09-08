@@ -31,7 +31,7 @@ public:
     enum MyErrors{
         FILE_PATH_ERROR,FILE_NAME_ERROR,FILE_EXIT_ERROR,
         NULLPTR_ERROR,TIMEOUT_ERROR,
-        SCREEN_CUT_FORMAT_ERROR
+        SCREEN_CUT_FORMAT_ERROR,GIF_IMAGE_EXIT_ERROR
     };
     //返回错误
     const static QString getDebugErrorType(const MyErrors& err);

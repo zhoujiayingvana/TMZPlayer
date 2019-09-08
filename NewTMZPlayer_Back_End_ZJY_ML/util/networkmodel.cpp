@@ -19,9 +19,9 @@ NetworkModel::NetworkModel(QWidget *parent) : QWidget(parent)
 //    this->m_Request->setUrl(QUrl("https://api.apiopen.top/todayVideo"));
 //    this->m_Reply=this->m_Manager->get(*this->m_Request);
     
-//    //音乐搜索，成功
-//    this->m_Request->setUrl(QUrl("https://api.apiopen.top/searchMusic?name=周杰伦"));
-//    this->m_Reply=this->m_Manager->get(*this->m_Request);
+    //音乐搜索，成功
+    this->m_Request->setUrl(QUrl("https://api.apiopen.top/searchMusic?name=千里之外"));
+    this->m_Reply=this->m_Manager->get(*this->m_Request);
     
 //    //解析哔哩哔哩视频2，成功
 //    this->m_Request->setUrl(QUrl("https://api.kaaass.net/biliapi/video/resolve?id=47797049&access_key=79ae0015%2C1570090912%2C756a1991&direct=false&dash=true"));//请求解析b站的视频

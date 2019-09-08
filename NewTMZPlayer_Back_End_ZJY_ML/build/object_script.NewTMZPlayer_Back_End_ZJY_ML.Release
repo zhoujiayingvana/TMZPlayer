@@ -1,8 +1,10 @@
 release/debug.o
+release/dbfinisherthread.o
 release/foldershandler.o
 release/historieshandler.o
 release/main.o
 release/testmainwindow.o
+release/gif.o
 release/controller.o
 release/folder.o
 release/foldercontent.o

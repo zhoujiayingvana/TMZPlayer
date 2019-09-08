@@ -47,6 +47,8 @@ private slots:
     void on_muteButton_clicked();
     void on_nonMuteButton_clicked();
     void on_screenCutButton_clicked();
+    void on_gifStartButton_clicked();
+    void on_gifEndButton_clicked();
 };
 
 #endif // TESTMAINWINDOW_H

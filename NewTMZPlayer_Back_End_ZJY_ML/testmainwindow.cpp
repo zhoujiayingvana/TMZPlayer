@@ -24,9 +24,10 @@ TestMainWindow::TestMainWindow(QWidget *parent) :
     
     //测试收藏夹功能
     //添加收藏夹
-    this->media->testRun();
+//    this->media->testRun();
     //播放视频
     this->media->play(0,0);
+    
     
     
     
@@ -76,7 +77,7 @@ void TestMainWindow::on_volumeUpButton_clicked()
 
 void TestMainWindow::on_volumeDownButton_clicked()
 {
-    media->getController()->setVolume(40);
+    media->getController()->setVolume(10);
 }
 
 void TestMainWindow::on_jumpButton_clicked()
@@ -98,8 +99,22 @@ void TestMainWindow::on_nonMuteButton_clicked()
 void TestMainWindow::on_screenCutButton_clicked()
 {
     QDateTime local(QDateTime::currentDateTime());
-    QString localTime = local.toString("yyMMddhhmmss");
+    QString localTime = local.toString("yyMMddhhmmsszzz");
     QString fileName="ScreenCutByTMZPlayer"+localTime;
     QString filePath="../output/";
     media->getController()->cutScreen(this->myVideoWidget->winId(),fileName,filePath,"jpg",-1);
+}
+
+void TestMainWindow::on_gifStartButton_clicked()
+{
+    QDateTime local(QDateTime::currentDateTime());
+    QString localTime = local.toString("yyMMddhhmmss");
+    QString fileName="GIFByTMZPlayer"+localTime;
+    QString filePath="../output/";
+    media->StartCreateGif(this->myVideoWidget->winId(),fileName,filePath);
+}
+
+void TestMainWindow::on_gifEndButton_clicked()
+{
+    media->endCreateGif();
 }

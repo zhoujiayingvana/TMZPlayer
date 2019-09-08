@@ -3,17 +3,17 @@
 
 int main(int argc, char *argv[])
 {
+    QApplication a(argc, argv);
+    TestMainWindow w;
     try {
-        QApplication a(argc, argv);
-        TestMainWindow w;
+        
         w.show();
-        return a.exec();
         
     } catch (MyErrors e) {
         qDebug()<<getErrorType(e);
     }{
         
     }
-   
+    return a.exec();
     
 }

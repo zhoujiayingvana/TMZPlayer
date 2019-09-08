@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../util/media.h"
+#include "../../../../0908NewTMZPlayer_Back_End_ZJY_ML/NewTMZPlayer_Back_End_ZJY_ML/util/media.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Media_t {
-    QByteArrayData data[11];
-    char stringdata0[112];
+    QByteArrayData data[15];
+    char stringdata0[182];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -40,13 +40,19 @@ QT_MOC_LITERAL(5, 38, 15), // "receivePosition"
 QT_MOC_LITERAL(6, 54, 12), // "needSetOrder"
 QT_MOC_LITERAL(7, 67, 5), // "order"
 QT_MOC_LITERAL(8, 73, 12), // "needGetOrder"
-QT_MOC_LITERAL(9, 86, 19), // "QMediaPlayer::State"
-QT_MOC_LITERAL(10, 106, 5) // "state"
+QT_MOC_LITERAL(9, 86, 19), // "download2SongsTable"
+QT_MOC_LITERAL(10, 106, 5), // "_what"
+QT_MOC_LITERAL(11, 112, 13), // "songWebSearch"
+QT_MOC_LITERAL(12, 126, 29), // "QList<QMap<QString,QString> >"
+QT_MOC_LITERAL(13, 156, 19), // "QMediaPlayer::State"
+QT_MOC_LITERAL(14, 176, 5) // "state"
 
     },
     "Media\0returnOrder\0\0PlayOrder\0playNext\0"
     "receivePosition\0needSetOrder\0order\0"
-    "needGetOrder\0QMediaPlayer::State\0state"
+    "needGetOrder\0download2SongsTable\0_what\0"
+    "songWebSearch\0QList<QMap<QString,QString> >\0"
+    "QMediaPlayer::State\0state"
 };
 #undef QT_MOC_LITERAL
 
@@ -56,7 +62,7 @@ static const uint qt_meta_data_Media[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -64,14 +70,16 @@ static const uint qt_meta_data_Media[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   44,    2, 0x06 /* Public */,
+       1,    1,   54,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       4,    0,   47,    2, 0x0a /* Public */,
-       5,    1,   48,    2, 0x0a /* Public */,
-       6,    1,   51,    2, 0x0a /* Public */,
-       8,    0,   54,    2, 0x0a /* Public */,
-       4,    1,   55,    2, 0x08 /* Private */,
+       4,    0,   57,    2, 0x0a /* Public */,
+       5,    1,   58,    2, 0x0a /* Public */,
+       6,    1,   61,    2, 0x0a /* Public */,
+       8,    0,   64,    2, 0x0a /* Public */,
+       9,    1,   65,    2, 0x0a /* Public */,
+      11,    1,   68,    2, 0x0a /* Public */,
+       4,    1,   71,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    2,
@@ -81,7 +89,9 @@ static const uint qt_meta_data_Media[] = {
     QMetaType::Void, QMetaType::LongLong,    2,
     QMetaType::Void, 0x80000000 | 3,    7,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 9,   10,
+    QMetaType::Void, QMetaType::QString,   10,
+    0x80000000 | 12, QMetaType::QString,   10,
+    QMetaType::Void, 0x80000000 | 13,   14,
 
        0        // eod
 };
@@ -97,13 +107,16 @@ void Media::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
         case 2: _t->receivePosition((*reinterpret_cast< qint64(*)>(_a[1]))); break;
         case 3: _t->needSetOrder((*reinterpret_cast< PlayOrder(*)>(_a[1]))); break;
         case 4: _t->needGetOrder(); break;
-        case 5: _t->playNext((*reinterpret_cast< QMediaPlayer::State(*)>(_a[1]))); break;
+        case 5: _t->download2SongsTable((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 6: { QList<QMap<QString,QString> > _r = _t->songWebSearch((*reinterpret_cast< const QString(*)>(_a[1])));
+            if (_a[0]) *reinterpret_cast< QList<QMap<QString,QString> >*>(_a[0]) = std::move(_r); }  break;
+        case 7: _t->playNext((*reinterpret_cast< QMediaPlayer::State(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 5:
+        case 7:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:
@@ -124,7 +137,7 @@ void Media::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
 }
 
 QT_INIT_METAOBJECT const QMetaObject Media::staticMetaObject = { {
-    &QWidget::staticMetaObject,
+    &QThread::staticMetaObject,
     qt_meta_stringdata_Media.data,
     qt_meta_data_Media,
     qt_static_metacall,
@@ -143,22 +156,22 @@ void *Media::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_Media.stringdata0))
         return static_cast<void*>(this);
-    return QWidget::qt_metacast(_clname);
+    return QThread::qt_metacast(_clname);
 }
 
 int Media::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QWidget::qt_metacall(_c, _id, _a);
+    _id = QThread::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 8;
     }
     return _id;
 }

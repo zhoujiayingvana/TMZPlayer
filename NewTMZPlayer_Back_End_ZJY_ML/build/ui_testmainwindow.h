@@ -41,6 +41,8 @@ public:
     QPushButton *muteButton;
     QPushButton *nonMuteButton;
     QPushButton *screenCutButton;
+    QPushButton *gifStartButton;
+    QPushButton *gifEndButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -94,7 +96,13 @@ public:
         nonMuteButton->setGeometry(QRect(370, 230, 51, 31));
         screenCutButton = new QPushButton(centralWidget);
         screenCutButton->setObjectName(QString::fromUtf8("screenCutButton"));
-        screenCutButton->setGeometry(QRect(90, 270, 61, 41));
+        screenCutButton->setGeometry(QRect(90, 270, 61, 31));
+        gifStartButton = new QPushButton(centralWidget);
+        gifStartButton->setObjectName(QString::fromUtf8("gifStartButton"));
+        gifStartButton->setGeometry(QRect(160, 270, 61, 31));
+        gifEndButton = new QPushButton(centralWidget);
+        gifEndButton->setObjectName(QString::fromUtf8("gifEndButton"));
+        gifEndButton->setGeometry(QRect(230, 270, 61, 31));
         TestMainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(TestMainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -126,6 +134,8 @@ public:
         muteButton->setText(QApplication::translate("TestMainWindow", "\351\235\231\351\237\263", nullptr));
         nonMuteButton->setText(QApplication::translate("TestMainWindow", "\345\217\226\346\266\210\351\235\231\351\237\263", nullptr));
         screenCutButton->setText(QApplication::translate("TestMainWindow", "\346\210\252\345\233\276", nullptr));
+        gifStartButton->setText(QApplication::translate("TestMainWindow", "GIF\345\274\200\345\247\213", nullptr));
+        gifEndButton->setText(QApplication::translate("TestMainWindow", "GIF\347\273\223\346\235\237", nullptr));
     } // retranslateUi
 
 };
