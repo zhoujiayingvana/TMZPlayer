@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>image/spinBox1.png</file>
+        <file>image/spinBox2.png</file>
+        <file>myQss/style4.qss</file>
+        <file>myQss/style3.qss</file>
+        <file>myQss/style1.qss</file>
+        <file>myQss/style2.qss</file>
+    </qresource>
+    <qresource prefix="/myQss"/>
+    <qresource prefix="/">
+        <file>image/titleBar/close.png</file>
+        <file>image/titleBar/maximize.png</file>
+        <file>image/titleBar/mini.png</file>
+        <file>image/titleBar/minimize.png</file>
+        <file>image/titleBar/recover.png</file>
+        <file>image/titleBar/settings.png</file>
+        <file>image/titleBar/skin.png</file>
+    </qresource>
+</RCC>
