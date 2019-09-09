@@ -91,6 +91,8 @@ public slots:
     bool lastAVAccessible(const MediaStateInfo& lmsi);
     // 设置并且播放上一首
     bool playLast();
+    // 读取历史记录播放的话, 应该跳转时间
+    void back2Last();
 private:
     Player* media_Player;
     Controller* media_Controller;

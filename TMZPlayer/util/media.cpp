@@ -114,6 +114,9 @@ void Media::play(const bool& _isLocal, const QString& _fileName, const QString& 
 
     // 设置播放状态
     this->hasAVPlaying = true;
+
+//    // 尝试跳转
+//    this->back2Last();
 }
 
 
@@ -176,6 +179,9 @@ void Media::play(const PlayArea& _playArea, const int& _firstRank, const int& _s
         this->media_Histories.setPChosen(0);  // 同时非显示设置当前历史记录的选中为 0
     }
     this->hasAVPlaying = true;
+
+    // 指定位置的播放, 需要判断跳转
+    this->back2Last();
 }
 
 void Media::makeContainerEmpty()
@@ -236,7 +242,10 @@ bool Media::playNextByHand()
     // 请求播放
     this->play(nextPlayArea, nextFirstRank, nextSecondRank);  // 在这个方法中会置一边 hasAVPlaying
     this->hasAVPlaying = true;  // 再补一手
-    return this->hasAVPlaying;
+
+    // 尝试跳转
+    this->back2Last();
+    return true;
 }
 
 
@@ -251,6 +260,8 @@ bool Media::playNextByAuto(QMediaPlayer::State state)
         == this->media_Player->getPlayer()->duration()  // 并且已经放到结尾了
     )
         return this->playNextByHand();  // 等同于手动播放下一首
+    else
+        return false;
 }
 
 void Media::needSetOrder(PlayOrder order)
@@ -364,6 +375,9 @@ bool Media::playLast()
     }
     if (this->lastAVAccessible(lmsi))  // 上一个可以访问且正确路径
     {
+//        if (this->hasAVPlaying)  // 有 AV 占用窗口, 应该终止并保存历史记录
+//            this->terminateAndSaveCurrentAV();
+
         PlayArea _playArea = lmsi.getWhere();
         int _firstRank = lmsi.getFirstRank();
         int _secondRank = lmsi.getSecondRank();
@@ -388,10 +402,27 @@ bool Media::playLast()
             this->media_Histories.setPChosen(0);  // 同时非显示设置当前历史记录的选中为 0
         }
         this->hasAVPlaying = true;
-        return this->hasAVPlaying;
+
+        // 尝试跳转
+        this->back2Last();
+        return true;
     }
     else
         return false;
+}
+
+
+/**
+ * @brief Media::back2Last
+ */
+void Media::back2Last()
+{
+    if (this->media_playWhere == PlayArea::FOLDERS)  // 在收藏夹中播放
+        return ;
+    else  // 在历史记录中播放
+        this->media_Controller->seekPosition(
+            this->media_Histories.getPointedHistoricalContent().getProgressMilliSecond()
+        );
 }
 
 void Media::closeSelf()
