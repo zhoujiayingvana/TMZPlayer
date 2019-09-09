@@ -132,7 +132,7 @@ static const uint qt_meta_data_Player[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void,
+    QMetaType::LongLong,
     QMetaType::Void, QMetaType::Int,   21,
     QMetaType::Void, QMetaType::LongLong,    2,
     QMetaType::Void, QMetaType::Bool,   24,
@@ -160,7 +160,8 @@ void Player::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 8: _t->needGetStatus(); break;
         case 9: _t->needRestorePlay(); break;
         case 10: _t->needPauseVideo(); break;
-        case 11: _t->needTerminateVideo(); break;
+        case 11: { qint64 _r = _t->needTerminateVideo();
+            if (_a[0]) *reinterpret_cast< qint64*>(_a[0]) = std::move(_r); }  break;
         case 12: _t->needJump((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 13: _t->needSetPosition((*reinterpret_cast< qint64(*)>(_a[1]))); break;
         case 14: _t->needSetMuted((*reinterpret_cast< bool(*)>(_a[1]))); break;

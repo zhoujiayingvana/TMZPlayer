@@ -127,6 +127,8 @@ const QString getErrorType(const MyErrors& _error)
         return QString("unknown play area error");
     case MyErrors::MEDIA_STATE_ERROR:
         return QString("media state error");
+    case MyErrors::GET_LAST_AV_ERROR:
+        return QString("get last av error, perhaps: empty infos stack or the file has been removed");
     default:
         return QString("unknown error");
     }

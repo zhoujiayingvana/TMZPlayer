@@ -314,6 +314,86 @@ QList<QMap<QString, QString> > Media::songWebSearch(const QString& _what)
     return ansList;
 }
 
+MediaStateInfo Media::popLastState()
+{
+    if (!this->mediaStateInfos.empty())
+        return this->mediaStateInfos.pop();
+    else
+    {
+        qDebug() << "empty media state infos stack" << endl;
+        throw MyErrors::GET_LAST_AV_ERROR;
+    }
+}
+
+bool Media::lastAVAccessible(const MediaStateInfo& lmsi)
+{
+    try
+    {
+        QString currFilePath = "";
+        if (lmsi.getWhere() == PlayArea::FOLDERS)  // 是收藏夹
+        {
+            currFilePath =
+                    this->media_Folders.getFolder(lmsi.getFirstRank()).getFolderContent(lmsi.getSecondRank()).getFilePath();
+            return currFilePath == lmsi.getFilePath();
+        }
+        else  // 就是历史记录
+        {
+            currFilePath = this->media_Histories.getHistoricalContent(lmsi.getFirstRank()).getFilePath();
+            return currFilePath == lmsi.getFilePath();
+        }
+    }
+    catch (const MyErrors& e)
+    {
+        qDebug() << "文件不再存在或者已经改变路径" << endl;
+        qDebug() << getErrorType(e) << endl;
+        return false;
+    }
+}
+
+bool Media::playLast()
+{
+    MediaStateInfo lmsi;
+    try
+    {
+        lmsi = this->popLastState();
+    }
+    catch (const MyErrors& e)
+    {
+        qDebug() << getErrorType(e) << endl;
+        return false;
+    }
+    if (this->lastAVAccessible(lmsi))  // 上一个可以访问且正确路径
+    {
+        PlayArea _playArea = lmsi.getWhere();
+        int _firstRank = lmsi.getFirstRank();
+        int _secondRank = lmsi.getSecondRank();
+
+        // 选定新的要播放的视频
+        this->setPlayWhere(_playArea);
+        this->setFirstRank(_firstRank);
+        this->setSecondRank(_secondRank);
+
+        // 请求播放视频
+        if (this->media_playWhere == PlayArea::FOLDERS)
+            this->media_Player->needPlay(this->media_Folders.getPointedMediaContent());
+        else if (this->media_playWhere == PlayArea::HISTORIES)
+            this->media_Player->needPlay(this->media_Histories.getPointedMediaContent());
+        else
+            throw MyErrors::UNKNOWN_PLAY_AREA_ERROR;
+
+        // 如果是收藏夹的内容还应该要添加到历史记录中去
+        if (this->media_playWhere == PlayArea::FOLDERS)
+        {
+            this->media_Folders.addChosenFolderContent2Histories(this->media_Histories);
+            this->media_Histories.setPChosen(0);  // 同时非显示设置当前历史记录的选中为 0
+        }
+        this->hasAVPlaying = true;
+        return this->hasAVPlaying;
+    }
+    else
+        return false;
+}
+
 void Media::closeSelf()
 {
     // 保存历史位置并且终止视频
@@ -349,19 +429,22 @@ MediaStateInfo Media::getCurrentMediaStateInfo()
 {
     PlayArea where = this->media_playWhere;
     int firstRank = -1, secondRank = -1;
+    QString filePath = "";
     if (where == PlayArea::FOLDERS)  // 如果当前选中的是收藏夹
     {
         firstRank = this->media_Folders.getPChosen();
         secondRank = this->media_Folders.getPointedFolder().getPChosen();
+        filePath = this->media_Folders.getPointedFolderContent().getFilePath();
     }
     else if (where == PlayArea::HISTORIES)
     {
         firstRank = this->media_Histories.getPChosen();
         secondRank = -1;
+        filePath = this->media_Histories.getPointedHistoricalContent().getFilePath();
     }
     else
         throw MyErrors::UNKNOWN_PLAY_AREA_ERROR;
-    return MediaStateInfo(where, firstRank, secondRank);
+    return MediaStateInfo(where, firstRank, secondRank, filePath);
 }
 
 void Media::setPlayWhere(const PlayArea& playArea)
@@ -554,8 +637,22 @@ void MediaStateInfo::setWhere(const PlayArea& value)
     where = value;
 }
 
-MediaStateInfo::MediaStateInfo(const PlayArea& _where, const int& _firstRank, const int& _secondRank)
-    : where(_where), firstRank(_firstRank), secondRank(_secondRank)
+QString MediaStateInfo::getFilePath() const
+{
+    return filePath;
+}
+
+void MediaStateInfo::setFilePath(const QString& value)
+{
+    filePath = value;
+}
+
+MediaStateInfo::MediaStateInfo(const PlayArea& _where,
+                               const int& _firstRank,
+                               const int& _secondRank,
+                               const QString& _filePath)
+    : where(_where), firstRank(_firstRank), secondRank(_secondRank),
+      filePath(_filePath)
 {
     if (this->where == PlayArea::UNSURE || this->firstRank == -1)
     {
@@ -573,7 +670,7 @@ MediaStateInfo::MediaStateInfo(const PlayArea& _where, const int& _firstRank, co
 
 MediaStateInfo::MediaStateInfo(const MediaStateInfo& other)
     : where(other.where), firstRank(other.firstRank),
-      secondRank(other.secondRank)
+      secondRank(other.secondRank), filePath(other.filePath)
 {
 
 }
@@ -583,4 +680,5 @@ MediaStateInfo& MediaStateInfo::operator=(const MediaStateInfo& other)
     this->where = other.where;
     this->firstRank = other.firstRank;
     this->secondRank = other.secondRank;
+    this->filePath = other.filePath;
 }

@@ -85,6 +85,12 @@ public slots:
     void download2SongsTable(const QString& _what);
     // 网络搜索请求完成
     QList<QMap<QString, QString> > songWebSearch(const QString& _what);
+    // 获取上一个播放的信息
+    MediaStateInfo popLastState();
+    // 对指定的位置的媒体文件进行比对, 判断是否存在或者地址正确
+    bool lastAVAccessible(const MediaStateInfo& lmsi);
+    // 设置并且播放上一首
+    bool playLast();
 private:
     Player* media_Player;
     Controller* media_Controller;
@@ -122,10 +128,12 @@ protected:
     PlayArea where;
     int firstRank;
     int secondRank;
+    QString filePath;
 public:
     MediaStateInfo(const PlayArea& _where=PlayArea::UNSURE,
                    const int& _firstRank=-1,
-                   const int& _secondRank=-1);
+                   const int& _secondRank=-1,
+                   const QString& _filePath="");
     MediaStateInfo(const MediaStateInfo& other);
     MediaStateInfo& operator=(const MediaStateInfo& other);
     int getFirstRank() const;
@@ -135,6 +143,8 @@ public:
     void testPrint() const;
     PlayArea getWhere() const;
     void setWhere(const PlayArea& value);
+    QString getFilePath() const;
+    void setFilePath(const QString& value);
 };
 
 
