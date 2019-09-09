@@ -1,8 +1,10 @@
 debug/debug.o
+debug/dbfinisherthread.o
 debug/foldershandler.o
 debug/historieshandler.o
 debug/main.o
 debug/testmainwindow.o
+debug/gif.o
 debug/controller.o
 debug/folder.o
 debug/foldercontent.o
@@ -11,6 +13,7 @@ debug/helper.o
 debug/historicalcontent.o
 debug/histories.o
 debug/media.o
+debug/networkmodel.o
 debug/player.o
 debug/moc_debug.o
 debug/moc_testmainwindow.o
@@ -22,4 +25,5 @@ debug/moc_helper.o
 debug/moc_historicalcontent.o
 debug/moc_histories.o
 debug/moc_media.o
+debug/moc_networkmodel.o
 debug/moc_player.o

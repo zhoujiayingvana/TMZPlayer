@@ -1,8 +1,10 @@
 release/debug.o
+release/dbfinisherthread.o
 release/foldershandler.o
 release/historieshandler.o
 release/main.o
 release/testmainwindow.o
+release/gif.o
 release/controller.o
 release/folder.o
 release/foldercontent.o
@@ -11,6 +13,7 @@ release/helper.o
 release/historicalcontent.o
 release/histories.o
 release/media.o
+release/networkmodel.o
 release/player.o
 release/moc_debug.o
 release/moc_testmainwindow.o
@@ -22,4 +25,5 @@ release/moc_helper.o
 release/moc_historicalcontent.o
 release/moc_histories.o
 release/moc_media.o
+release/moc_networkmodel.o
 release/moc_player.o

@@ -1,0 +1,306 @@
+QDialog {
+        background: #ffb5cb;
+}
+ 
+QWidget#centralWidget {
+        background: #FEE5FF;
+}
+ 
+QMainWindow {
+        border: 5px solid #ff7da4;
+        background: #ffa1bf;
+}
+
+TitleBar,BottomBar,Widget{
+        background:#ff7da4;
+}
+
+BottomBar>QLabel{
+	color:white;
+}
+
+QMenu {
+        background: white;
+border: 1px solid #ce519a;
+}
+QMenu::item {
+padding: 2px 25px 2px 25px;
+border: 1px solid transparent;
+}
+QMenu::item:enabled {
+        color: rgb(84, 84, 84);
+}
+QMenu::item:!enabled {
+        color: rgb(155, 155, 155);
+}
+QMenu::item:enabled:selected {
+        color:#db57a2;
+        background: rgba(255, 255, 255, 200);
+        border-color:#ce519a;
+}
+QMenu::separator {
+        height: 2px;
+        margin-left: 25px;
+        background: #ffc4e4;
+}
+QMenu::indicator {
+        width: 13px;
+        height: 13px;
+}
+
+
+QSlider{
+	border-style: outset; 
+	border-radius: 10px; 
+}
+
+QSlider::groove:horizontal,QSlider::add-page:horizontal {   
+    background: #ff94bf;   
+    height: 8px;   
+    border-radius: 3px;   
+margin: 2px 0;
+}  
+
+QSlider::sub-page:horizontal {  
+    height: 8px;   
+    border-radius: 3px;  
+margin: 2px 0;
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #b25868, stop:1 #e47186);   
+} 
+  
+QSlider::handle:horizontal {
+	background: QRadialGradient(cx:0, cy:0, radius: 1, fx:0.5, fy:0.5, stop:0 white, stop:1 #CF6679);
+	width: 16px;
+	height: 16px;
+	margin: -5px 6px -5px 6px;
+	border-radius:11px; 
+}  
+
+QSlider::handle:horizontal:hover {  
+	background: QRadialGradient(cx:0, cy:0, radius: 1, fx:0.5, fy:0.5, stop:0 white, stop:1 #be5e6f);
+}  
+
+QGroupBox {
+        font-size: 15px;
+        border: 1px solid #CF6679;
+        border-radius: 4px;
+        margin-top: 10px;
+}
+QGroupBox::title {
+        color: #000000;
+        top: -12px;
+        left: 10px;
+}
+
+
+QComboBox {
+        height: 25px;
+        border-radius: 4px;
+        border: 1px solid #CF6679;
+        background: white;
+}
+QComboBox:enabled {
+        color: #aa0b4b;
+}
+QComboBox:!enabled {
+        color: rgb(80, 80, 80);
+}
+QComboBox:enabled:hover, QComboBox:enabled:focus {
+        color: #CF6679;
+}
+QComboBox::drop-down {
+        width: 20px;
+        border: none;
+        background: transparent;
+	    image:url(:/new/prefix1/image/spinBox2.png);
+}
+QComboBox::drop-down:hover {
+        background: rgba(255, 255, 255, 30);
+}
+
+QComboBox QAbstractItemView {
+        border: 1px solid #CF6679;
+        background: white;
+        outline: none;
+}
+QComboBox QAbstractItemView::item {
+        height: 25px;
+        color: rgb(73, 73, 73);
+}
+QComboBox QAbstractItemView::item:selected {
+        background: rgb(232, 241, 250);
+        color: #ff7da4;
+}
+
+QCheckBox{
+        spacing: 5px;
+}
+QCheckBox:enabled:checked{
+        color: #aa0b4b;
+}
+QCheckBox:enabled:!checked{
+        color: rgb(70, 71, 73);
+}
+QCheckBox:enabled:hover{
+        color: #CF6679;
+}
+QCheckBox:!enabled{
+        color: rgb(180, 180, 180);
+}
+QCheckBox::indicator {
+        width: 20px;
+        height: 20px;
+}
+
+QRadioButton{
+        spacing: 5px;
+}
+QRadioButton:enabled:checked{
+        color: #aa0b4b;
+}
+QRadioButton:enabled:!checked{
+        color: #CF6679;
+}
+QRadioButton:enabled:hover{
+        color: #CF6679;
+}
+QRadioButton:!enabled{
+        color: #ff7da4;
+}
+QRadioButton::indicator {
+        width: 20px;
+        height: 20px;
+}
+
+QLineEdit {
+        border-radius: 4px;
+        height: 25px;
+        border: 1px solid #CF6679;
+        background: white;
+}
+QLineEdit:enabled {
+        color: #aa0b4b;
+}
+QLineEdit:enabled:hover, QLineEdit:enabled:focus {
+        color: #CF6679;
+}
+QLineEdit:!enabled {
+        color: rgb(80, 80, 80);
+}
+ 
+QTextEdit {
+        border: 1px solid #CF6679;
+        color: rgb(70, 71, 73);
+        background: rgb(187, 212, 238);
+}
+
+
+QScrollArea {
+        border: 1px solid #CF6679;
+        background: #ffd8eb;
+}
+
+
+QWidget #page1ScrollAreaWidgetContents ,QWidget#page2ScrollAreaWidgetContents ,QWidget#page3ScrollAreaWidgetContents{
+        background: transparent;
+}
+
+
+QSpinBox {
+        border-radius: 4px;
+        height: 24px;
+        min-width: 40px;
+        border: 1px solid #CF6679;
+        background: white;
+}
+QSpinBox:enabled {
+        color: #aa0b4b;
+}
+QSpinBox:enabled:hover, QSpinBox:enabled:focus {
+        color: #CF6679;
+}
+QSpinBox:!enabled {
+        color: rgb(210, 210, 210);
+        background: transparent;
+}
+QSpinBox::up-button {
+        border-left: 1px solid #CF6679;
+        width: 18px;
+        height: 12px;
+        border-top-right-radius: 4px;
+	   image:url(:/new/prefix1/image/spinBox1.png);
+}
+QSpinBox::up-button:!enabled {
+        background: transparent;
+}
+QSpinBox::up-button:enabled:hover {
+        background: rgb(255, 255, 255, 30);
+}
+QSpinBox::down-button {
+        border-left: 1px solid #CF6679;
+        width: 18px;
+        height: 12px;
+        border-bottom-right-radius: 4px;
+	   image:url(:/new/prefix1/image/spinBox2.png);
+}
+QSpinBox::down-button:!enabled {
+        background: transparent;
+}
+QSpinBox::down-button:hover {
+        background: rgb(255, 255, 255, 30);
+}
+
+
+SettingWindow QPushButton{
+        border-radius: 4px;
+        width: 75px;
+        height: 25px;
+border: none; 
+}
+SettingWindow QPushButton:enabled {
+        background: #ff7da4;
+        color: white;
+}
+SettingWindow QPushButton:!enabled {
+        background: rgb(180, 180, 180);
+        color: white;
+}
+SettingWindow QPushButton:enabled:hover{
+        background: #CF6679;
+}
+SettingWindow QPushButton:enabled:pressed{
+        background:  #b35869;
+}
+
+QMainWindow QPushButton{
+        width: 75px;
+        height: 25px;
+border: none; 
+}
+QMainWindow QPushButton{
+        background: #ff7da4;
+        color: white;
+}
+
+QMainWindow QPushButton:enabled:hover{
+        background: #CF6679;
+}
+QMainWindow QPushButton:enabled:pressed{
+        background:  #b35869;
+}
+
+QTableView , QTableWidget{
+    selection-background-color:white;
+    background-color:rgba(255,255,255,0.8);/*整个表格的背景色，这里为白色*/
+    border:1px solid #E0DDDC;/*边框为1像素，灰色*/
+    gridline-color:lightgray;/*这个是表格的格子线的颜色，为亮灰*/
+}
+QHeaderView::section{
+    background-color:white;/*背景色 白色*/
+    border:1px solid #E0DDDC;/*先把边框宽度设为0，即隐藏所有表头边框*/
+    border-bottom:1px solid #E0DDDC;/*然后只显示下边框，因为上边框和左右边框是整个Table的边框，都显示会有2px的边框宽度*/
+}
+
+QWidget #leftsideBar{
+background-color:rgba(255,255,255,0.8);
+}

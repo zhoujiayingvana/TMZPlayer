@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../debug.h"
+#include "../../../../../CodingFromML/0908_finalNewTMZPlayer_Back_End_ZJY_ML/NewTMZPlayer_Back_End_ZJY_ML/debug.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
