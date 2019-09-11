@@ -1,0 +1,10 @@
+debug/displayandcontrol.o
+debug/errors.o
+debug/framequeue.o
+debug/helper.o
+debug/main.o
+debug/media.o
+debug/refreshthread.o
+debug/sonic.o
+debug/video.o
+debug/moc_helper.o

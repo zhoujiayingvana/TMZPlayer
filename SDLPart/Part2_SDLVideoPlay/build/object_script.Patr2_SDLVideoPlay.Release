@@ -1,0 +1,10 @@
+release/displayandcontrol.o
+release/errors.o
+release/framequeue.o
+release/helper.o
+release/main.o
+release/media.o
+release/refreshthread.o
+release/sonic.o
+release/video.o
+release/moc_helper.o
